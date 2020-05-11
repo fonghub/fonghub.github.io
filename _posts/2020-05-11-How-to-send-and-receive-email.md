@@ -38,7 +38,7 @@ tags:
 **POP3**是Post Office Protocol 3的简称，即邮局协议的第3个版本，它定义了邮件客户端软件和POP3邮件服务器的通信规则。POP3服务器是遵循POP3协议的服务器，用来接收电子邮件的。
 
 
-**IMAP**全称是Internet Mail Access Protocol，即互联网邮件访问协议，它是跟POP3类似的邮件访问标准协议之一，可以看作是POP协议的扩展。
+**IMAP**全称是Internet Mail Access Protocol，即互联网邮件访问协议，它是跟POP3类似的邮件访问标准协议之一，可以看作是POP3协议的扩展。
 
 >IMAP和POP3的区别
 >
