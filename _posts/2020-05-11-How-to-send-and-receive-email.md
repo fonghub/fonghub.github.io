@@ -33,7 +33,7 @@ tags:
 ##### 二、3种邮件协议
 电子邮件的收发过程中，第1步发送邮件和第2.2步转发邮件使用的是SMTP协议；第4步收取邮件使用的是POP3协议。
 
-**SMTP**[<sup>2</sup>](#reference)是Simple Mail Transfer Protocol的简称，即简单邮件传输协议。它定义了邮件客户端软件和SMTP邮件服务器之间，以及两台SMTP邮件服务器之间的通信规则。SMTP协议属于TCP/IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。SMTP服务器是遵循SMTP协议的发送邮件服务器，用来发送邮件的。
+**SMTP**是Simple Mail Transfer Protocol的简称，即简单邮件传输协议。它定义了邮件客户端软件和SMTP邮件服务器之间，以及两台SMTP邮件服务器之间的通信规则。SMTP协议属于TCP/IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。SMTP服务器是遵循SMTP协议的发送邮件服务器，用来发送邮件的。
 
 **POP3**是Post Office Protocol 3的简称，即邮局协议的第3个版本，它定义了邮件客户端软件和POP3邮件服务器的通信规则。POP3服务器是遵循POP3协议的服务器，用来接收电子邮件的。
 
@@ -51,5 +51,3 @@ tags:
 
 ##### 参考
 [1] [邮件实现详解（一）------邮件发送的基本过程与概念](https://www.cnblogs.com/ysocean/p/7652934.html)
-
-[2] [rfc821](http://www.cnpaf.net/rfc/rfc821.txt)
