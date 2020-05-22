@@ -1,7 +1,7 @@
 ---
 layout:         page
 title:          "使用Cloudflare的免费CDN"
-date:           2020-05-22 20:00:00 +0800
+date:           2020-05-22 21:00:00 +0800
 width:          700
 author:         zaofengchen
 catalog:        true
