@@ -1,7 +1,7 @@
 ---
 layout:         page
 title:          "CDN"
-date:           2020-05-22 21:00:00 +0800
+date:           2020-05-27 21:00:00 +0800
 width:          700
 author:         zaofengchen
 catalog:        true
