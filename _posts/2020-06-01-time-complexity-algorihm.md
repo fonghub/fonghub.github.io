@@ -9,6 +9,17 @@ tags:
     - blog
 categories: ['ds']
 ---
+<!-- 渲染公式 -->
+<script src="{{ site.url }}/static/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+        }
+    });
+</script>
+<!-- 渲染公式 -->
 
 ##### 算法复杂度
 算法复杂度是评价一个算法是否高效的依据。
@@ -69,7 +80,9 @@ int main()
 * 忽略最高阶的常数
 
 > 例如：
+>
 > $T_n=n^2+3n+4=O(n^2+3n+4)=O(n^2)$
+>
 > $T_n=4n^2+2n+1=O(4n^2+2n+1)=O(n^2)$
 
 
