@@ -7,7 +7,8 @@ author:         zaofengchen
 catalog:        true
 tags:
     - blog
-categories: ['ds']
+categories:     ['ds']
+permalink:      /:year/:month/:day/:title
 ---
 <!-- 渲染公式 -->
 <script src="{{ site.url }}/static/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
