@@ -1,12 +1,13 @@
 ---
 layout:         page
 title:          "算法的时间复杂度"
-date:           2020-05-31 21:00:00 +0800
+date:           2020-06-01 21:00:00 +0800
 width:          700
 author:         zaofengchen
 catalog:        true
 tags:
     - blog
+categories: ['ds']
 ---
 
 ##### 算法复杂度
