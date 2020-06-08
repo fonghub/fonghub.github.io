@@ -1,7 +1,7 @@
 ---
 layout:         page
-title:          "线性表顺序存储（即是顺序表）"
-date:           2020-06-03 21:00:00 +0800
+title:          "线性表的实现"
+date:           2020-06-05 21:00:00 +0800
 width:          700
 author:         zaofengchen
 catalog:        true
@@ -24,11 +24,26 @@ categories:     ['ds']
 <!-- 渲染公式 -->
 
 #### 线性表的定义和属性
-线性表是具有相同特性的数据元素的一个有序序列
+定义：线性表是具有相同特性的数据元素的一个有序序列。按存储结构的不同，可分为顺序表和链表。
+>使用逻辑结构二元组表示：
+>
+>$B=(D,R)$
+>
+>$D=\{d_i | d_i \in ElemType , 1 <= i <= n,n>=0\}$
+>
+>$R=\{<r_{j-1},r_j> | 1<=j<=m,m>=0\}$
+
+线性表的几个属性：
+
+- 空表：当$n=0$时，表示线性表是一个空表，即表中不包含任何元素
+- 前驱：$a_{i-1}$是$a_i$的前驱，$2 <= i <= n$
+- 后继：$a_{i+1}$是$a_i$的后继，$1 <= i <= n - 1$
+- 表头元素：表中第一个元素$a_1$
+- 表尾元素：最后一个元素$a_n$
 
 
 #### 线性表的抽象数据类型
-```
+```C
 ADT List
 {
 数据对象：
@@ -48,8 +63,42 @@ ADT List
 }
 ```
 
-#### 顺序存储代码
+#### 顺序表实现代码
+>线性表是基于逻辑结构的，而顺序表是基于存储结构的。
 
+顺序表的存储结构是指把顺序表中的所有元素存储到一块连续的存储空间，我们可以认为是一个数组。于是定义顺序表的存储结构定义为：
+```C
+#define MaxSize 150
+typedef int ElemType;
+typedef struct
+{
+    ElemType data[MaxSize];
+    int length;
+} tabSeq;
+```
+把顺序表中的元素依次存储到数据data，并且更新长度length。接下来具体实现抽象数据类型里定义的抽象方法。
+```C
+//  初始化一个空的线性表
+tabSeq * InitList();
+// 创建线性表
+void CreateList(tabSeq *L, ElemType a[], int n);
+// 判断线性表是否为空
+Bool ListEmpty(tabSeq *L);
+// 返回线性表的长度
+int ListLength(tabSeq *L);
+// 输出线性表元素
+void DispList(tabSeq *L);
+//  返回指定序号的元素
+Bool GetElem(tabSeq *L,int i,ElemType *e);
+//  返回指定元素的序号
+int LocateElem(tabSeq *L, ElemType e);
+//  在指定序号位置插入元素
+Bool ListInsert(tabSeq *L,int i,ElemType e);
+//  在指定序号位置删除元素
+Bool ListDelete(tabSeq *L,int i,ElemType *e);
+```
+
+顺序表代码：
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -188,9 +237,4 @@ tabSeq* InitList()
 }
 ```
 
-#### 链式存储代码
-```C
-
-```
-
->线性表是基于逻辑结构的，而顺序表是基于存储结构的。
+#### 链表实现代码
