@@ -36,18 +36,20 @@ ADT List
 数据关系：
     R = {<ai-1, ai> | ai-1, ai ∈ D, i=2,3,…,n }
 数据操作：
-    （1）tabSeq * InitList();	                            // 初始化一个空的线性表
-    （2）void CreateList(tabSeq *L, ElemType a[], int n);	// 创建线性表
-    （3）Bool ListEmpty(tabSeq *L);	                        // 判断线性表是否为空
-    （4）int ListLength(tabSeq *L);	                        // 返回线性表的长度
-    （5）void DispList(tabSeq *L);	                        // 输出线性表元素
-    （6）Bool GetElem(tabSeq *L,int i,ElemType *e);	        // 返回指定序号的元素
-    （7）int LocateElem(tabSeq *L, ElemType e);	            // 返回指定元素的序号
-    （8）Bool ListInsert(tabSeq *L,int i,ElemType e);	    // 在指定序号位置插入元素
-    （9）Bool ListDelete(tabSeq *L,int i,ElemType *e);	    // 在指定序号位置删除元素
+    (1) tabSeq * InitList();	                            // 初始化一个空的线性表
+    (2) void CreateList(tabSeq *L, ElemType a[], int n);	// 创建线性表
+    (3) Bool ListEmpty(tabSeq *L);	                        // 判断线性表是否为空
+    (4) int ListLength(tabSeq *L);	                        // 返回线性表的长度
+    (5) void DispList(tabSeq *L);	                        // 输出线性表元素
+    (6) Bool GetElem(tabSeq *L,int i,ElemType *e);	        // 返回指定序号的元素
+    (7) int LocateElem(tabSeq *L, ElemType e);	            // 返回指定元素的序号
+    (8) Bool ListInsert(tabSeq *L,int i,ElemType e);	    // 在指定序号位置插入元素
+    (9) Bool ListDelete(tabSeq *L,int i,ElemType *e);	    // 在指定序号位置删除元素
 }
 ```
+
 #### 顺序存储代码
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -186,5 +188,9 @@ tabSeq* InitList()
 }
 ```
 
+#### 链式存储代码
+```C
+
+```
 
 >线性表是基于逻辑结构的，而顺序表是基于存储结构的。
