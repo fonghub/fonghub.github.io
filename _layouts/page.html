@@ -21,6 +21,23 @@
         </script>
     <div class="inner">
         <h2>{{ page.title }}</h2>
+        <!-- 目录 -->
+        <div id="toc"></div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+            $('#toc').toc({
+                title: '',
+                classes:{
+                list:'list-group',
+                item:'list-group-item'
+                }
+            });
+            $("#toc").affix({
+                offset: { top: 16 }
+            });
+            }); 
+        </script>
+        <!-- 目录 -->
         {{ content }}
     </div>
     {% include footer.html %}
