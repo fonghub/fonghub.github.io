@@ -23,6 +23,23 @@ categories:     ['ds']
 </script>
 <!-- 渲染公式 -->
 
+<!-- 目录 -->
+<div id="toc"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+      $('#toc').toc({
+        title: '',
+        classes:{
+          list:'list-group',
+          item:'list-group-item'
+        }
+      });
+      $("#toc").affix({
+        offset: { top: 16 }
+      });
+    }); 
+</script>
+<!-- 目录 -->
 
 ### 线性表的定义和属性
 定义：线性表是具有相同特性的数据元素的一个有序序列。按存储结构的不同，可分为顺序表和链表。

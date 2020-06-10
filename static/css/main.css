@@ -279,3 +279,5 @@ body.mobile div.ad-banner {
 .highlight .vg { color: #033 } /* Name.Variable.Global */
 .highlight .vi { color: #033 } /* Name.Variable.Instance */
 .highlight .il { color: #f60 } /* Literal.Number.Integer.Long */
+
+.list-group-item {display:block}
