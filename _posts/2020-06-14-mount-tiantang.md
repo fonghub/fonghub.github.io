@@ -12,7 +12,7 @@ permalink:      /:year/:month/:day/:title
 ---
 
 
-<audio src="https://webfs.cloud.kugou.com/202006121425/8aa00fafc208a0ef0f8432967e1a1b25/G211/M00/13/13/s5QEAF5vKXKAXQn-ADii5qeFGRM215.mp3" controls autoplay loop preload="auto">别试了，是你的浏览器渣渣</audio>
+<audio src="https://sharefs.yun.kugou.com/202006151809/fc157df8af487d6274d2a02a7c2efb16/G211/M00/13/13/s5QEAF5vKXKAXQn-ADii5qeFGRM215.mp3" controls autoplay loop preload="auto">别试了，是你的浏览器渣渣</audio>
 
 最近特别想去爬山，正好在朋友圈看到徒步天堂顶的报团活动，于是就拉上朋友一起参加了。
 
@@ -24,7 +24,7 @@ permalink:      /:year/:month/:day/:title
 一开始上山的路还算好走，沿途风景很不错，红花绿叶蜜蜂，小桥流水院子，悠闲宁静。
 虽然没有蓝天白云，但是满眼的都是青山绿水，感觉很舒服。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsz5h6p7mj20ni0swkjl.jpg" width="{{ page.width}}" align="bottom" />
+<img src="http://tvax4.sinaimg.cn/large/7d4c6366gy1gft59thvduj20ni0swkjl.jpg" width="{{ page.width}}" align="bottom" />
 
 沿途会经过一处漂流点，这才想起来，从化也是有漂流的。
 经过漂流点之后就正式上山了。
@@ -33,7 +33,7 @@ permalink:      /:year/:month/:day/:title
 可能是最近持续下雨的缘故，地面露出了很多石头和树根。
 甚至有的是尖锐的石头，有个小伙伴在下坡的时候，不小心就被石头划到了手指，经过简单包扎后，幸好无大碍。最后看他拿出了手套戴上，大家就都明白了——老司机翻车了。
 相比于火炉山凤凰山的路，很明显这种的路更加有趣，但是相对的也比较危险。
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfszj8tqg5j20qo0zkka6.jpg" width="{{ page.width}}" align="bottom" />
+<img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gft5b3mqlhj20qo0zkka6.jpg" width="{{ page.width}}" align="bottom" />
 
 
 上山没多久就遇到了急升坡，路本来就难走，加上又陡又长的坡，于是大队人马都堵在了坡上。
@@ -45,7 +45,7 @@ permalink:      /:year/:month/:day/:title
 天气还是多云，虽然看不到远处的风景，但是看到郁郁葱葱的山谷，蒙蒙细雨伴随着阵阵凉风，把疲倦都吹跑了，令人神清气爽。
 
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfszimd4xpj21c50ovx6p.jpg" width="{{ page.width}}" align="bottom" />
+<img src="http://tva1.sinaimg.cn/large/7d4c6366gy1gft5bwrzgdj21c50ovx6p.jpg" width="{{ page.width}}" align="bottom" />
 
 中午在海拔1000米的附顶用餐，冰镇西瓜，可乐，水果还有各种零食，大家都发挥了分享精神。我们带了足够的水，加上天气没那么热，所以拿出了500ml水给有需要的人。
 
@@ -58,12 +58,12 @@ permalink:      /:year/:month/:day/:title
 到达顶峰自然是各种拍拍拍，大家都排着队和块拍子拍照，哈哈哈……。
 顶峰的雾很大，能见度很低，能看到的风景很有限，于是玩了一下就去下一站了。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsz0rv20ej23402c0npg.jpg" alt="天堂顶峰" width="{{ page.width}}" align="bottom" />
+<img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gft5cjxalqj23402c0npg.jpg" alt="天堂顶峰" width="{{ page.width}}" align="bottom" />
 <center>天堂顶峰</center>
 
 猴子岭就在距离天堂顶不到100米的地方，到了后同样是拍拍拍，短暂逗留一下就准备下山了。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsz1dlq0oj23402c0b2b.jpg" alt="猴子岭峰" width="{{ page.width}}" align="bottom" />
+<img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gft5cvyzncj23402c0b2b.jpg" alt="猴子岭峰" width="{{ page.width}}" align="bottom" />
 <center>猴子岭峰</center>
 
 
@@ -74,7 +74,7 @@ permalink:      /:year/:month/:day/:title
 
 后来看到这个图成为好几个小伙伴的朋友圈素材，还是挺开心的。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsyt2ajeqj23402c04qs.jpg" width="{{ page.width}}" align="bottom" />
+<img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gft5dcy0g2j23402c04qs.jpg" width="{{ page.width}}" align="bottom" />
 
 下山的速度感觉挺快的。
 可能注意力都在欣赏美景和寻找美景这件事上，所以反而没有感觉到路有多难走。
@@ -85,16 +85,16 @@ permalink:      /:year/:month/:day/:title
 
 其中几处路口被倒下的树木，竹子给挡住了，必须要钻过去，如果不是只有唯一一条路，差点都以为走到了绝境。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsz4wc9m5j20ni0swnpd.jpg" alt="下山 机耕路" width="{{ page.width}}" align="bottom" />
+<img src="http://tva1.sinaimg.cn/large/7d4c6366gy1gft5duuilpj20ni0swnpd.jpg" alt="下山 机耕路" width="{{ page.width}}" align="bottom" />
 <center>下山 机耕路</center>
 
 第一次走机耕路走到失去耐心。期间问了自己好多次，爬山的目的是什么？走天堂顶和走凤凰山有什么区别？走个容易的不香吗。。。
 
-<img src="http://ww1.sinaimg.cn/large/7d4c6366gy1gfsznbewwbj20zk0qowuy.jpg" width="{{ page.width}}" align="bottom" />
+<img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gft5eb9xjfj20zk0qowuy.jpg" width="{{ page.width}}" align="bottom" />
 
 下午6点多的时候，终于到达影村。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsytr1772j23402c0u11.jpg" alt="影村" width="{{ page.width}}" align="bottom" />
+<img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gft5eo43amj23402c0u11.jpg" alt="影村" width="{{ page.width}}" align="bottom" />
 <center>影村</center>
 
 再走10分钟就到达了驿站，看到先到达的小伙伴已经洗澡好吃饱在玩手机了。
@@ -103,7 +103,7 @@ permalink:      /:year/:month/:day/:title
 
 晚上7点多的时候，尾队的小伙伴才陆续到达。
 
-<img src="http://ww1.sinaimg.cn/mw690/7d4c6366gy1gfsyu5xg8tj23402c01l1.jpg" alt="驿站" width="{{ page.width}}" align="bottom" />
+<img src="http://tvax2.sinaimg.cn/large/7d4c6366gy1gft5f31kl9j23402c01l1.jpg" alt="驿站" width="{{ page.width}}" align="bottom" />
 <center>驿站</center>
 
 
