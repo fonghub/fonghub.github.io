@@ -55,7 +55,7 @@ permalink:      /:year/:month/:day/:title
 可能是一路有细雨的原因，状态越走越好，感觉很快的就到达了顶峰。
 
 
-到达顶峰自然是各种拍拍拍，大家都排着队和块拍子拍照，哈哈哈……。
+到达顶峰自然是各种拍拍拍，大家都排着队和块牌子拍照，哈哈哈……
 顶峰的雾很大，能见度很低，能看到的风景很有限，于是玩了一下就去下一站了。
 
 <img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gft5cjxalqj23402c0npg.jpg" alt="天堂顶峰" width="{{ page.width}}" align="bottom" />
@@ -72,7 +72,6 @@ permalink:      /:year/:month/:day/:title
 
 因为云时刻都在飘动，要刚好遇到云都被吹开了，看到了蓝天，看到了太阳光在云上的折射，还是挺难得的。
 
-后来看到这个图成为好几个小伙伴的朋友圈素材，还是挺开心的。
 
 <img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gft5dcy0g2j23402c04qs.jpg" width="{{ page.width}}" align="bottom" />
 
@@ -85,12 +84,13 @@ permalink:      /:year/:month/:day/:title
 
 其中几处路口被倒下的树木，竹子给挡住了，必须要钻过去，如果不是只有唯一一条路，差点都以为走到了绝境。
 
-<img src="http://tva1.sinaimg.cn/large/7d4c6366gy1gft5duuilpj20ni0swnpd.jpg" alt="下山 机耕路" width="{{ page.width}}" align="bottom" />
-<center>下山 机耕路</center>
+<img src="http://tva1.sinaimg.cn/large/7d4c6366gy1gft5duuilpj20ni0swnpd.jpg" alt="机耕路" width="{{ page.width}}" align="bottom" />
+<center>机耕路</center>
 
 第一次走机耕路走到失去耐心。期间问了自己好多次，爬山的目的是什么？走天堂顶和走凤凰山有什么区别？走个容易的不香吗。。。
 
-<img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gft5eb9xjfj20zk0qowuy.jpg" width="{{ page.width}}" align="bottom" />
+<img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gft5eb9xjfj20zk0qowuy.jpg" alt="厌走情绪" width="{{ page.width}}" align="bottom" />
+<center>厌走情绪</center>
 
 下午6点多的时候，终于到达影村。
 
