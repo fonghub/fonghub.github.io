@@ -7,7 +7,6 @@ author:         zaofengchen
 catalog:        true
 tags:
     - blog
-categories:     ['leetcode']
 permalink:      /:year/:month/:day/:title
 ---
 
