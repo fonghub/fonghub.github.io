@@ -11,7 +11,7 @@ permalink:      /:year/:month/:day/:title
 ---
 
 
-<audio src="https://sharefs.yun.kugou.com/202006151809/fc157df8af487d6274d2a02a7c2efb16/G211/M00/13/13/s5QEAF5vKXKAXQn-ADii5qeFGRM215.mp3" controls autoplay loop preload="auto">别试了，是你的浏览器渣渣</audio>
+<audio src="http://music.163.com/song/media/outer/url?id=64803.mp3" controls autoplay loop preload="auto">别试了，是你的浏览器渣渣</audio>
 
 最近特别想去爬山，正好在朋友圈看到徒步天堂顶的报团活动，于是就拉上朋友一起参加了。
 
