@@ -351,6 +351,39 @@ var setSeconds = function(sdate,nums)
 >  getDateTime(1593576734000);
 <· "2020-07-01 12:12:14"
 ```
+### 是否闰年
+```javascript
+var isLeapYear = function(sdate)
+{
+    let year = getYear(sdate);
+    if(year%100)
+        return year%4?0:1;  //  普通年
+    else
+        return year%400?0:1;    //  世纪年
+}
+```
+
+```
+>  isLeapYear('2020-07-02')
+<· 1
+```
+
+### 当月有几天
+```javascript
+var getDaysInMonth = function(sdate)
+{
+    let daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+    let month = getMonth(sdate);
+    let days = daysInMonth[month-1];
+    if(month == 2 && isLeapYear(sdate)) days++; //  闰年2月
+    return days;
+}
+```
+
+```
+>  getDaysInMonth('2020-02-02')
+<· 29
+```
 
 ### JS代码
 ```javascript
@@ -512,5 +545,25 @@ var setSeconds = function(sdate,nums)
 {
 	let curdate = initDate(sdate);
 	return curdate.setSeconds(curdate.getSeconds() + nums);
+}
+
+//	是否闰年
+var isLeapYear = function(sdate)
+{
+    let year = getYear(sdate);
+    if(year%100)
+        return year%4?0:1;  //  普通年
+    else
+        return year%400?0:1;    //  世纪年
+}
+
+//	求当月有几天
+var getDaysInMonth = function(sdate)
+{
+    let daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+    let month = getMonth(sdate);
+    let days = daysInMonth[month-1];
+    if(month == 2 && isLeapYear(sdate)) days++; //  闰年2月
+    return days;
 }
 ```
