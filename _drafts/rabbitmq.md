@@ -1,7 +1,7 @@
 ---
 layout:         page
 title:          "RabbitMQ入门"
-width:          700
+width:          800
 author:         zaofengchen
 catalog:        true
 permalink:      /:year/:month/:day/:title
@@ -22,6 +22,8 @@ rabbitmq 的安装参考 [windows10环境下的RabbitMQ安装步骤（图文）]
 RabbitMQ安装好后，接着测试收发消息。
 #### Add a user
 <img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1ggh4kwv049j20yt09y74f.jpg" alt="User" width="{{ page.width}}" align="bottom" />
+
+用户Tags，即是用户角色，不同角色拥有不同的权限。
 
 management（普通管理者）：仅可登陆管理控制台，无法看到节点信息，也无法对策略进行管理。
 
@@ -73,11 +75,33 @@ Vhost创建成功后，点击Vhost进入管理面板，展开 `Permissions` 一�
 
 
 ### 系统架构
+RabbitMQ系统最核心的组件是Exchange和Queue，下图是系统简单的示意图。Exchange和Queue是在rabbitmq server（又叫做broker）端，producer和consumer在应用端。
 
 <img src="http://tva3.sinaimg.cn/large/7d4c6366gy1ggh4yfepdyj210c0nsn4b.jpg" alt="架构" width="{{ page.width}}" align="bottom" />
 
-RabbitMQ常用的Exchange Type有fanout、direct、topic、headers四种。
-Direct：    Exchange将消息转发给完全匹配ROUTING_KEY的Queue
-fanout：    忽略ROUTING_KEY，Exchange把消息转发给所有绑定的Queue
-topic：     以ROUTING_KEY为模式，Exchange将消息转发给与模式匹配的Queue
-headers：   消息体的header匹配
+#### producer&Consumer
+producer指的是消息生产者，consumer消息的消费者。
+
+#### Queue
+消息队列，提供FIFO的处理机制，Exchange提供消息入队，消费者消费消息出队。
+Queue具有缓存消息的能力，缓存方式有:
+- 持久化：      消息会在server本地硬盘存储一份，防止系统crash，数据丢失
+- 临时:         数据在系统重启之后就会丢失
+
+#### Exchange
+消息交换机，提供消息路由策略。
+消息由生产者提供，生产者通过信道把消息发给Exchange，Exchange具有与Queue一样的缓存消息的功能。
+一个Exchange可与多个Queue绑定，Exchange根据ROUTING_KEY按照路由算法，把消息路由给指定的Queue。
+Exchange提供4种不同的路由策略：
+- Direct：    Exchange将消息转发给完全匹配ROUTING_KEY的Queue
+- fanout：    忽略ROUTING_KEY，Exchange把消息转发给所有绑定的Queue
+- topic：     以ROUTING_KEY为模式，Exchange将消息转发给与模式匹配的Queue
+- headers：   消息体的header匹配
+
+#### Binding
+
+#### Virtual host
+
+#### Channel
+
+
