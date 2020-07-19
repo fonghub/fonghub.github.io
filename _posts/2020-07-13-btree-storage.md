@@ -6,7 +6,7 @@ width:          350
 author:         zaofengchen
 catalog:        true
 permalink:      /:year/:month/:day/:title
-keywords: "树 二叉树 存储"
+keywords:       "树 二叉树 存储"
 tags:
     - blog
 categories:     ['ds']
