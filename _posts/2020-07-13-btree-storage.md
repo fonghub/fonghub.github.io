@@ -26,6 +26,12 @@ categories:     ['ds']
 
 
 ### 二叉树的抽象数据类型
+二叉树是有相同特性的n(n>=0)个数据节点组成的一个有穷序列，节点之间存在一对多的关系。
+
+严格区分左子树和右子树，并且先有左子树后有右子树。
+
+树的抽象运算方法有：构造树，遍历树，查找节点，查找左右子树等。
+
 ```C
 ADT Tree
 {
@@ -43,18 +49,16 @@ ADT Tree
     void DestroyBTNode(BTNode *b);              //销毁二叉树
 }
 ```
-二叉树具是有相同特性的n(n>=0)个数据节点组成的一个有穷序列，节点之间存在一对多的关系。
-
-严格区分左子树和右子树，并且先有左子树后有右子树。
-
-树的抽象运算方法有：构造树，遍历树，查找节点，查找左右子树等。
-
 
 ### 顺序存储结构
 
-顺序存储结构把树节点保存到连续的存储空间中，借助于 **串结构** 的运算构造二叉树。
+顺序存储结构把树节点保存到连续的存储空间中，借助于 **[串结构](/2020/06/17/string#顺序串)** 的运算构造二叉树。
 
-根据 **[性质4](/2020/07/11/btree#二叉树的性质)** 可知，若编号为 $i$ 的节点是分支节点，那么其左子节点编号为 $2i$ ，其右子节点编号为$2i+1$ ；若编号为 $i$ 的节点不是根节点，那么其父节点编号为 $floor(i/2)$ 。利用 **性质4** 可以很方便的找到父节点或者子节点。
+根据 **[性质4](/2020/07/11/btree#二叉树的性质)** 可知：
+- 若编号为 $i$ 的节点是分支节点，那么其左子节点编号为 $2i$ ，其右子节点编号为$2i+1$ ；
+- 若编号为 $i$ 的节点不是根节点，那么其父节点编号为 $floor(i/2)$ 。
+
+利用 **性质4** 可以很方便的找到父节点或者子节点。
 
 顺序存储结构的优点是节省空间，缺点是描述二叉树作为参数输入比较麻烦。
 
@@ -73,14 +77,14 @@ typedef struct
 } treeSeq;
 
 treeSeq * InitTree();
-void CreateTree(treeSeq *t,char *str);          //由str串创建二叉树
-int FindNode(treeSeq *t,char c);                //返查找节点
-char LchildNode(treeSeq *t,int index);          //返回指定编号节点的左孩子节点
-char RchildNode(treeSeq *t,int index);          //返回指定编号节点的右孩子节点
-int MaxIndex(treeSeq *t);                       //返回树节点的最大编号
-int TreeDepth(int index);                       //根据节点的最大编号求二叉树的深度
-void DispTree(treeSeq *t);                      //输出二叉树
-void DestroyTree(treeSeq *t);                   //销毁二叉树
+void CreateTree(treeSeq *t,char *str); //由str串创建二叉树
+int FindNode(treeSeq *t,char c);       //返查找节点
+char LchildNode(treeSeq *t,int index); //返回指定编号节点的左孩子节点
+char RchildNode(treeSeq *t,int index); //返回指定编号节点的右孩子节点
+int MaxIndex(treeSeq *t);              //返回树节点的最大编号
+int TreeDepth(int index);              //根据节点的最大编号求二叉树的深度
+void DispTree(treeSeq *t);             //输出二叉树
+void DestroyTree(treeSeq *t);          //销毁二叉树
 
 int main()
 {
@@ -213,6 +217,17 @@ void DestroyTree(treeSeq *t)
 
 ### 链式存储结构
 
+一个树节点包括有一个值域和两个分别指向左子树和右子树的指针，链式存储结构定义为：
+```C
+typedef struct node
+{
+    ElemType data;         //数据元素
+    struct node *lchild;   //指向左孩子
+    struct node *rchild;   //指向右孩子
+} BTNode;
+```
+
+代码实现：
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -222,18 +237,18 @@ typedef char ElemType;
 
 typedef struct node
 {
-    ElemType data;                          //数据元素
-    struct node *lchild;                    //指向左孩子
-    struct node *rchild;                    //指向右孩子
+    ElemType data;         //数据元素
+    struct node *lchild;   //指向左孩子
+    struct node *rchild;   //指向右孩子
 } BTNode;
 
-BTNode *CreateBTNode(char *str);            //由str串创建二叉树
-BTNode *FindNode(BTNode *b, ElemType x);    //返回data域为x的节点指针
-BTNode *LchildNode(BTNode *p);              //返回p节点的左孩子节点指针
-BTNode *RchildNode(BTNode *p);              //返回p节点的右孩子节点指针
-int BTNodeDepth(BTNode *b);                 //求二叉树b的深度
-void DispBTNode(BTNode *b);                 //以括号表示法输出二叉树
-void DestroyBTNode(BTNode *b);              //销毁二叉树
+BTNode *CreateBTNode(char *str);         //由str串创建二叉树
+BTNode *FindNode(BTNode *b, ElemType x); //返回data域为x的节点指针
+BTNode *LchildNode(BTNode *p);           //返回p节点的左孩子节点指针
+BTNode *RchildNode(BTNode *p);           //返回p节点的右孩子节点指针
+int BTNodeDepth(BTNode *b);              //求二叉树b的深度
+void DispBTNode(BTNode *b);              //以括号表示法输出二叉树
+void DestroyBTNode(BTNode *b);           //销毁二叉树
 
 int main()
 {
