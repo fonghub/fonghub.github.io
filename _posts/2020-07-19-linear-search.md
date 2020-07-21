@@ -6,7 +6,7 @@ width:          700
 author:         zaofengchen
 catalog:        true
 permalink:      /:year/:month/:day/:title
-keywords:       "数据结构 查找 "
+keywords:       "数据结构 线性查找 折半查找 二分查找 "
 tags:
     - blog
 categories:     ['ds']

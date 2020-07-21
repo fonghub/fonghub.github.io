@@ -6,7 +6,7 @@ width:          700
 author:         zaofengchen
 catalog:        true
 permalink:      /:year/:month/:day/:title
-keywords:       "数据结构 查找 "
+keywords:       "数据结构 查找 平均查找长度"
 tags:
     - blog
 categories:     ['ds']
