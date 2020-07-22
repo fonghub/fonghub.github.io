@@ -128,7 +128,7 @@ $ASL_{unsucc} = \displaystyle \sum^{n}_{i=1}{p_i * c_i}=\frac {3 * 4+4 * 8}{11}=
 <img src="http://tva3.sinaimg.cn/large/7d4c6366gy1ggyloldyloj20kz09nmxk.jpg" width="{{ page.width}}" align="bottom" />
 <center>图2</center>
 
-假设折半查找的二叉树是满二叉树(如图2)，根据满二叉树的性质有：
+假设折半查找的数组有 $n$ 个有序的，互不相同的元素 $(n=2^h-1,h>=0)$ ，则该折半查找过程可用满二叉树来描述(如图2)，根据满二叉树的性质有：
 - 节点总数 $n=2^h-1$
 - 树的高度 $h=log_2(n+1)$
 - 第 $i$ 层上的记录个数 $2^{i-1}$
