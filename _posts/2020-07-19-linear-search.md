@@ -1,6 +1,6 @@
 ---
 layout:         page
-title:          "线性查找和折半查找"
+title:          "顺序查找和折半查找"
 date:           2020-07-19 12:00:00 +0800
 width:          700
 author:         zaofengchen
