@@ -1,6 +1,6 @@
 ---
 layout:         page
-title:          "插入排序"
+title:          "插入排序——直接插入排序、希尔排序"
 date:           2020-07-28 13:30:00 +0800
 width:          700
 author:         zaofengchen
