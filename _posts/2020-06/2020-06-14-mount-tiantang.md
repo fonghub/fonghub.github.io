@@ -7,6 +7,7 @@ author:         zaofengchen
 catalog:        true
 tags:
     - blog
+categories:     ['personal']
 permalink:      /:year/:month/:day/:title
 ---
 
