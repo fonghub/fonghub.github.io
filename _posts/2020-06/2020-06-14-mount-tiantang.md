@@ -12,7 +12,7 @@ permalink:      /:year/:month/:day/:title
 ---
 
 
-<audio src="http://ws.stream.qqmusic.qq.com/C400002PHoKv2Jigyj.m4a?guid=862381448&vkey=BAE6F2EC1AF5644C962A0CC085AF1B1DE3E6E206F96DA5DD31D7E704CA939B3A4F7DF38CF458CE5263832B2FC0ED1645410CB18B7A18EE4F&uin=0&fromtag=66" controls autoplay loop preload="auto">别试了，是你的浏览器渣渣</audio>
+<audio src="http://images.nfncb.cn/m/%E4%BB%8A%E5%A4%A9%E5%8F%AA%E5%81%9A%E4%B8%80%E4%BB%B6%E4%BA%8B.mp3" controls autoplay loop preload="auto">别试了，是你的浏览器渣渣</audio>
 
 最近特别想去爬山，正好在朋友圈看到徒步天堂顶的报团活动，于是就拉上朋友一起参加了。
 
