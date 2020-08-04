@@ -35,6 +35,7 @@ categories:     ['ds']
 
 每一次归并排序都需要借助开辟的存储空间来保存合并后的有序表，然后再复制到原来的表上，不能在原来的表上直接操作。
 
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghf8kk991yj30u016fjyp.jpg" width="{{ page.width}}" align="bottom" />
 
 ### 性能评价
 

@@ -42,6 +42,8 @@ categories:     ['ds']
 
 >一道使用基数排序解决的题 [leetcode 128h 最长连续序列](/2020/06/06/leetcode-128)
 
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghf8mu99ujj30u016fti8.jpg" width="{{ page.width}}" align="bottom" />
+
 ### 性能评价
 
 时间复杂度：$O(n)$
