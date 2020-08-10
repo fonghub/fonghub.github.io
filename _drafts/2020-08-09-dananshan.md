@@ -1,8 +1,8 @@
 ---
 layout:         page
-title:          "徒步大南山"
+title:          "穿越大南山"
 date:           2020-08-09 11:00:00 +0800
-width:          800
+width:          700
 author:         zaofengchen
 catalog:        true
 tags:
@@ -11,6 +11,7 @@ categories:     ['personal']
 permalink:      /:year/:month/:day/:title
 ---
 
+<audio src="http://music.163.com/song/media/outer/url?id=27483202.mp3" controls autoplay loop preload="auto">任我行——陈奕迅</audio>
 
 第一次看到大南山的图片是蓝蓝的天空，厚厚的白云，绿油油的草原，颇有几分大西北的感觉，如果有多几只牛羊，以假乱真足矣。这如画的风景不去可惜了，于是叫上朋友一起报名，参加了8月8日周六的活动。
 
@@ -24,16 +25,16 @@ permalink:      /:year/:month/:day/:title
 进山首先就遇到上坡，虽然坡度不陡，但是一开始连续上坡的话可能会造成身体不适，所以领队也建议走一段歇一段，让身体逐渐进入状态。
 
 大概12点的时候到达午餐点（此时还没走3公里），午餐点是一条较为平坦的土路，路面铺满了枯萎的落叶。
-路两边长有很高的树，把中午的阳光都挡住了，感觉很阴凉。
+路两边长有很高的树，把中午的阳光都挡住了，感觉阴凉。
 大家纷纷在路的两旁挨着树坐下，先到的在前面，后到的坐后面，如此一排坐下去。
 领队切好了西瓜，就沿着两边一个一个分过去。
 
 午餐既丰富又有惊喜，同行的小伙伴们纷纷拿出了“珍藏”，发挥户外分享精神，有提子、小番茄、青瓜。
 有的小伙伴热情的很，端着盒小番茄一个人一个人的问过去：“吃一个，吃一个”。
 
-冰镇西瓜基本是标配，令我感到惊喜的是领队还带了私家辣条和冰镇可乐，顿时引起一阵躁动。
+冰镇西瓜基本是标配，令我感到惊喜的是领队还带了私家辣条和冰镇可乐，顿时引起一阵骚动。
 
->要知道什么时候的可乐最好喝，肯定是运动后，大汗淋漓，筋疲力尽，可乐犹如催化剂一般将你重新激活。
+>要知道什么时候的可乐最好喝，肯定是运动后，大汗淋漓，筋疲力尽，可乐犹如催化剂一般将你激活。
 
 相比较而言我带的冬枣和青柑不太受欢迎，但我觉得也不错啊。
 一巡吃下来，差不多有五六分饱了，手上的八宝粥也不“香”了，但为了后面不至于体力下降，还是把八宝粥吃了下去。
@@ -41,10 +42,13 @@ permalink:      /:year/:month/:day/:title
 酒足饭饱好赶路，短暂休整后就开始跟着前队出发了。
 
 因为刚吃东西不久，所以行进的速度也没敢太快，就当作散步那样慢走。没多久就走出了丛林，来到了令人找不到北的茅草荡前。
-茅草长得又高又密，刚进去手指就被割了一下，血就流出来了，领队说的要武装到牙齿，应该就是指这一段吧。
+
+茅草长得又高又密，刚进去手指就被割了，虽然流了点血，不过也仅仅是皮外伤，无大碍。
+领队说的要武装到牙齿，应该就是指这一段吧！
 庆幸的是，这一段不用五分钟就穿过了。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqqbyy51j31400u0e83.jpg" width="{{ page.width}}" align="bottom" />
+<center>茅草荡</center>
 
 
 因为在茅草荡里都是弯腰低头走路的，所以出来的第一个感觉就像重见天日一般，不仅如此，还看到了接下来要上的第一个急升坡，像一块绿色的毯子一样挂在那里，第一次如此亲近草原，迫不及待来一张。
@@ -55,6 +59,7 @@ permalink:      /:year/:month/:day/:title
 
 上第一节的时候，我们已经被前队的人甩掉了，自然的就变成了中队的人。
 爬升没一会儿就开始喘息，在山脊上稍站了一下，发现完全没风，而且还很闷热，于是就继续跟着爬升，想着尽快到达平台。
+
 在快要到达平台的时候，感觉到呼吸不畅，有呕吐的感觉，于是才马上停下来，大口呼吸，努力让心率降下来。
 经过调整节奏，放缓速度，最后才颤巍巍的到达平台，没有被领队拉爆，自己反而“爆了”，策略错误。
 
@@ -62,6 +67,7 @@ permalink:      /:year/:month/:day/:title
 >切莫盲目的跟着前面的人或者跟别人比拼耐力，也不要因为挡到后面的人而强忍着继续前进。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqs5lpifj31dz0u01l2.jpg" width="{{ page.width}}" align="bottom" />
+<center>第一座山 山底</center>
 
 到达第一座山顶峰后，累得直接坐下来，顺手把刚刚吃剩下的提子小番茄冬枣和青柑拿出来，做一轮补充，顺便也减一下负。
 
@@ -72,6 +78,7 @@ permalink:      /:year/:month/:day/:title
 一段短暂的下坡后就下山了，接着就是3公里的机耕路。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkprnacfej31400u07wj.jpg" width="{{ page.width}}" align="bottom" />
+<center>第一座山 山顶</center>
 
 机耕路好走很多了，我加快了脚步想要去追中队。但是发现朋友速度没跟上，或许是刚刚的上坡太猛还没恢复，在确定了水量和食物足够后，我就先去追中队了。
 
@@ -79,6 +86,7 @@ permalink:      /:year/:month/:day/:title
 >后来才意识到，其实不用那么赶的，如果体力足够的话，领队也不会阻止你登顶的。设置关门时间，可能是想给一些想要提前下撤的队友多一个选择，或者说是帮他们做一个选择，当然最重要的还是自己决定。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqi1wegdj30u01401l0.jpg" width="{{ page.width}}" align="bottom" />
+<center>机耕路</center>
 
 短暂的休息，喝水，装水后，开始上第二座山。
 
@@ -90,6 +98,7 @@ permalink:      /:year/:month/:day/:title
 只能集中精神，忍着慢慢上。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqigogzij30u0140x6p.jpg" width="{{ page.width}}" align="bottom" />
+<center>第二座山 山底</center>
 
 终于到达山腰的平台，队友们聚集在悬崖边聊天、看风景、补充食物。
 
@@ -103,6 +112,7 @@ permalink:      /:year/:month/:day/:title
 是的，感谢微风带走疲倦，我还要赶路，再见。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqk61olqj31400u01ky.jpg" width="{{ page.width}}" align="bottom" />
+<center>第二座山 平台</center>
 
 第二节爬升高度大约50米，难度不大，不用15分钟就登顶了。
 
@@ -114,11 +124,13 @@ permalink:      /:year/:month/:day/:title
 后面正是来时的路，陡峭的山脊直通山脚下，远处则是那条如黄色丝带般的机耕路，连接着两座高山。
 
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqktwatnj31400u0qv7.jpg" width="{{ page.width}}" align="bottom" />
+<center>第二座山 山顶</center>
 
 正当休息的时候，意外发现朋友就在下面的平台，正在往上面走。最后能一起登顶当然是最好的结果，也是最开心的事情。
 
 大约16点的时候，尾队的小伙伴全部登顶了，拍了个大合照，我们就先下撤了。
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkqlxakwbj31400u0af5.jpg" width="{{ page.width}}" align="bottom" />
+<center>大合照</center>
 
 下撤路是一条长长的下坡路（如下海拔图，从最高点一直到最低点），相对来说，下坡路容易一点，但需要一些技巧。
 考虑到领队几次强调这一次下坡比较长，所以一开始就借用了朋友的一根登山杖并尝试使用，庆幸的是走到这里已经能熟练的借力登山杖了。
@@ -129,16 +141,20 @@ permalink:      /:year/:month/:day/:title
 >其实每个工具被创造出来，自有它的用处，如果你觉得没用，那可能是你还不会用，或者是还没用到它的时候。
 
 走过漫长的“绝望坡”，穿过狂野的乱石路，终于看到了大马路，终点就在眼前了。
-最后自娱自乐的“冲刺”通过围栏，“恭喜第五名第六名选手”。
+最后自娱自乐的“冲刺”通过围栏，“恭喜第五名第六名选手完成穿越”。
 
 <img src="http://tva2.sinaimg.cn/large/7d4c6366gy1ghlspl2j1qj20yi0twwgg.jpg" width="{{ page.width}}" align="bottom" />
+<center>路线海拔图</center>
 
 终于到达终点——大王庙，来到大王庙对面的小吃店歇息，此时啥也吃不下，整两碗糖水先。
+
+小吃店有厕所可以免费洗澡，虽然条件简陋，但能把那身被汗水湿透的衣服换洗下来，已经很满足了。
+
+接下来就是等待尾队的小伙伴下来，直到19点的时候，才看到尾队的领队，19:30全员上车，返回广州，大约22:30抵达客村地铁站，结束今天的行程。
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkql7dmdkj31400u01ky.jpg" width="{{ page.width}}" align="bottom" />
-
-<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkql9ogz3j31400u0wma.jpg" width="{{ page.width}}" align="bottom" />
-
+<center>小吃店</center>
 
 本次行程有14公里，累计爬升将近1000米，耗时6小时20分。
 从南山村出发，登顶斧头石，最后安全到达大王庙。
 <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkplfcccij30u00ymtaa.jpg" width="{{ page.width}}" align="bottom" />
+<center>轨迹图</center>
