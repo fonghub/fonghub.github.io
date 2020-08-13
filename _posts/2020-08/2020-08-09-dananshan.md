@@ -9,6 +9,7 @@ tags:
     - blog
 categories:     ['personal']
 permalink:      /:year/:month/:day/:title
+keywords:       "惠东县 南山村 大南山 大草坡 "
 ---
 
 <audio src="http://music.163.com/song/media/outer/url?id=27483202.mp3" controls autoplay loop preload="auto">任我行——陈奕迅</audio>
