@@ -24,7 +24,7 @@ Windows下，PHP添加扩展，步骤如下：
 访问 **phpinfo.php**，找到这三个字段的值：
 - PHP Version
 - Architecture
-- Thread Safety。
+- Thread Safety
 
 <img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x35ukyvj20q60mo0u1.jpg" width="{{ page.width}}" align="bottom" />
 <center>phpinfo</center>
@@ -32,7 +32,7 @@ Windows下，PHP添加扩展，步骤如下：
 从上图可知，需要找支持PHP版本7.0、x86架构、线程安全的redis扩展。
 
 ### 查找扩展
-到[PECL](http://pecl.php.net/)查找redis扩展，输入扩展名字，查找
+到[PECL](http://pecl.php.net/)查找redis扩展，输入扩展名字，查找。
 
 <img src="http://tva3.sinaimg.cn/large/7d4c6366gy1gi1x3ifk4dj20qq0h8t9w.jpg" width="{{ page.width}}" align="bottom" />
 <center>PECL官网</center>
@@ -67,6 +67,6 @@ Windows下，PHP添加扩展，步骤如下：
 
 
 ### 测试
-重启，访问 **phpinfo.php** ，如果看到有目标扩展信息，即表示安装成功。
+重启服务器，访问 **phpinfo.php** ，如果看到有目标扩展信息，即表示安装成功。
 <img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gi1x40ful0j20q903ut8k.jpg" width="{{ page.width}}" align="bottom" />
 <center>测试redis扩展</center>
