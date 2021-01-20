@@ -111,6 +111,14 @@ ALTER TABLE {$dbName}.{$tname} DROP PARTITION {$pname};
 ```
 >使用 DROP PARTITION 删除分区的同时，也会删除分区里的数据
 
+
+#### 取消分区
+
+```sql
+ALTER TABLE {$dbName}.{$tname} REMOVE PARTITIONING;
+```
+>取消分区对表数据无影响
+
 #### 增加分区
 增加分区之前，需要删除最大分区 ```p_maxvalue```。
 因为分区是连续递增的，所以需要把最大分区 ```p_maxvalue``` 删除，再增加新的分区。
