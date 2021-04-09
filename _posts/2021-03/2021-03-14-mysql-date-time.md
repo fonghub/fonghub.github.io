@@ -42,23 +42,17 @@ categories:     ['mysql']
 <.  15:41:19
 ```
 4. 单独返回年/月/日/时/分/秒
-
 ```mysql
 >   SELECT YEAR(NOW());
 <.  2021
-
 >   SELECT MONTH(NOW());
 <.  3
-
 >   SELECT DAY(NOW());
 <.  14
-
 >   SELECT HOUR(NOW());
 <.  15
-
 >   SELECT MINUTE(NOW());
 <.  49
-
 >   SELECT SECOND(NOW());
 <.  43
 ```
@@ -66,7 +60,6 @@ categories:     ['mysql']
 5. 另一种方式单独返回年/月/日/时/分/秒
 
 使用 ```EXTRACT(unit FROM date)``` 函数，```unit``` 为要返回值类型，```date``` 为日期时间表达式。
-
 ```mysql
 >   SELECT EXTRACT(YEAR FROM NOW());
 <.  2021

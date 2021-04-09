@@ -201,4 +201,4 @@ EXPLAIN SELECT ....;
         return $result;
     }
 ```
-分区预警程序 + Telegram机器人可以实时的收到预警信息。
+分区预警程序 + [Telegram机器人](/2021/04/07/telegram)可以实时的收到预警信息。
