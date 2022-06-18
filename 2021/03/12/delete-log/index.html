@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>使用PHP和SHELL脚本删除日志 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;h4&gt;&lt;span id=&#34;si-lu&#34;&gt;思路&lt;/span&gt;&lt;a href=&#34;#si-lu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;一般来说，日志文件都是按照日期来命名的，例如这样: &lt;code&gt;21_03_01.log&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;每一个日志文件只记录当天某个功能的日志信息，这种做法方便于定为错误。&lt;/p&gt;
+&lt;p&gt;通过日志文件的属性——最后修改时间，可以得知日志文件记录的是哪一天的日志，距离现在过去多少天了。&lt;/p&gt;
+&lt;p&gt;当每天的日志量不多，可以考虑保存最近30天的日志量，保存再多也没有意义。&lt;/p&gt;
+&lt;p&gt;当每日的日志量很多的话，出于存储空间的考虑，可以考虑保存最近7天的日志量。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;shi-yong-php-shan-chu-ri-zhi-wen-jian&#34;&gt;使用PHP删除日志文件&lt;/span&gt;&lt;a href=&#34;#shi-yong-php-shan-chu-ri-zhi-wen-jian&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;需要删除日志文件的时候，通过web端手动调用接口 或者 通过 CLI 的方式，自动定时的调用接口，删除日志文件。&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//删除日志文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;delLogs&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$day&lt;/span&gt;=&lt;span class=&#34;number&#34;&gt;30&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$day&lt;/span&gt; &amp;lt; &lt;span class=&#34;number&#34;&gt;8&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;保留不少于一个星期的日志文件&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;die&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;variable&#34;&gt;$logDir&lt;/span&gt; = &lt;span class=&#34;title function_ invoke__&#34;&gt;realpath&lt;/span&gt;(LOG_PATH);   &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;&lt;span class=&#34;title function_ invoke__&#34;&gt;delLogs2&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$logDir&lt;/span&gt;,&lt;span class=&#34;variable&#34;&gt;$day&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;delLogs2&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$logDir&lt;/span&gt;,&lt;span class=&#34;variable&#34;&gt;$day&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;variable&#34;&gt;$dh&lt;/span&gt; = &lt;span class=&#34;title function_ invoke__&#34;&gt;opendir&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$logDir&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$dh&lt;/span&gt;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$file&lt;/span&gt; = &lt;span class=&#34;title function_ invoke__&#34;&gt;readdir&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$dh&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$file&lt;/span&gt; == &lt;span class=&#34;string&#34;&gt;&amp;#x27;.&amp;#x27;&lt;/span&gt; || &lt;span class=&#34;variable&#34;&gt;$file&lt;/span&gt; == &lt;span class=&#34;string&#34;&gt;&amp;#x27;..&amp;#x27;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;continue&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;variable&#34;&gt;$filePath&lt;/span&gt; = &lt;span class=&#34;variable&#34;&gt;$logDir&lt;/span&gt;.&lt;span class=&#34;string&#34;&gt;&amp;#x27;/&amp;#x27;&lt;/span&gt;.&lt;span class=&#34;variable&#34;&gt;$file&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;title function_ invoke__&#34;&gt;is_file&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$filePath&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;title function_ invoke__&#34;&gt;filemtime&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$filePath&lt;/span&gt;) &amp;lt; &lt;span class=&#34;title function_ invoke__&#34;&gt;strtotime&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;-&lt;span class=&#34;subst&#34;&gt;&amp;#123;$day&amp;#125;&lt;/span&gt; days&amp;quot;&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                    &lt;span class=&#34;keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;file=&lt;span class=&#34;subst&#34;&gt;&amp;#123;$filePath&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                    &lt;span class=&#34;title function_ invoke__&#34;&gt;unlink&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$filePath&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;variable language_&#34;&gt;$this&lt;/span&gt;-&amp;gt;&lt;span class=&#34;title function_ invoke__&#34;&gt;delLogs2&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$filePath&lt;/span&gt;,&lt;span class=&#34;variable&#34;&gt;$day&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;title function_ invoke__&#34;&gt;closedir&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$dh&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;目录错误：&lt;span class=&#34;subst&#34;&gt;&amp;#123;$logDir&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h4&gt;&lt;span id=&#34;shi-yong-shell-jiao-ben-shan-chu-ri-zhi-wen-jian&#34;&gt;使用SHELL脚本删除日志文件&lt;/span&gt;&lt;a href=&#34;#shi-yong-shell-jiao-ben-shan-chu-ri-zhi-wen-jian&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;使用 &lt;code&gt;find&lt;/code&gt; 命令，查找日志目录下的名字格式为 &lt;code&gt;&amp;quot;*.log&amp;quot;&lt;/code&gt; ，最后修改时间为20天以前的文件，把找到的文件删除掉。&lt;/p&gt;
+&lt;p&gt;把命令写入 &lt;code&gt;delLogs.sh&lt;/code&gt; 文件，通过终端命令&lt;code&gt;sh delLogs.sh&lt;/code&gt;执行。&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#!/bin/bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;echo&lt;/span&gt; start delete &lt;span class=&#34;built_in&#34;&gt;log&lt;/span&gt; 20 days ago...&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;find /app/Logs/ -mtime +20 -name &lt;span class=&#34;string&#34;&gt;&amp;quot;*.log&amp;quot;&lt;/span&gt; -&lt;span class=&#34;built_in&#34;&gt;exec&lt;/span&gt;  &lt;span class=&#34;built_in&#34;&gt;rm&lt;/span&gt; -rf &amp;#123;&amp;#125; \;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;echo&lt;/span&gt; end delete &lt;span class=&#34;built_in&#34;&gt;log&lt;/span&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="PHP SHELL 日志 ">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">使用PHP和SHELL脚本删除日志</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2021-03-12T11:00:00.000Z" itemprop="datePublished">Mar 12, 2021</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/php/">php</a> <a href="/tags/shell/">shell</a>
+</div>
+    </div>
+	<div class="entry-content"><h4><span id="si-lu">思路</span><a href="#si-lu" class="header-anchor">#</a></h4><p>一般来说，日志文件都是按照日期来命名的，例如这样: <code>21_03_01.log</code>。</p>
+<p>每一个日志文件只记录当天某个功能的日志信息，这种做法方便于定为错误。</p>
+<p>通过日志文件的属性——最后修改时间，可以得知日志文件记录的是哪一天的日志，距离现在过去多少天了。</p>
+<p>当每天的日志量不多，可以考虑保存最近30天的日志量，保存再多也没有意义。</p>
+<p>当每日的日志量很多的话，出于存储空间的考虑，可以考虑保存最近7天的日志量。</p>
+<h4><span id="shi-yong-php-shan-chu-ri-zhi-wen-jian">使用PHP删除日志文件</span><a href="#shi-yong-php-shan-chu-ri-zhi-wen-jian" class="header-anchor">#</a></h4><p>需要删除日志文件的时候，通过web端手动调用接口 或者 通过 CLI 的方式，自动定时的调用接口，删除日志文件。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除日志文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delLogs</span>(<span class="params"><span class="variable">$day</span>=<span class="number">30</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$day</span> &lt; <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;保留不少于一个星期的日志文件&quot;</span>;</span><br><span class="line">        <span class="keyword">die</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="variable">$logDir</span> = <span class="title function_ invoke__">realpath</span>(LOG_PATH);   </span><br><span class="line">    <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">delLogs2</span>(<span class="variable">$logDir</span>,<span class="variable">$day</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delLogs2</span>(<span class="params"><span class="variable">$logDir</span>,<span class="variable">$day</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$dh</span> = <span class="title function_ invoke__">opendir</span>(<span class="variable">$logDir</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$dh</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="variable">$file</span> = <span class="title function_ invoke__">readdir</span>(<span class="variable">$dh</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$file</span> == <span class="string">&#x27;.&#x27;</span> || <span class="variable">$file</span> == <span class="string">&#x27;..&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="variable">$filePath</span> = <span class="variable">$logDir</span>.<span class="string">&#x27;/&#x27;</span>.<span class="variable">$file</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="title function_ invoke__">is_file</span>(<span class="variable">$filePath</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="title function_ invoke__">filemtime</span>(<span class="variable">$filePath</span>) &lt; <span class="title function_ invoke__">strtotime</span>(<span class="string">&quot;-<span class="subst">&#123;$day&#125;</span> days&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">echo</span> <span class="string">&quot;file=<span class="subst">&#123;$filePath&#125;</span>&quot;</span>;</span><br><span class="line">                    <span class="title function_ invoke__">unlink</span>(<span class="variable">$filePath</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">delLogs2</span>(<span class="variable">$filePath</span>,<span class="variable">$day</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_ invoke__">closedir</span>(<span class="variable">$dh</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;目录错误：<span class="subst">&#123;$logDir&#125;</span>&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4><span id="shi-yong-shell-jiao-ben-shan-chu-ri-zhi-wen-jian">使用SHELL脚本删除日志文件</span><a href="#shi-yong-shell-jiao-ben-shan-chu-ri-zhi-wen-jian" class="header-anchor">#</a></h4><p>使用 <code>find</code> 命令，查找日志目录下的名字格式为 <code>&quot;*.log&quot;</code> ，最后修改时间为20天以前的文件，把找到的文件删除掉。</p>
+<p>把命令写入 <code>delLogs.sh</code> 文件，通过终端命令<code>sh delLogs.sh</code>执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> start delete <span class="built_in">log</span> 20 days ago...</span><br><span class="line">find /app/Logs/ -mtime +20 -name <span class="string">&quot;*.log&quot;</span> -<span class="built_in">exec</span>  <span class="built_in">rm</span> -rf &#123;&#125; \;</span><br><span class="line"><span class="built_in">echo</span> end delete <span class="built_in">log</span>...</span><br></pre></td></tr></table></figure>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

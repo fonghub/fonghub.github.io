@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>Windows下PHP如何添加扩展 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;p&gt;Windows下，PHP添加扩展，步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;找到目标扩展&lt;/li&gt;
+&lt;li&gt;把扩展文件放到PHP扩展文件夹里&lt;/li&gt;
+&lt;li&gt;添加扩展配置&lt;/li&gt;
+&lt;li&gt;重启&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下面以添加redis扩展为例。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;que-ding-php-ban-ben-xin-xi&#34;&gt;确定PHP版本信息&lt;/span&gt;&lt;a href=&#34;#que-ding-php-ban-ben-xin-xi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;访问 &lt;strong&gt;phpinfo.php&lt;/strong&gt;，找到这三个字段的值：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PHP Version&lt;/li&gt;
+&lt;li&gt;Architecture&lt;/li&gt;
+&lt;li&gt;Thread Safety&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x35ukyvj20q60mo0u1.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;phpinfo&lt;/center&gt;
+
+&lt;p&gt;从上图可知，需要找支持PHP版本7.0、x86架构、线程安全的redis扩展。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;cha-zhao-kuo-zhan&#34;&gt;查找扩展&lt;/span&gt;&lt;a href=&#34;#cha-zhao-kuo-zhan&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;到&lt;a href=&#34;http://pecl.php.net/&#34;&gt;PECL&lt;/a&gt;查找redis扩展，输入扩展名字，查找。&lt;/p&gt;
+&lt;img src=&#34;http://tva3.sinaimg.cn/large/7d4c6366gy1gi1x3ifk4dj20qq0h8t9w.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;PECL官网&lt;/center&gt;
+
+&lt;p&gt;从查找结果列表中找到redis扩展。&lt;/p&gt;
+&lt;img src=&#34;http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x3nmocfj20qq0gddgk.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;查找结果列表&lt;/center&gt;
+
+&lt;p&gt;点击进入，看到有不同版本的redis扩展。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;注意要找稳定版(statble)的DLL。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;img src=&#34;http://tvax1.sinaimg.cn/large/7d4c6366gy1gi1z0970g7j20lf0o6juk.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;不同版本的redis扩展&lt;/center&gt;
+
+
+&lt;p&gt;根据第一步确定的信息，可以找到目标扩展，点击下载。&lt;/p&gt;
+&lt;img src=&#34;http://tvax1.sinaimg.cn/large/7d4c6366gy1gi1x3rvy3qj20qq0prmz3.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;目标扩展&lt;/center&gt;
+
+&lt;h3&gt;&lt;span id=&#34;an-zhuang-kuo-zhan&#34;&gt;安装扩展&lt;/span&gt;&lt;a href=&#34;#an-zhuang-kuo-zhan&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;解压缩扩展文件，把DLL扩展文件放到PHP扩展文件夹里面。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果不知道PHP扩展文件夹的位置，从php.ini里搜索extension_dir&amp;#x3D;”…”可以找到。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在php.ini文件里添加&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;extension&amp;#x3D;php_redis.dll&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;即可。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;ce-shi&#34;&gt;测试&lt;/span&gt;&lt;a href=&#34;#ce-shi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;重启服务器，访问 &lt;strong&gt;phpinfo.php&lt;/strong&gt; ，如果看到有目标扩展信息，即表示安装成功。&lt;br&gt;&lt;img src=&#34;http://tva2.sinaimg.cn/large/7d4c6366gy1gi1x40ful0j20q903ut8k.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;&lt;/p&gt;
+&lt;center&gt;测试redis扩展&lt;/center&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="Windows PHP 扩展 ">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Windows下PHP如何添加扩展</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2020-08-22T19:00:00.000Z" itemprop="datePublished">Aug 23, 2020</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/php/">php</a>
+</div>
+    </div>
+	<div class="entry-content"><p>Windows下，PHP添加扩展，步骤如下：</p>
+<ol>
+<li>找到目标扩展</li>
+<li>把扩展文件放到PHP扩展文件夹里</li>
+<li>添加扩展配置</li>
+<li>重启</li>
+</ol>
+<p>下面以添加redis扩展为例。</p>
+<h3><span id="que-ding-php-ban-ben-xin-xi">确定PHP版本信息</span><a href="#que-ding-php-ban-ben-xin-xi" class="header-anchor">#</a></h3><p>访问 <strong>phpinfo.php</strong>，找到这三个字段的值：</p>
+<ul>
+<li>PHP Version</li>
+<li>Architecture</li>
+<li>Thread Safety</li>
+</ul>
+<img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x35ukyvj20q60mo0u1.jpg" width="700" align="bottom">
+<center>phpinfo</center>
+
+<p>从上图可知，需要找支持PHP版本7.0、x86架构、线程安全的redis扩展。</p>
+<h3><span id="cha-zhao-kuo-zhan">查找扩展</span><a href="#cha-zhao-kuo-zhan" class="header-anchor">#</a></h3><p>到<a target="_blank" rel="noopener" href="http://pecl.php.net/">PECL</a>查找redis扩展，输入扩展名字，查找。</p>
+<img src="http://tva3.sinaimg.cn/large/7d4c6366gy1gi1x3ifk4dj20qq0h8t9w.jpg" width="700" align="bottom">
+<center>PECL官网</center>
+
+<p>从查找结果列表中找到redis扩展。</p>
+<img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x3nmocfj20qq0gddgk.jpg" width="700" align="bottom">
+<center>查找结果列表</center>
+
+<p>点击进入，看到有不同版本的redis扩展。</p>
+<blockquote>
+<p>注意要找稳定版(statble)的DLL。</p>
+</blockquote>
+<img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gi1z0970g7j20lf0o6juk.jpg" width="700" align="bottom">
+<center>不同版本的redis扩展</center>
+
+
+<p>根据第一步确定的信息，可以找到目标扩展，点击下载。</p>
+<img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gi1x3rvy3qj20qq0prmz3.jpg" width="700" align="bottom">
+<center>目标扩展</center>
+
+<h3><span id="an-zhuang-kuo-zhan">安装扩展</span><a href="#an-zhuang-kuo-zhan" class="header-anchor">#</a></h3><p>解压缩扩展文件，把DLL扩展文件放到PHP扩展文件夹里面。</p>
+<blockquote>
+<p>如果不知道PHP扩展文件夹的位置，从php.ini里搜索extension_dir&#x3D;”…”可以找到。</p>
+</blockquote>
+<p>在php.ini文件里添加</p>
+<blockquote>
+<p>extension&#x3D;php_redis.dll</p>
+</blockquote>
+<p>即可。</p>
+<h3><span id="ce-shi">测试</span><a href="#ce-shi" class="header-anchor">#</a></h3><p>重启服务器，访问 <strong>phpinfo.php</strong> ，如果看到有目标扩展信息，即表示安装成功。<br><img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gi1x40ful0j20q903ut8k.jpg" width="700" align="bottom"></p>
+<center>测试redis扩展</center>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

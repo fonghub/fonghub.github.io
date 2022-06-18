@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>树和树结构 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;img src=&#34;http://tva4.sinaimg.cn/large/7d4c6366gy1ggkhkeo6j9j20go0b40ty.jpg&#34; alt=&#34;树&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+
+&lt;h3&gt;&lt;span id=&#34;shu-jie-gou-de-ding-yi-he-shu-xing&#34;&gt;树结构的定义和属性&lt;/span&gt;&lt;a href=&#34;#shu-jie-gou-de-ding-yi-he-shu-xing&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;定义：具有相同特性的n(n&amp;gt;&amp;#x3D;0)个数据节点组成的一个有穷序列，节点之间存在一对多的关系。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当n等于0时，为空树&lt;/li&gt;
+&lt;li&gt;当n大于0时，有且仅有一个根节点，且根节点没有前驱节点&lt;ul&gt;
+&lt;li&gt;除根节点外，其余节点都有且仅有一个前驱节点&lt;/li&gt;
+&lt;li&gt;树中每个节点都有零个或者多个后继节点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;属性（如上图）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;空树&lt;/strong&gt; 节点数为0的树称为空树&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;根节点&lt;/strong&gt; 节点①为根节点，根节点没有前驱节点，在树中具有唯一性&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;前驱节点&lt;/strong&gt; 前驱节点是一个相对位置的概念，节点①是节点②③的前驱节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;后继节点&lt;/strong&gt; 后继节点是一个相对位置的概念，节点②③是节点①的后继节点&lt;blockquote&gt;
+&lt;p&gt;换一种说法:节点①的后继节点是节点②，节点①的后继节点是节点③&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;子节点&lt;/strong&gt; 节点的后继节点称为子节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;父节点&lt;/strong&gt; 节点的前驱节点称为父节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;兄弟节点&lt;/strong&gt; 具有相同父节点的子节点互为兄弟节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;子孙节点&lt;/strong&gt; 节点的所有子树中的节点称为子孙节点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;祖先节点&lt;/strong&gt; 从树根节点到达节点的路径上经过的所有节点被称为该节点的祖先节点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;span id=&#34;chou-xiang-shu-ju-lei-xing&#34;&gt;抽象数据类型&lt;/span&gt;&lt;a href=&#34;#chou-xiang-shu-ju-lei-xing&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;ADT Tree&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;数据对象：&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    D = &amp;#123;ai | ai ∈ ElemType, i=&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,…,n, n&amp;gt;=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt; &amp;#125;              &lt;span class=&#34;comment&#34;&gt;// ElemType为类型标识符&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;数据关系：&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    R = &amp;#123;&amp;lt;ai,aj&amp;gt; | ai, aj∈D, i=&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,…,n, j=&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,…,n，其中每个元素只有一个前驱节点 ，可以有零个或多个后继节点，有且仅有一个元素（根节点）没有前驱节点 &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;数据操作：&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    (&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;) treeSeq * InitTree();                              &lt;span class=&#34;comment&#34;&gt;//构造一个空的树t      &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    (&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;) DestroyTree(treeSeq *t);                           &lt;span class=&#34;comment&#34;&gt;//释放树t占用的内存空间      &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    (&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;) Parent(treeSeq *t);                                &lt;span class=&#34;comment&#34;&gt;//求t所指节点的双亲结点      &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    (&lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;) Sons(treeSeq *t);                                  &lt;span class=&#34;comment&#34;&gt;//求t所指节点的子孙节点      &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ... ...&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;树的运算主要分为三大类：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;寻找满足某种特定关系的节点，如寻找双亲节点；&lt;/li&gt;
+&lt;li&gt;插入或删除某个节点，如在树的当前节点上插入一个新节点 或删除当前节点的第i个孩子节点等；&lt;/li&gt;
+&lt;li&gt;遍历树中每个节点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总结起来就是查找、增删、遍历&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;&lt;span id=&#34;shu-de-biao-shi-fang-fa&#34;&gt;树的表示方法&lt;/span&gt;&lt;a href=&#34;#shu-de-biao-shi-fang-fa&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;树的表示方法：树形表示法、文氏图表示法、凹入表示法、括号表示法&lt;/p&gt;
+&lt;img src=&#34;http://tva4.sinaimg.cn/large/7d4c6366gy1ggkigwbmk7j20m709cabq.jpg&#34; alt=&#34;树的表示方法&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+
+
+&lt;h3&gt;&lt;span id=&#34;shu-de-bian-li&#34;&gt;树的遍历&lt;/span&gt;&lt;a href=&#34;#shu-de-bian-li&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;树的遍历指按照一定次序访问树中所有节点，并且每个节点仅被访问一次的过程。&lt;/p&gt;
+&lt;p&gt;三种方法实现树的遍历：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;先根遍历&lt;/strong&gt;&lt;br&gt;若树不空，则先访问根节点，然后依次从左到右访问子节点。先根遍历上图的树：&lt;code&gt;1 2 4 8 9 5 10 11 3 6 7&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;后根遍历&lt;/strong&gt;&lt;br&gt;若树不空，则先依次从左到右访问子节点，然后访问根节点。后根遍历上图的树：&lt;code&gt;8 9 4 10 11 5 2 6 7 3 1&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;层次遍历&lt;/strong&gt;&lt;br&gt;若树不空，则自上而下，自左至右访问树中每个节点。层次遍历上图的树：&lt;code&gt;1 2 3 4 5 6 7 8 9 10 11&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;&lt;span id=&#34;shu-de-shu-xing-2&#34;&gt;树的属性2&lt;/span&gt;&lt;a href=&#34;#shu-de-shu-xing-2&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;节点的度和树的度&lt;/strong&gt; 树中某个节点的子节点个数称为该节点的度，节点中最大的度称为树的度&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;分支节点与叶子节点&lt;/strong&gt; 度不为零的节点称为分支节点，度为零的节点称为叶子节点&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;节点的度数也叫节点的分支数，分支数等于1的节点称为单分支节点，分支数等于2的节点称为双分支节点，以此类推&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;路劲与路径长度&lt;/strong&gt; 树中任意两个节点 $d_i$ 和 $d_j$ ，若存在一个节点序列 $[d_i,d_{i1},d_{i2},…,d_j]$，使得序列中除了 $d_i$ 外的任一个节点都是其在序列中前一个节点的后继节点，则称该节点序列为由 $d_i$ 到 $d_j$ 的一条路劲。路径长度等于路径序列中节点的数量减1&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;节点①和⑩之间存在一个节点序列 [①②⑤⑩]，序列长度为3 &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;节点的层次和数的高度&lt;/strong&gt; 一个节点的层次为从根节点到该节点的路径长度加1，节点的最大层次为树的高度&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;森林&lt;/strong&gt; n个互不相交的树的集合称为森林    &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;森林转树：多个树的集合（森林）加一个根节点变成树&lt;/p&gt;
+&lt;p&gt;树转森林：一个树的集合去掉一个根节点变成森林&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;span id=&#34;shu-de-xing-zhi&#34;&gt;树的性质&lt;/span&gt;&lt;a href=&#34;#shu-de-xing-zhi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;性质1&lt;/strong&gt; 树中的节点数等于所有节点的度数和加1&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;已知：树中的节点数 &amp;#x3D; 根节点数 + 分支节点数（除根节点） + 叶子节点数&lt;/li&gt;
+&lt;li&gt;因为：所有节点的度数 &amp;#x3D; 叶子节点数 + 分支节点数（除根节点）&lt;/li&gt;
+&lt;li&gt;所以：树中的节点树 &amp;#x3D; 所有节点的度数 + 1&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;性质2&lt;/strong&gt; 度为m的树中第i层(i&amp;gt;&amp;#x3D;1)上至多有 $m^{i-1}$ 个节点&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;当i&amp;#x3D;1时，$m^{i-1}&amp;#x3D;m^0&amp;#x3D;1$ ，表示第一层有1个节点，命题成立&lt;/li&gt;
+&lt;li&gt;假设当i&amp;#x3D;n-1时，$m^{i-1}&amp;#x3D;m^{n-2}$ 命题成立&lt;/li&gt;
+&lt;li&gt;则当i&amp;#x3D;n时，第n层的最多节点数是第n-1层的最多节点数的m倍，于是第n层的节点数为： $m^{n-2}*m&amp;#x3D;m^{n-1}$。命题成立。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;性质3&lt;/strong&gt; 高为h的m次树至多有 $\frac{m^h-1}{m-1}$ 个节点&lt;/p&gt;
+&lt;p&gt;根据性质2可以计算出m度树每一层至多节点数量 $m^{i-1}$，当每一层都达到最多节点数，那么高度为h的m度树，最多节点数：&lt;br&gt;$m^{1-1} + m^{2-1} + m^{3-1} + … + m^{h-1} &amp;#x3D; m^0 + m^1 + m2 + … + m^{h-1} $&lt;br&gt;通过等比数列前n项和公式可得结果： $\frac {m^h-1}{m-1} $&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;性质4&lt;/strong&gt; 具有n个节点的m次树的最小高度h为 $\log_{m}n(m-1)+1$&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;证明：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;设具有n个节点的m次树的高度为h&lt;/li&gt;
+&lt;li&gt;若在该树中前h-1层都是满的，即每一层的节点数都等于 $m^{i-1} (1&amp;lt;&amp;#x3D;i&amp;lt;&amp;#x3D;h-1)$ ，则该树具有最小的高度&lt;/li&gt;
+&lt;li&gt;第h层（即最后一层）的节点数可能满，也可能不满，高度h可计算如下：&lt;/li&gt;
+&lt;li&gt;$\frac{m^{h-1}-1}{m-1} &amp;lt; n &amp;lt;&amp;#x3D; \frac{m^h-1}{m-1} $   &lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;两边乘(m-1) ：&lt;/strong&gt;   $m^{k-1}-1 &amp;lt; n(m-1) &amp;lt;&amp;#x3D; m^{k}-1$     &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;两边加1求对数 ：&lt;/strong&gt;    $h-1 &amp;lt; \log_m(n(m-1)+1) &amp;lt;&amp;#x3D; h$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;$\log_m(n(m-1)+1) &amp;lt;&amp;#x3D; h &amp;lt; log_m(n(m-1)+1)+1$&lt;/li&gt;
+&lt;li&gt;因为h为整数，所以 $h&amp;#x3D;log_m(n(m-1)+1)$&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;&lt;span id=&#34;shu-de-cun-chu-jie-gou&#34;&gt;树的存储结构&lt;/span&gt;&lt;a href=&#34;#shu-de-cun-chu-jie-gou&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;双亲存储结构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;存储结构：顺序存储结构&lt;/p&gt;
+&lt;p&gt;把树的节点按顺序存储到每一个节点，节点包含有值域和父节点的索引下标&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;define&lt;/span&gt; MaxSize 50&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; ElemType;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ElemType date;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; parent;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; PTree[MaxSize];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;孩子链存储结构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;存储结构：链式存储结构&lt;/p&gt;
+&lt;p&gt;存储每个节点的值，并且保存所有孩子的指针&lt;br&gt;由于每个节点的孩子数量可能不一样（节点的度），所以按最大节点的度（树的度）数来设计节点的指针数量&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;define&lt;/span&gt; MaxSize 50&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;node&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ElemType date;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;node&lt;/span&gt; *&lt;span class=&#34;title&#34;&gt;sone&lt;/span&gt;[&lt;span class=&#34;title&#34;&gt;MaxSize&lt;/span&gt;];&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; TSonNode;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;strong&gt;孩子兄弟链存储结构&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;存储结构：链式存储结构&lt;/p&gt;
+&lt;p&gt;存储每个节点的值，并且保存第一个孩子的指针和下一个兄弟的指针&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; ElemType;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;tnode&lt;/span&gt;·&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ElemType date;      &lt;span class=&#34;comment&#34;&gt;//节点的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;tnode&lt;/span&gt; *&lt;span class=&#34;title&#34;&gt;hp&lt;/span&gt;;&lt;/span&gt;   &lt;span class=&#34;comment&#34;&gt;//指向兄弟&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;tnode&lt;/span&gt; *&lt;span class=&#34;title&#34;&gt;vp&lt;/span&gt;;&lt;/span&gt;   &lt;span class=&#34;comment&#34;&gt;//指向孩子节点&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;TSBNode;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"> <!-- TODO: truncate -->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">树和树结构</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2020-07-09T05:00:00.000Z" itemprop="datePublished">Jul 9, 2020</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/数据结构/">数据结构</a> <a href="/tags/树/">树</a>
+</div>
+    </div>
+	<div class="entry-content"><img src="http://tva4.sinaimg.cn/large/7d4c6366gy1ggkhkeo6j9j20go0b40ty.jpg" alt="树" width="700" align="bottom">
+
+<h3><span id="shu-jie-gou-de-ding-yi-he-shu-xing">树结构的定义和属性</span><a href="#shu-jie-gou-de-ding-yi-he-shu-xing" class="header-anchor">#</a></h3><p>定义：具有相同特性的n(n&gt;&#x3D;0)个数据节点组成的一个有穷序列，节点之间存在一对多的关系。</p>
+<ul>
+<li>当n等于0时，为空树</li>
+<li>当n大于0时，有且仅有一个根节点，且根节点没有前驱节点<ul>
+<li>除根节点外，其余节点都有且仅有一个前驱节点</li>
+<li>树中每个节点都有零个或者多个后继节点</li>
+</ul>
+</li>
+</ul>
+<p>属性（如上图）：</p>
+<ul>
+<li><strong>空树</strong> 节点数为0的树称为空树</li>
+<li><strong>根节点</strong> 节点①为根节点，根节点没有前驱节点，在树中具有唯一性</li>
+<li><strong>前驱节点</strong> 前驱节点是一个相对位置的概念，节点①是节点②③的前驱节点</li>
+<li><strong>后继节点</strong> 后继节点是一个相对位置的概念，节点②③是节点①的后继节点<blockquote>
+<p>换一种说法:节点①的后继节点是节点②，节点①的后继节点是节点③</p>
+</blockquote>
+</li>
+<li><strong>子节点</strong> 节点的后继节点称为子节点</li>
+<li><strong>父节点</strong> 节点的前驱节点称为父节点</li>
+<li><strong>兄弟节点</strong> 具有相同父节点的子节点互为兄弟节点</li>
+<li><strong>子孙节点</strong> 节点的所有子树中的节点称为子孙节点</li>
+<li><strong>祖先节点</strong> 从树根节点到达节点的路径上经过的所有节点被称为该节点的祖先节点</li>
+</ul>
+<h3><span id="chou-xiang-shu-ju-lei-xing">抽象数据类型</span><a href="#chou-xiang-shu-ju-lei-xing" class="header-anchor">#</a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ADT Tree</span><br><span class="line">&#123;</span><br><span class="line">数据对象：</span><br><span class="line">    D = &#123;ai | ai ∈ ElemType, i=<span class="number">1</span>,<span class="number">2</span>,…,n, n&gt;=<span class="number">0</span> &#125;              <span class="comment">// ElemType为类型标识符</span></span><br><span class="line">数据关系：</span><br><span class="line">    R = &#123;&lt;ai,aj&gt; | ai, aj∈D, i=<span class="number">1</span>,<span class="number">2</span>,…,n, j=<span class="number">1</span>,<span class="number">2</span>,…,n，其中每个元素只有一个前驱节点 ，可以有零个或多个后继节点，有且仅有一个元素（根节点）没有前驱节点 &#125;</span><br><span class="line">数据操作：</span><br><span class="line">    (<span class="number">1</span>) treeSeq * InitTree();                              <span class="comment">//构造一个空的树t      </span></span><br><span class="line">    (<span class="number">2</span>) DestroyTree(treeSeq *t);                           <span class="comment">//释放树t占用的内存空间      </span></span><br><span class="line">    (<span class="number">3</span>) Parent(treeSeq *t);                                <span class="comment">//求t所指节点的双亲结点      </span></span><br><span class="line">    (<span class="number">4</span>) Sons(treeSeq *t);                                  <span class="comment">//求t所指节点的子孙节点      </span></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>树的运算主要分为三大类：</p>
+<ol>
+<li>寻找满足某种特定关系的节点，如寻找双亲节点；</li>
+<li>插入或删除某个节点，如在树的当前节点上插入一个新节点 或删除当前节点的第i个孩子节点等；</li>
+<li>遍历树中每个节点。</li>
+</ol>
+<p>总结起来就是查找、增删、遍历</p>
+</blockquote>
+<h3><span id="shu-de-biao-shi-fang-fa">树的表示方法</span><a href="#shu-de-biao-shi-fang-fa" class="header-anchor">#</a></h3><p>树的表示方法：树形表示法、文氏图表示法、凹入表示法、括号表示法</p>
+<img src="http://tva4.sinaimg.cn/large/7d4c6366gy1ggkigwbmk7j20m709cabq.jpg" alt="树的表示方法" width="700" align="bottom">
+
+
+<h3><span id="shu-de-bian-li">树的遍历</span><a href="#shu-de-bian-li" class="header-anchor">#</a></h3><p>树的遍历指按照一定次序访问树中所有节点，并且每个节点仅被访问一次的过程。</p>
+<p>三种方法实现树的遍历：</p>
+<ol>
+<li><p><strong>先根遍历</strong><br>若树不空，则先访问根节点，然后依次从左到右访问子节点。先根遍历上图的树：<code>1 2 4 8 9 5 10 11 3 6 7</code></p>
+</li>
+<li><p><strong>后根遍历</strong><br>若树不空，则先依次从左到右访问子节点，然后访问根节点。后根遍历上图的树：<code>8 9 4 10 11 5 2 6 7 3 1</code></p>
+</li>
+<li><p><strong>层次遍历</strong><br>若树不空，则自上而下，自左至右访问树中每个节点。层次遍历上图的树：<code>1 2 3 4 5 6 7 8 9 10 11</code></p>
+</li>
+</ol>
+<h3><span id="shu-de-shu-xing-2">树的属性2</span><a href="#shu-de-shu-xing-2" class="header-anchor">#</a></h3><ul>
+<li><p><strong>节点的度和树的度</strong> 树中某个节点的子节点个数称为该节点的度，节点中最大的度称为树的度</p>
+</li>
+<li><p><strong>分支节点与叶子节点</strong> 度不为零的节点称为分支节点，度为零的节点称为叶子节点</p>
+<blockquote>
+<p>节点的度数也叫节点的分支数，分支数等于1的节点称为单分支节点，分支数等于2的节点称为双分支节点，以此类推</p>
+</blockquote>
+</li>
+<li><p><strong>路劲与路径长度</strong> 树中任意两个节点 $d_i$ 和 $d_j$ ，若存在一个节点序列 $[d_i,d_{i1},d_{i2},…,d_j]$，使得序列中除了 $d_i$ 外的任一个节点都是其在序列中前一个节点的后继节点，则称该节点序列为由 $d_i$ 到 $d_j$ 的一条路劲。路径长度等于路径序列中节点的数量减1</p>
+<blockquote>
+<p>节点①和⑩之间存在一个节点序列 [①②⑤⑩]，序列长度为3 </p>
+</blockquote>
+</li>
+<li><p><strong>节点的层次和数的高度</strong> 一个节点的层次为从根节点到该节点的路径长度加1，节点的最大层次为树的高度</p>
+</li>
+<li><p><strong>森林</strong> n个互不相交的树的集合称为森林    </p>
+<blockquote>
+<p>森林转树：多个树的集合（森林）加一个根节点变成树</p>
+<p>树转森林：一个树的集合去掉一个根节点变成森林</p>
+</blockquote>
+</li>
+</ul>
+<h3><span id="shu-de-xing-zhi">树的性质</span><a href="#shu-de-xing-zhi" class="header-anchor">#</a></h3><p><strong>性质1</strong> 树中的节点数等于所有节点的度数和加1</p>
+<blockquote>
+<p>证明：</p>
+<ol>
+<li>已知：树中的节点数 &#x3D; 根节点数 + 分支节点数（除根节点） + 叶子节点数</li>
+<li>因为：所有节点的度数 &#x3D; 叶子节点数 + 分支节点数（除根节点）</li>
+<li>所以：树中的节点树 &#x3D; 所有节点的度数 + 1</li>
+</ol>
+</blockquote>
+<p><strong>性质2</strong> 度为m的树中第i层(i&gt;&#x3D;1)上至多有 $m^{i-1}$ 个节点</p>
+<blockquote>
+<p>证明：</p>
+<ol>
+<li>当i&#x3D;1时，$m^{i-1}&#x3D;m^0&#x3D;1$ ，表示第一层有1个节点，命题成立</li>
+<li>假设当i&#x3D;n-1时，$m^{i-1}&#x3D;m^{n-2}$ 命题成立</li>
+<li>则当i&#x3D;n时，第n层的最多节点数是第n-1层的最多节点数的m倍，于是第n层的节点数为： $m^{n-2}*m&#x3D;m^{n-1}$。命题成立。</li>
+</ol>
+</blockquote>
+<p><strong>性质3</strong> 高为h的m次树至多有 $\frac{m^h-1}{m-1}$ 个节点</p>
+<p>根据性质2可以计算出m度树每一层至多节点数量 $m^{i-1}$，当每一层都达到最多节点数，那么高度为h的m度树，最多节点数：<br>$m^{1-1} + m^{2-1} + m^{3-1} + … + m^{h-1} &#x3D; m^0 + m^1 + m2 + … + m^{h-1} $<br>通过等比数列前n项和公式可得结果： $\frac {m^h-1}{m-1} $</p>
+<p><strong>性质4</strong> 具有n个节点的m次树的最小高度h为 $\log_{m}n(m-1)+1$</p>
+<blockquote>
+<p>证明：</p>
+<ol>
+<li>设具有n个节点的m次树的高度为h</li>
+<li>若在该树中前h-1层都是满的，即每一层的节点数都等于 $m^{i-1} (1&lt;&#x3D;i&lt;&#x3D;h-1)$ ，则该树具有最小的高度</li>
+<li>第h层（即最后一层）的节点数可能满，也可能不满，高度h可计算如下：</li>
+<li>$\frac{m^{h-1}-1}{m-1} &lt; n &lt;&#x3D; \frac{m^h-1}{m-1} $   <ul>
+<li><strong>两边乘(m-1) ：</strong>   $m^{k-1}-1 &lt; n(m-1) &lt;&#x3D; m^{k}-1$     </li>
+<li><strong>两边加1求对数 ：</strong>    $h-1 &lt; \log_m(n(m-1)+1) &lt;&#x3D; h$</li>
+</ul>
+</li>
+<li>$\log_m(n(m-1)+1) &lt;&#x3D; h &lt; log_m(n(m-1)+1)+1$</li>
+<li>因为h为整数，所以 $h&#x3D;log_m(n(m-1)+1)$</li>
+</ol>
+</blockquote>
+<h3><span id="shu-de-cun-chu-jie-gou">树的存储结构</span><a href="#shu-de-cun-chu-jie-gou" class="header-anchor">#</a></h3><p><strong>双亲存储结构</strong></p>
+<p>存储结构：顺序存储结构</p>
+<p>把树的节点按顺序存储到每一个节点，节点包含有值域和父节点的索引下标</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType date;</span><br><span class="line">    <span class="type">int</span> parent;</span><br><span class="line">&#125; PTree[MaxSize];</span><br></pre></td></tr></table></figure>
+
+<p><strong>孩子链存储结构</strong></p>
+<p>存储结构：链式存储结构</p>
+<p>存储每个节点的值，并且保存所有孩子的指针<br>由于每个节点的孩子数量可能不一样（节点的度），所以按最大节点的度（树的度）数来设计节点的指针数量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType date;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">sone</span>[<span class="title">MaxSize</span>];</span></span><br><span class="line">&#125; TSonNode;</span><br></pre></td></tr></table></figure>
+
+<p><strong>孩子兄弟链存储结构</strong></p>
+<p>存储结构：链式存储结构</p>
+<p>存储每个节点的值，并且保存第一个孩子的指针和下一个兄弟的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span>·</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType date;      <span class="comment">//节点的值</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span> *<span class="title">hp</span>;</span>   <span class="comment">//指向兄弟</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span> *<span class="title">vp</span>;</span>   <span class="comment">//指向孩子节点</span></span><br><span class="line">&#125;TSBNode;</span><br></pre></td></tr></table></figure></div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

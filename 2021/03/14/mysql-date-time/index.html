@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>MySQL常用日期和时间函数 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;h4&gt;&lt;span id=&#34;ri-qi-x2f-shi-jian-biao-shi&#34;&gt;日期&amp;#x2F;时间表示&lt;/span&gt;&lt;a href=&#34;#ri-qi-x2f-shi-jian-biao-shi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;返回当前日期时间&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT NOW();   ## 同CURRENT_TIMESTAMP(),返回一个 datetime 表达式&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-14 15:37:16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;返回当前日期&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT DATE(NOW());  ## 同CURRENT_DATE() 和 CURDATE()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;返回当前时间&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT TIME(NOW());  ## 同CURRENT_TIME() 和 CURTIME()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  15:41:19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;单独返回年&amp;#x2F;月&amp;#x2F;日&amp;#x2F;时&amp;#x2F;分&amp;#x2F;秒&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT YEAR(NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT MONTH(NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT DAY(NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT HOUR(NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT MINUTE(NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  49&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT SECOND(NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  43&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;另一种方式单独返回年&amp;#x2F;月&amp;#x2F;日&amp;#x2F;时&amp;#x2F;分&amp;#x2F;秒&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用 &lt;code&gt;EXTRACT(unit FROM date)&lt;/code&gt; 函数，&lt;code&gt;unit&lt;/code&gt; 为要返回值类型，&lt;code&gt;date&lt;/code&gt; 为日期时间表达式。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT EXTRACT(YEAR FROM NOW());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;unit包括：YEAR,MONTH,DAY,HOUR,MINUTE,SECOND,MICROSECOND等等。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用 &lt;code&gt;DATE_FORMAT(date,format)&lt;/code&gt; 函数，&lt;code&gt;date&lt;/code&gt; 为日期时间表达式，&lt;code&gt;format&lt;/code&gt; 为要返回的日期格式。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT DATE_FORMAT(NOW(),&amp;quot;%Y&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;常用的日期时间格式有：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;格式&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;%Y&lt;/td&gt;
+&lt;td&gt;4位数字年份&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;%m&lt;/td&gt;
+&lt;td&gt;2位数字月份 (00 to 12)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;%d&lt;/td&gt;
+&lt;td&gt;2位数字日期 (01 to 31)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;%H&lt;/td&gt;
+&lt;td&gt;小时 (00 to 23)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;%i&lt;/td&gt;
+&lt;td&gt;分钟 (00 to 59)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;%s&lt;/td&gt;
+&lt;td&gt;秒钟 (00 to 59)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;%f&lt;/td&gt;
+&lt;td&gt;毫秒 (000000 to 999999)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;更多的日期时间格式查看 &lt;a href=&#34;https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format&#34;&gt;Date and Time Functions&lt;/a&gt; 文档。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;ri-qi-x2f-shi-jian-ji-suan&#34;&gt;日期&amp;#x2F;时间计算&lt;/span&gt;&lt;a href=&#34;#ri-qi-x2f-shi-jian-ji-suan&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;加 x 年&amp;#x2F;月&amp;#x2F;日&amp;#x2F;时&amp;#x2F;分&amp;#x2F;秒&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT NOW();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-14 18:21:18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT DATE_ADD(NOW(),INTERVAL 1 HOUR);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-14 19:21:18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;减 x 年&amp;#x2F;月&amp;#x2F;日&amp;#x2F;时&amp;#x2F;分&amp;#x2F;秒&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT NOW();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-14 18:23:07&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT DATE_SUB(NOW(),INTERVAL 1 DAY);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-13 18:23:07&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;计算两个日期时间之差&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;使用 &lt;code&gt;DATEDIFF(date1,date2)&lt;/code&gt; 函数计算两个日期相差几天。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT DATEDIFF(DATE_ADD(NOW(),  INTERVAL 1 DAY),CURDATE());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;使用 &lt;code&gt;TIMEDIFF(time1,time2)&lt;/code&gt; 函数计算两个时间相差多少小时多少分钟多少秒钟。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT TIMEDIFF(DATE_ADD(CURTIME(),INTERVAL 1 HOUR),CURTIME());&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  01:00:00&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h4&gt;&lt;span id=&#34;ri-qi-shi-jian-yu-unix-shi-jian-chuo-hu-xiang-zhuan-huan&#34;&gt;日期时间与unix时间戳互相转换&lt;/span&gt;&lt;a href=&#34;#ri-qi-shi-jian-yu-unix-shi-jian-chuo-hu-xiang-zhuan-huan&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;日期时间 转 时间戳&lt;br&gt;函数 &lt;code&gt;UNIX_TIMESTAMP(datetime)&lt;/code&gt; 带一个日期时间表达式参数，当不带参数时，相当于 &lt;code&gt;datetime=now()&lt;/code&gt;。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT UNIX_TIMESTAMP();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  1615721103&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL 1 DAY));      # 返回明天的时间戳&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  1615807716&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;时间戳 转 日期时间&lt;br&gt;函数 &lt;code&gt;FROM_UNIXTIME(unix_timestamp,format)&lt;/code&gt; 有两个参数， &lt;code&gt;unix_timestamp&lt;/code&gt; 参数必须，表示时间戳，&lt;code&gt;format&lt;/code&gt; 参数可选，表示日期时间格式，当 &lt;code&gt;format&lt;/code&gt; 为空时，表示返回 &lt;code&gt;&amp;quot;%Y-%m-%d %H:%i:%s&amp;quot;&lt;/code&gt; 格式的日期时间。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT FROM_UNIXTIME(1615807716);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-15 19:28:36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;gt;   SELECT FROM_UNIXTIME(1615807716,&amp;quot;%Y-%m-%d&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;.  2021-03-15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;/ol&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="MySQL 日期 时间 ">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">MySQL常用日期和时间函数</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2021-03-14T08:00:00.000Z" itemprop="datePublished">Mar 14, 2021</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/mysql/">mysql</a>
+</div>
+    </div>
+	<div class="entry-content"><h4><span id="ri-qi-x2f-shi-jian-biao-shi">日期&#x2F;时间表示</span><a href="#ri-qi-x2f-shi-jian-biao-shi" class="header-anchor">#</a></h4><ol>
+<li><p>返回当前日期时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT NOW();   ## 同CURRENT_TIMESTAMP(),返回一个 datetime 表达式</span><br><span class="line">&lt;.  2021-03-14 15:37:16</span><br></pre></td></tr></table></figure></li>
+<li><p>返回当前日期</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT DATE(NOW());  ## 同CURRENT_DATE() 和 CURDATE()</span><br><span class="line">&lt;.  2021-03-14</span><br></pre></td></tr></table></figure></li>
+<li><p>返回当前时间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT TIME(NOW());  ## 同CURRENT_TIME() 和 CURTIME()</span><br><span class="line">&lt;.  15:41:19</span><br></pre></td></tr></table></figure></li>
+<li><p>单独返回年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT YEAR(NOW());</span><br><span class="line">&lt;.  2021</span><br><span class="line">&gt;   SELECT MONTH(NOW());</span><br><span class="line">&lt;.  3</span><br><span class="line">&gt;   SELECT DAY(NOW());</span><br><span class="line">&lt;.  14</span><br><span class="line">&gt;   SELECT HOUR(NOW());</span><br><span class="line">&lt;.  15</span><br><span class="line">&gt;   SELECT MINUTE(NOW());</span><br><span class="line">&lt;.  49</span><br><span class="line">&gt;   SELECT SECOND(NOW());</span><br><span class="line">&lt;.  43</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另一种方式单独返回年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p>
+</li>
+</ol>
+<p>使用 <code>EXTRACT(unit FROM date)</code> 函数，<code>unit</code> 为要返回值类型，<code>date</code> 为日期时间表达式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT EXTRACT(YEAR FROM NOW());</span><br><span class="line">&lt;.  2021</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>unit包括：YEAR,MONTH,DAY,HOUR,MINUTE,SECOND,MICROSECOND等等。</p>
+</blockquote>
+<p>使用 <code>DATE_FORMAT(date,format)</code> 函数，<code>date</code> 为日期时间表达式，<code>format</code> 为要返回的日期格式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT DATE_FORMAT(NOW(),&quot;%Y&quot;);</span><br><span class="line">&lt;.  2021</span><br></pre></td></tr></table></figure>
+<p>常用的日期时间格式有：</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%Y</td>
+<td>4位数字年份</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>2位数字月份 (00 to 12)</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>2位数字日期 (01 to 31)</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>小时 (00 to 23)</td>
+</tr>
+<tr>
+<td>%i</td>
+<td>分钟 (00 to 59)</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>秒钟 (00 to 59)</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>毫秒 (000000 to 999999)</td>
+</tr>
+</tbody></table>
+<p>更多的日期时间格式查看 <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format">Date and Time Functions</a> 文档。</p>
+<h4><span id="ri-qi-x2f-shi-jian-ji-suan">日期&#x2F;时间计算</span><a href="#ri-qi-x2f-shi-jian-ji-suan" class="header-anchor">#</a></h4><ol>
+<li><p>加 x 年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT NOW();</span><br><span class="line">&lt;.  2021-03-14 18:21:18</span><br><span class="line">&gt;   SELECT DATE_ADD(NOW(),INTERVAL 1 HOUR);</span><br><span class="line">&lt;.  2021-03-14 19:21:18</span><br></pre></td></tr></table></figure></li>
+<li><p>减 x 年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT NOW();</span><br><span class="line">&lt;.  2021-03-14 18:23:07</span><br><span class="line">&gt;   SELECT DATE_SUB(NOW(),INTERVAL 1 DAY);</span><br><span class="line">&lt;.  2021-03-13 18:23:07</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算两个日期时间之差</p>
+</li>
+</ol>
+<p>使用 <code>DATEDIFF(date1,date2)</code> 函数计算两个日期相差几天。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT DATEDIFF(DATE_ADD(NOW(),  INTERVAL 1 DAY),CURDATE());</span><br><span class="line">&lt;.  1</span><br></pre></td></tr></table></figure>
+<p>使用 <code>TIMEDIFF(time1,time2)</code> 函数计算两个时间相差多少小时多少分钟多少秒钟。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT TIMEDIFF(DATE_ADD(CURTIME(),INTERVAL 1 HOUR),CURTIME());</span><br><span class="line">&lt;.  01:00:00</span><br></pre></td></tr></table></figure>
+
+<h4><span id="ri-qi-shi-jian-yu-unix-shi-jian-chuo-hu-xiang-zhuan-huan">日期时间与unix时间戳互相转换</span><a href="#ri-qi-shi-jian-yu-unix-shi-jian-chuo-hu-xiang-zhuan-huan" class="header-anchor">#</a></h4><ol>
+<li><p>日期时间 转 时间戳<br>函数 <code>UNIX_TIMESTAMP(datetime)</code> 带一个日期时间表达式参数，当不带参数时，相当于 <code>datetime=now()</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT UNIX_TIMESTAMP();</span><br><span class="line">&lt;.  1615721103</span><br><span class="line">&gt;   SELECT UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL 1 DAY));      # 返回明天的时间戳</span><br><span class="line">&lt;.  1615807716</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间戳 转 日期时间<br>函数 <code>FROM_UNIXTIME(unix_timestamp,format)</code> 有两个参数， <code>unix_timestamp</code> 参数必须，表示时间戳，<code>format</code> 参数可选，表示日期时间格式，当 <code>format</code> 为空时，表示返回 <code>&quot;%Y-%m-%d %H:%i:%s&quot;</code> 格式的日期时间。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT FROM_UNIXTIME(1615807716);</span><br><span class="line">&lt;.  2021-03-15 19:28:36</span><br><span class="line">&gt;   SELECT FROM_UNIXTIME(1615807716,&quot;%Y-%m-%d&quot;);</span><br><span class="line">&lt;.  2021-03-15</span><br></pre></td></tr></table></figure></li>
+</ol>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

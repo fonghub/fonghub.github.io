@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>三个浏览内容的 Linux 命令功能对比 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;div class=&#34;toc&#34;&gt;
+
+&lt;!-- toc --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#cat&#34;&gt;cat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#more&#34;&gt;more&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#less&#34;&gt;less&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#zong-jie&#34;&gt;总结&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;cat,less,more 命令都有浏览内容、文件的功能对比。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;cat&#34;&gt;cat&lt;/span&gt;&lt;a href=&#34;#cat&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;cat（英文全拼：concatenate）命令用于连接文件并打印到标准输出设备上。&lt;/p&gt;
+&lt;p&gt;cat的几个用法：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;显示整个文件：cat filename&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# cat hello.html &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;lt;title&amp;gt;title&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;lt;p&amp;gt; Hello World&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;接收从键盘的输入，创建一个新文件： cat &amp;gt; filename&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# cat &amp;gt; hello.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo &amp;#x27;Hello World.&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;^C&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;换行后按 ctrl + c 退出即保存。&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;显示行号&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;不对空行编号，cat -b filename&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# cat -b hello.html &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     1  &amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     2          &amp;lt;head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     3                  &amp;lt;title&amp;gt;title&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     4          &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     5          &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     6                  &amp;lt;p&amp;gt; Hello World&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     7          &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     8  &amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;对所有行顺序编号，cat -n filename&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# cat -n hello.html  &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     1  &amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     3          &amp;lt;head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     4                  &amp;lt;title&amp;gt;title&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     5          &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     7          &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     9                  &amp;lt;p&amp;gt; Hello World&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    11          &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    12  &amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;拼接文件： cat filename1 filename2 &amp;gt; filename3&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# cat hello.html hello.sh &amp;gt; hello.mix&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# cat hello.mix &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;lt;title&amp;gt;title&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;lt;p&amp;gt; Hello World&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo &amp;#x27;Hello World.&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;cat的反向tac&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&#34;highlight shell&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;root@ubuntu:~# tac hello.mix &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;echo &amp;#x27;Hello World.&amp;#x27;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;/body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;lt;p&amp;gt; Hello World&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;body&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;/head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &amp;lt;title&amp;gt;title&amp;lt;/title&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;lt;head&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3&gt;&lt;span id=&#34;more&#34;&gt;more&lt;/span&gt;&lt;a href=&#34;#more&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;more 命令，功能类似 cat ， cat 命令是将整个文件的内容显示在屏幕上；&lt;/p&gt;
+&lt;p&gt;more 命令则会把文件内容分页显示，底部显示浏览进度百分比，方便阅读。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;规定一页显示的行数： more -n filename&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;从第n行开始显示： more +n filename&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;翻页&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;向下翻一页 按 space 键&lt;/li&gt;
+&lt;li&gt;向上翻一页  按 b(back) 键&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;退出 &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;按 q(quit)键&lt;/li&gt;
+&lt;li&gt;或者翻到最后一页自动退出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;&lt;span id=&#34;less&#34;&gt;less&lt;/span&gt;&lt;a href=&#34;#less&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;less 工具是对文件或其它输出进行分页显示的工具，功能极其强大。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;显示行号： less -N filename&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;显示浏览百分比： less -m filename&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;翻页&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;向下翻一页 按 space 键&lt;/li&gt;
+&lt;li&gt;向上翻一页  按 b(back) 键&lt;/li&gt;
+&lt;li&gt;向下翻半页 按 d(down) 键&lt;/li&gt;
+&lt;li&gt;向上翻半页 按 u(up) 键&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;搜索&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;向下搜索 按 &amp;#x2F;加搜索内容，如 &amp;#x2F;2020&lt;/li&gt;
+&lt;li&gt;向上搜索 按 ?加搜索内容，如 ?2020&lt;/li&gt;
+&lt;li&gt;按n(next)键搜索下一个&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;退出 按q(quit)键&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;&lt;span id=&#34;zong-jie&#34;&gt;总结&lt;/span&gt;&lt;a href=&#34;#zong-jie&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;cat命令除了有浏览文件的功能，主要还是拼接文件的功能；&lt;/p&gt;
+&lt;p&gt;more 和 less 命令的功能类似，但是 less 命令的功能更加强大。&lt;/p&gt;
+"> <!-- TODO: truncate -->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">三个浏览内容的 Linux 命令功能对比</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2021-07-24T02:00:00.000Z" itemprop="datePublished">Jul 24, 2021</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/linux/">linux</a>
+</div>
+    </div>
+	<div class="entry-content"><div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#cat">cat</a></li>
+<li><a href="#more">more</a></li>
+<li><a href="#less">less</a></li>
+<li><a href="#zong-jie">总结</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<p>cat,less,more 命令都有浏览内容、文件的功能对比。</p>
+<h3><span id="cat">cat</span><a href="#cat" class="header-anchor">#</a></h3><p>cat（英文全拼：concatenate）命令用于连接文件并打印到标准输出设备上。</p>
+<p>cat的几个用法：</p>
+<ol>
+<li>显示整个文件：cat filename</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat hello.html </span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">        &lt;head&gt;</span><br><span class="line">                &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">        &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">        &lt;body&gt;</span><br><span class="line"></span><br><span class="line">                &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>接收从键盘的输入，创建一个新文件： cat &gt; filename</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat &gt; hello.sh</span><br><span class="line">echo &#x27;Hello World.&#x27;;</span><br><span class="line">^C</span><br></pre></td></tr></table></figure>
+<p>换行后按 ctrl + c 退出即保存。</p>
+<ol start="3">
+<li>显示行号</li>
+</ol>
+<ul>
+<li>不对空行编号，cat -b filename</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat -b hello.html </span><br><span class="line">     1  &lt;html&gt;</span><br><span class="line"></span><br><span class="line">     2          &lt;head&gt;</span><br><span class="line">     3                  &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">     4          &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">     5          &lt;body&gt;</span><br><span class="line"></span><br><span class="line">     6                  &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">     7          &lt;/body&gt;</span><br><span class="line">     8  &lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>对所有行顺序编号，cat -n filename</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat -n hello.html  </span><br><span class="line">     1  &lt;html&gt;</span><br><span class="line">     2</span><br><span class="line">     3          &lt;head&gt;</span><br><span class="line">     4                  &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">     5          &lt;/head&gt;</span><br><span class="line">     6</span><br><span class="line">     7          &lt;body&gt;</span><br><span class="line">     8</span><br><span class="line">     9                  &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line">    10</span><br><span class="line">    11          &lt;/body&gt;</span><br><span class="line">    12  &lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>拼接文件： cat filename1 filename2 &gt; filename3</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat hello.html hello.sh &gt; hello.mix</span><br><span class="line">root@ubuntu:~# cat hello.mix </span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">        &lt;head&gt;</span><br><span class="line">                &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">        &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">        &lt;body&gt;</span><br><span class="line"></span><br><span class="line">                &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">echo &#x27;Hello World.&#x27;;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>cat的反向tac</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# tac hello.mix </span><br><span class="line">echo &#x27;Hello World.&#x27;;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">        &lt;/body&gt;</span><br><span class="line"></span><br><span class="line">                &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">        &lt;body&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/head&gt;</span><br><span class="line">                &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">        &lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="more">more</span><a href="#more" class="header-anchor">#</a></h3><p>more 命令，功能类似 cat ， cat 命令是将整个文件的内容显示在屏幕上；</p>
+<p>more 命令则会把文件内容分页显示，底部显示浏览进度百分比，方便阅读。</p>
+<ol>
+<li><p>规定一页显示的行数： more -n filename</p>
+</li>
+<li><p>从第n行开始显示： more +n filename</p>
+</li>
+<li><p>翻页</p>
+<ul>
+<li>向下翻一页 按 space 键</li>
+<li>向上翻一页  按 b(back) 键</li>
+</ul>
+</li>
+<li><p>退出 </p>
+<ul>
+<li>按 q(quit)键</li>
+<li>或者翻到最后一页自动退出</li>
+</ul>
+</li>
+</ol>
+<h3><span id="less">less</span><a href="#less" class="header-anchor">#</a></h3><p>less 工具是对文件或其它输出进行分页显示的工具，功能极其强大。</p>
+<ol>
+<li><p>显示行号： less -N filename</p>
+</li>
+<li><p>显示浏览百分比： less -m filename</p>
+</li>
+<li><p>翻页</p>
+<ul>
+<li>向下翻一页 按 space 键</li>
+<li>向上翻一页  按 b(back) 键</li>
+<li>向下翻半页 按 d(down) 键</li>
+<li>向上翻半页 按 u(up) 键</li>
+</ul>
+</li>
+<li><p>搜索</p>
+<ul>
+<li>向下搜索 按 &#x2F;加搜索内容，如 &#x2F;2020</li>
+<li>向上搜索 按 ?加搜索内容，如 ?2020</li>
+<li>按n(next)键搜索下一个</li>
+</ul>
+</li>
+<li><p>退出 按q(quit)键</p>
+</li>
+</ol>
+<h3><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h3><p>cat命令除了有浏览文件的功能，主要还是拼接文件的功能；</p>
+<p>more 和 less 命令的功能类似，但是 less 命令的功能更加强大。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>MySQL的RANGE分区管理与预警 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;p&gt;MySQL有四种分区类型，分别是RANGE分区、LIST分区、HASH分区和KEY分区。其中数RANGE分区使用最为普遍。&lt;/p&gt;
+&lt;p&gt;RANGE分区基于一个给定的分区键和分区值，把一个大的数据表分成多个连续且不重复的分区表。物理层面上是把一个大文件分割成多个小的文件。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;shu-ju-biao-fen-qu-de-liang-chong-fang-shi&#34;&gt;数据表分区的两种方式&lt;/span&gt;&lt;a href=&#34;#shu-ju-biao-fen-qu-de-liang-chong-fang-shi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;方式一，创建表的同时，设置表分区&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;CREATE&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; tablename(col1,col2,col3,...)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;BY&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;RANGE&lt;/span&gt;(col_key)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p1 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value1),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p2 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value2),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p3 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value3),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (MAXVALUE)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;方式二，对已创建的表分区&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; tablename &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;BY&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;RANGE&lt;/span&gt;(col_key) &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p1 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value1),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p2 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value2),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p3 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value3),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (MAXVALUE)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;分区的时候，最好设置一个最大分区 &lt;code&gt;p_maxvalue&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (MAXVALUE)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;存放意料之外的数据。例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当出现错误数据，大于所有分区值时，会存放到 &lt;code&gt;p_maxvalue&lt;/code&gt; 分区&lt;/li&gt;
+&lt;li&gt;当来不及增加分区时，数据会存放到 &lt;code&gt;p_maxvalue&lt;/code&gt; 分区，且对前面的分区无影响&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总之，设置 &lt;code&gt;p_maxvalue&lt;/code&gt; 分区并不是为了存放数据，而是在出现意外的时候，程序不至于报错。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;xian-shi-yi-fen-qu-de-shu-ju-biao&#34;&gt;显示已分区的数据表&lt;/span&gt;&lt;a href=&#34;#xian-shi-yi-fen-qu-de-shu-ju-biao&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;SELECT&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	TABLE_NAME tname,                   &lt;span class=&#34;comment&#34;&gt;-- 数据表名&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	TABLE_ROWS trow                     &lt;span class=&#34;comment&#34;&gt;-- 数据行数&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;FROM&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	information_schema.`TABLES`&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;WHERE&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	TABLE_SCHEMA &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; &amp;#123;$dbName&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;AND&lt;/span&gt; CREATE_OPTIONS &lt;span class=&#34;keyword&#34;&gt;LIKE&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;#x27;%partitioned%&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;img src=&#34;http://tva1.sinaimg.cn/large/7d4c6366gy1glxvwlv028j20zu09j0sw.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;显示分区的数据表&lt;/center&gt;
+
+&lt;h4&gt;&lt;span id=&#34;xian-shi-mou-ge-biao-de-fen-qu-lie-biao&#34;&gt;显示某个表的分区列表&lt;/span&gt;&lt;a href=&#34;#xian-shi-mou-ge-biao-de-fen-qu-lie-biao&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;SELECT&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	PARTITION_ORDINAL_POSITION onum,    &lt;span class=&#34;comment&#34;&gt;-- 分区序号&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	PARTITION_NAME pname,               &lt;span class=&#34;comment&#34;&gt;-- 分区名字&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	PARTITION_METHOD pmethod,           &lt;span class=&#34;comment&#34;&gt;-- 分区方式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	PARTITION_EXPRESSION pkey,          &lt;span class=&#34;comment&#34;&gt;-- 分区键&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	PARTITION_DESCRIPTION pvalue,       &lt;span class=&#34;comment&#34;&gt;-- 分区值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	TABLE_ROWS trows                    &lt;span class=&#34;comment&#34;&gt;-- 数据行数&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;FROM&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	information_schema.`PARTITIONS`&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;WHERE&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	TABLE_SCHEMA &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; &amp;#123;$dbName&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;AND&lt;/span&gt; TABLE_NAME &lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt; &amp;#123;$tname&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;img src=&#34;http://tvax4.sinaimg.cn/large/7d4c6366gy1glxw1kt2cnj20q60l074y.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;分区列表&lt;/center&gt;
+
+&lt;h4&gt;&lt;span id=&#34;shan-chu-fen-qu&#34;&gt;删除分区&lt;/span&gt;&lt;a href=&#34;#shan-chu-fen-qu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;当历史数据归档后，分区的数据行数为0，此时该分区已经无用，为了减少系统的文件数，可以把它删除掉。&lt;/p&gt;
+&lt;img src=&#34;http://tvax2.sinaimg.cn/large/7d4c6366gy1glxwhqxvfej20q00kvdgh.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;数据归档的分区&lt;/center&gt;
+
+
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; &lt;span class=&#34;keyword&#34;&gt;DROP&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; &amp;#123;$pname&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用 DROP PARTITION 删除分区的同时，也会删除分区里的数据&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;span id=&#34;qu-xiao-fen-qu&#34;&gt;取消分区&lt;/span&gt;&lt;a href=&#34;#qu-xiao-fen-qu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; REMOVE PARTITIONING;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;取消分区对表数据无影响&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;span id=&#34;zeng-jia-fen-qu&#34;&gt;增加分区&lt;/span&gt;&lt;a href=&#34;#zeng-jia-fen-qu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;增加分区之前，需要删除最大分区 &lt;code&gt;p_maxvalue&lt;/code&gt;。&lt;br&gt;因为分区是连续递增的，所以需要把最大分区 &lt;code&gt;p_maxvalue&lt;/code&gt; 删除，再增加新的分区。&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; &lt;span class=&#34;keyword&#34;&gt;ADD&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; &amp;#123;$pname&amp;#125; &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; LESS THAN (value1)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h4&gt;&lt;span id=&#34;chai-fen-fen-qu&#34;&gt;拆分分区&lt;/span&gt;&lt;a href=&#34;#chai-fen-fen-qu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;当来不及增加分区时，数据会存放到 &lt;code&gt;p_maxvalue&lt;/code&gt; 分区。当发现 &lt;code&gt;p_maxvalue&lt;/code&gt; 分区有数据时，应该尽快创建新分区，并把数据迁移到新分区上。&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; REORGANIZE &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue &lt;span class=&#34;keyword&#34;&gt;INTO&lt;/span&gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_20210301 &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; less than (&lt;span class=&#34;number&#34;&gt;1614528000&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue &lt;span class=&#34;keyword&#34;&gt;VALUES&lt;/span&gt; less than (MAXVALUE)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此时数据保存到了 &lt;code&gt;p_20210301&lt;/code&gt; 分区，通过&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;EXPLAIN &lt;span class=&#34;keyword&#34;&gt;SELECT&lt;/span&gt; ....;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到 &lt;code&gt;partitions&lt;/code&gt; 字段的值为 &lt;code&gt;p_20210301&lt;/code&gt; ,表示查询的内容在 &lt;code&gt;p_20210301&lt;/code&gt; 分区。&lt;/p&gt;
+&lt;p&gt;此时若发现查询并未使用到索引，则需要优化一下分区。&lt;/p&gt;
+&lt;p&gt;执行语句：&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; REBUILD &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue,p_20210301;         &lt;span class=&#34;comment&#34;&gt;-- 重建分区&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; ANALYZE &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue,p_20210301;         &lt;span class=&#34;comment&#34;&gt;-- 分析分区&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;或&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;ALTER&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; &amp;#123;$dbName&amp;#125;.&amp;#123;$tname&amp;#125; OPTIMIZE &lt;span class=&#34;keyword&#34;&gt;PARTITION&lt;/span&gt; p_maxvalue,p_20210301;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;再次执行查询语句&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;EXPLAIN &lt;span class=&#34;keyword&#34;&gt;SELECT&lt;/span&gt; ....;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;发现已经使用了索引。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;REORGANIZE PARTITION 也可以用于重命名分区，重命名分区后也需要执行一下优化分区语句。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;&lt;span id=&#34;fen-qu-yu-jing&#34;&gt;分区预警&lt;/span&gt;&lt;a href=&#34;#fen-qu-yu-jing&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;以下分区预警思路针对RANGE分区类型，基于时间的连续分区。&lt;/p&gt;
+&lt;p&gt;使用分区预警的好处有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以提前知晓备用的分区不足，不用逐个表检查&lt;/li&gt;
+&lt;li&gt;可以不用一下子准备多个备用分区，减少分区数量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;分区预警的思路如下代码：&lt;/p&gt;
+&lt;figure class=&#34;highlight php&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// 分区预警，预警值默认60天&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;warningPartition&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;&lt;span class=&#34;variable&#34;&gt;$warningDays&lt;/span&gt;=&lt;span class=&#34;number&#34;&gt;60&lt;/span&gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;// 获取所有的数据库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;variable&#34;&gt;$dbNames&lt;/span&gt; = &lt;span class=&#34;built_in&#34;&gt;self&lt;/span&gt;::&lt;span class=&#34;title function_ invoke__&#34;&gt;get_all_db&lt;/span&gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;variable&#34;&gt;$result&lt;/span&gt; = [];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;foreach&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$dbNames&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;$dbName&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;comment&#34;&gt;// 获取指定数据库的分区表列表&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable&#34;&gt;$sqlTable&lt;/span&gt; = &lt;span class=&#34;string&#34;&gt;&amp;quot;SELECT TABLE_NAME tname,TABLE_ROWS trow FROM information_schema.`TABLES` WHERE TABLE_SCHEMA=&amp;#x27;&lt;span class=&#34;subst&#34;&gt;&amp;#123;$dbName&amp;#125;&lt;/span&gt;&amp;#x27; AND CREATE_OPTIONS LIKE &amp;#x27;%partitioned%&amp;#x27;&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable&#34;&gt;$listTable&lt;/span&gt; = &lt;span class=&#34;built_in&#34;&gt;self&lt;/span&gt;::&lt;span class=&#34;title function_ invoke__&#34;&gt;querySql&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$sqlTable&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;foreach&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$listTable&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;$table&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;comment&#34;&gt;// 获取指定数据库，指定表的除p_maxvalue外的最大分区的值&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;variable&#34;&gt;$sqlPartition&lt;/span&gt; = &lt;span class=&#34;string&#34;&gt;&amp;quot;SELECT PARTITION_NAME pname,PARTITION_DESCRIPTION pvalue FROM information_schema.`PARTITIONS` WHERE TABLE_SCHEMA=&amp;#x27;&lt;span class=&#34;subst&#34;&gt;&amp;#123;$dbName&amp;#125;&lt;/span&gt;&amp;#x27; AND TABLE_NAME=&amp;#x27;&lt;span class=&#34;subst&#34;&gt;&amp;#123;$table&amp;#125;&lt;/span&gt;&amp;#x27; AND PARTITION_NAME != &amp;#x27;p_maxvalue&amp;#x27; ORDER BY PARTITION_DESCRIPTION DESC LIMIT 1&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;variable&#34;&gt;$listPartition&lt;/span&gt; = &lt;span class=&#34;built_in&#34;&gt;self&lt;/span&gt;::&lt;span class=&#34;title function_ invoke__&#34;&gt;querySql&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$sqlPartition&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;variable&#34;&gt;$pvalue&lt;/span&gt; = &lt;span class=&#34;variable&#34;&gt;$listPartition&lt;/span&gt;[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;][&lt;span class=&#34;string&#34;&gt;&amp;#x27;pvalue&amp;#x27;&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;comment&#34;&gt;// 最大分区的值小于阈值，则保存预警信息&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(&lt;span class=&#34;variable&#34;&gt;$pvalue&lt;/span&gt; - &lt;span class=&#34;title function_ invoke__&#34;&gt;time&lt;/span&gt;() &amp;lt; &lt;span class=&#34;variable&#34;&gt;$warningDays&lt;/span&gt; * &lt;span class=&#34;number&#34;&gt;86400&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;variable&#34;&gt;$result&lt;/span&gt;[] = &lt;span class=&#34;string&#34;&gt;&amp;quot;数据表：&lt;span class=&#34;subst&#34;&gt;&amp;#123;$dbName&amp;#125;&lt;/span&gt;.&lt;span class=&#34;subst&#34;&gt;&amp;#123;$table&amp;#125;&lt;/span&gt;，最新分区：&lt;span class=&#34;subst&#34;&gt;&amp;#123;$listPartition[0][&amp;#x27;pname&amp;#x27;]&amp;#125;&lt;/span&gt; - &lt;span class=&#34;subst&#34;&gt;&amp;#123;$listPartition[0][&amp;#x27;pvalue&amp;#x27;]&amp;#125;&lt;/span&gt;，预警阈值：&lt;span class=&#34;subst&#34;&gt;&amp;#123;$warningDays&amp;#125;&lt;/span&gt;天&amp;quot;&lt;/span&gt;;  &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;variable&#34;&gt;$result&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;分区预警程序 + &lt;a href=&#34;/2021/04/07/telegram&#34;&gt;Telegram机器人&lt;/a&gt;可以实时的收到预警信息。&lt;/p&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="MySQL 分区 预警 ">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">MySQL的RANGE分区管理与预警</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2020-12-23T10:30:00.000Z" itemprop="datePublished">Dec 23, 2020</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/mysql/">mysql</a>
+</div>
+    </div>
+	<div class="entry-content"><p>MySQL有四种分区类型，分别是RANGE分区、LIST分区、HASH分区和KEY分区。其中数RANGE分区使用最为普遍。</p>
+<p>RANGE分区基于一个给定的分区键和分区值，把一个大的数据表分成多个连续且不重复的分区表。物理层面上是把一个大文件分割成多个小的文件。</p>
+<h4><span id="shu-ju-biao-fen-qu-de-liang-chong-fang-shi">数据表分区的两种方式</span><a href="#shu-ju-biao-fen-qu-de-liang-chong-fang-shi" class="header-anchor">#</a></h4><p>方式一，创建表的同时，设置表分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tablename(col1,col2,col3,...)</span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(col_key)</span><br><span class="line">(</span><br><span class="line">    <span class="keyword">PARTITION</span> p1 <span class="keyword">VALUES</span> LESS THAN (value1),</span><br><span class="line">    <span class="keyword">PARTITION</span> p2 <span class="keyword">VALUES</span> LESS THAN (value2),</span><br><span class="line">    <span class="keyword">PARTITION</span> p3 <span class="keyword">VALUES</span> LESS THAN (value3),</span><br><span class="line">    <span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> LESS THAN (MAXVALUE)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>方式二，对已创建的表分区</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(col_key) </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">PARTITION</span> p1 <span class="keyword">VALUES</span> LESS THAN (value1),</span><br><span class="line">    <span class="keyword">PARTITION</span> p2 <span class="keyword">VALUES</span> LESS THAN (value2),</span><br><span class="line">    <span class="keyword">PARTITION</span> p3 <span class="keyword">VALUES</span> LESS THAN (value3),</span><br><span class="line">    <span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> LESS THAN (MAXVALUE)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>分区的时候，最好设置一个最大分区 <code>p_maxvalue</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> LESS THAN (MAXVALUE)</span><br></pre></td></tr></table></figure>
+<p>存放意料之外的数据。例如：</p>
+<ul>
+<li>当出现错误数据，大于所有分区值时，会存放到 <code>p_maxvalue</code> 分区</li>
+<li>当来不及增加分区时，数据会存放到 <code>p_maxvalue</code> 分区，且对前面的分区无影响</li>
+</ul>
+<p>总之，设置 <code>p_maxvalue</code> 分区并不是为了存放数据，而是在出现意外的时候，程序不至于报错。</p>
+<h4><span id="xian-shi-yi-fen-qu-de-shu-ju-biao">显示已分区的数据表</span><a href="#xian-shi-yi-fen-qu-de-shu-ju-biao" class="header-anchor">#</a></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	TABLE_NAME tname,                   <span class="comment">-- 数据表名</span></span><br><span class="line">	TABLE_ROWS trow                     <span class="comment">-- 数据行数</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	information_schema.`TABLES`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	TABLE_SCHEMA <span class="operator">=</span> &#123;$dbName&#125;</span><br><span class="line"><span class="keyword">AND</span> CREATE_OPTIONS <span class="keyword">LIKE</span> <span class="string">&#x27;%partitioned%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<img src="http://tva1.sinaimg.cn/large/7d4c6366gy1glxvwlv028j20zu09j0sw.jpg" width="700" align="bottom">
+<center>显示分区的数据表</center>
+
+<h4><span id="xian-shi-mou-ge-biao-de-fen-qu-lie-biao">显示某个表的分区列表</span><a href="#xian-shi-mou-ge-biao-de-fen-qu-lie-biao" class="header-anchor">#</a></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	PARTITION_ORDINAL_POSITION onum,    <span class="comment">-- 分区序号</span></span><br><span class="line">	PARTITION_NAME pname,               <span class="comment">-- 分区名字</span></span><br><span class="line">	PARTITION_METHOD pmethod,           <span class="comment">-- 分区方式</span></span><br><span class="line">	PARTITION_EXPRESSION pkey,          <span class="comment">-- 分区键</span></span><br><span class="line">	PARTITION_DESCRIPTION pvalue,       <span class="comment">-- 分区值</span></span><br><span class="line">	TABLE_ROWS trows                    <span class="comment">-- 数据行数</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	information_schema.`PARTITIONS`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">	TABLE_SCHEMA <span class="operator">=</span> &#123;$dbName&#125;</span><br><span class="line"><span class="keyword">AND</span> TABLE_NAME <span class="operator">=</span> &#123;$tname&#125;;</span><br></pre></td></tr></table></figure>
+
+<img src="http://tvax4.sinaimg.cn/large/7d4c6366gy1glxw1kt2cnj20q60l074y.jpg" width="700" align="bottom">
+<center>分区列表</center>
+
+<h4><span id="shan-chu-fen-qu">删除分区</span><a href="#shan-chu-fen-qu" class="header-anchor">#</a></h4><p>当历史数据归档后，分区的数据行数为0，此时该分区已经无用，为了减少系统的文件数，可以把它删除掉。</p>
+<img src="http://tvax2.sinaimg.cn/large/7d4c6366gy1glxwhqxvfej20q00kvdgh.jpg" width="700" align="bottom">
+<center>数据归档的分区</center>
+
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; <span class="keyword">DROP</span> <span class="keyword">PARTITION</span> &#123;$pname&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 DROP PARTITION 删除分区的同时，也会删除分区里的数据</p>
+</blockquote>
+<h4><span id="qu-xiao-fen-qu">取消分区</span><a href="#qu-xiao-fen-qu" class="header-anchor">#</a></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; REMOVE PARTITIONING;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>取消分区对表数据无影响</p>
+</blockquote>
+<h4><span id="zeng-jia-fen-qu">增加分区</span><a href="#zeng-jia-fen-qu" class="header-anchor">#</a></h4><p>增加分区之前，需要删除最大分区 <code>p_maxvalue</code>。<br>因为分区是连续递增的，所以需要把最大分区 <code>p_maxvalue</code> 删除，再增加新的分区。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; <span class="keyword">ADD</span> <span class="keyword">PARTITION</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">PARTITION</span> &#123;$pname&#125; <span class="keyword">VALUES</span> LESS THAN (value1)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4><span id="chai-fen-fen-qu">拆分分区</span><a href="#chai-fen-fen-qu" class="header-anchor">#</a></h4><p>当来不及增加分区时，数据会存放到 <code>p_maxvalue</code> 分区。当发现 <code>p_maxvalue</code> 分区有数据时，应该尽快创建新分区，并把数据迁移到新分区上。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; REORGANIZE <span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">INTO</span> </span><br><span class="line">(</span><br><span class="line">	<span class="keyword">PARTITION</span> p_20210301 <span class="keyword">VALUES</span> less than (<span class="number">1614528000</span>),</span><br><span class="line">	<span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> less than (MAXVALUE)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>此时数据保存到了 <code>p_20210301</code> 分区，通过</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> ....;</span><br></pre></td></tr></table></figure>
+<p>可以看到 <code>partitions</code> 字段的值为 <code>p_20210301</code> ,表示查询的内容在 <code>p_20210301</code> 分区。</p>
+<p>此时若发现查询并未使用到索引，则需要优化一下分区。</p>
+<p>执行语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; REBUILD <span class="keyword">PARTITION</span> p_maxvalue,p_20210301;         <span class="comment">-- 重建分区</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; ANALYZE <span class="keyword">PARTITION</span> p_maxvalue,p_20210301;         <span class="comment">-- 分析分区</span></span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; OPTIMIZE <span class="keyword">PARTITION</span> p_maxvalue,p_20210301;;</span><br></pre></td></tr></table></figure>
+<p>再次执行查询语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> ....;</span><br></pre></td></tr></table></figure>
+<p>发现已经使用了索引。</p>
+<blockquote>
+<p>REORGANIZE PARTITION 也可以用于重命名分区，重命名分区后也需要执行一下优化分区语句。</p>
+</blockquote>
+<h4><span id="fen-qu-yu-jing">分区预警</span><a href="#fen-qu-yu-jing" class="header-anchor">#</a></h4><p>以下分区预警思路针对RANGE分区类型，基于时间的连续分区。</p>
+<p>使用分区预警的好处有：</p>
+<ul>
+<li>可以提前知晓备用的分区不足，不用逐个表检查</li>
+<li>可以不用一下子准备多个备用分区，减少分区数量</li>
+</ul>
+<p>分区预警的思路如下代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分区预警，预警值默认60天</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">warningPartition</span>(<span class="params"><span class="variable">$warningDays</span>=<span class="number">60</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 获取所有的数据库</span></span><br><span class="line">    <span class="variable">$dbNames</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">get_all_db</span>();</span><br><span class="line">    <span class="variable">$result</span> = [];</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$dbNames</span> <span class="keyword">as</span> <span class="variable">$dbName</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 获取指定数据库的分区表列表</span></span><br><span class="line">        <span class="variable">$sqlTable</span> = <span class="string">&quot;SELECT TABLE_NAME tname,TABLE_ROWS trow FROM information_schema.`TABLES` WHERE TABLE_SCHEMA=&#x27;<span class="subst">&#123;$dbName&#125;</span>&#x27; AND CREATE_OPTIONS LIKE &#x27;%partitioned%&#x27;&quot;</span>;</span><br><span class="line">        <span class="variable">$listTable</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">querySql</span>(<span class="variable">$sqlTable</span>);</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="variable">$listTable</span> <span class="keyword">as</span> <span class="variable">$table</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获取指定数据库，指定表的除p_maxvalue外的最大分区的值</span></span><br><span class="line">            <span class="variable">$sqlPartition</span> = <span class="string">&quot;SELECT PARTITION_NAME pname,PARTITION_DESCRIPTION pvalue FROM information_schema.`PARTITIONS` WHERE TABLE_SCHEMA=&#x27;<span class="subst">&#123;$dbName&#125;</span>&#x27; AND TABLE_NAME=&#x27;<span class="subst">&#123;$table&#125;</span>&#x27; AND PARTITION_NAME != &#x27;p_maxvalue&#x27; ORDER BY PARTITION_DESCRIPTION DESC LIMIT 1&quot;</span>;</span><br><span class="line">            <span class="variable">$listPartition</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">querySql</span>(<span class="variable">$sqlPartition</span>);</span><br><span class="line">            <span class="variable">$pvalue</span> = <span class="variable">$listPartition</span>[<span class="number">0</span>][<span class="string">&#x27;pvalue&#x27;</span>];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 最大分区的值小于阈值，则保存预警信息</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$pvalue</span> - <span class="title function_ invoke__">time</span>() &lt; <span class="variable">$warningDays</span> * <span class="number">86400</span>)</span><br><span class="line">                <span class="variable">$result</span>[] = <span class="string">&quot;数据表：<span class="subst">&#123;$dbName&#125;</span>.<span class="subst">&#123;$table&#125;</span>，最新分区：<span class="subst">&#123;$listPartition[0][&#x27;pname&#x27;]&#125;</span> - <span class="subst">&#123;$listPartition[0][&#x27;pvalue&#x27;]&#125;</span>，预警阈值：<span class="subst">&#123;$warningDays&#125;</span>天&quot;</span>;  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分区预警程序 + <a href="/2021/04/07/telegram">Telegram机器人</a>可以实时的收到预警信息。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

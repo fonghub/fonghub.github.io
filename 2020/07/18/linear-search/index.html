@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>顺序查找和折半查找 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;h3&gt;&lt;span id=&#34;shun-xu-biao-cha-zhao&#34;&gt;顺序表查找&lt;/span&gt;&lt;a href=&#34;#shun-xu-biao-cha-zhao&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;查找思路&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例如 $[1,3,5,7,9,4,6,8,2]$ 为查找表的关键字数组，目标是找到关键字 $k&amp;#x3D;9$ 的记录。&lt;/p&gt;
+&lt;p&gt;从表的一端开始，顺序扫描线性表，依次将扫描到的关键字和给定值 $k$ 相比较，若当前扫描到的关键字与 $k$ 相等，则查找成功；若扫描结束后，仍未找到关键字等于 $k$ 的记录，则查找失败。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;性能评价&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/2020/07/17/search-introduction#%E5%B9%B3%E5%9D%87%E6%9F%A5%E6%89%BE%E9%95%BF%E5%BA%A6aslaverage-search-length&#34;&gt;平均查找长度&lt;/a&gt; 公式：&lt;br&gt;$ASL &amp;#x3D; \displaystyle \sum^{n}_{i&amp;#x3D;1}{p_i * c_i}$&lt;/p&gt;
+&lt;p&gt;$p_i &amp;#x3D; \frac{1}{n}$ &lt;/p&gt;
+&lt;p&gt;$c_i$ 为关键字在数组中的位置序号， $c_i$ 的累加和为: $1+2+3+…+n &amp;#x3D; \frac{n*(n+1)}{2}$&lt;/p&gt;
+&lt;p&gt;所以：$ASL &amp;#x3D; \displaystyle \sum^{n}_{i&amp;#x3D;1}{p_i * c_i}&amp;#x3D;\frac{n+1}{2}$&lt;/p&gt;
+&lt;p&gt;所以顺序查找的时间复杂度为： $O(n)$ 。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;43&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;define&lt;/span&gt; MAXL 100&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; KeyType;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;type&#34;&gt;char&lt;/span&gt; InfoType[&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    KeyType key;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    InfoType data; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; NodeType;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; NodeType SeqList[MAXL];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;SeqSearch&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(SeqList R,&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; n,KeyType k)&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; i,n=&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; result;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    SeqList R;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    KeyType a[] = &amp;#123;&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;8&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;9&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;7&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;6&lt;/span&gt;&amp;#125;,x=&lt;span class=&#34;number&#34;&gt;9&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; ( i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; n; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        R[i].key = a[i];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    result = SeqSearch(R,&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;,x);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (result &amp;gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;序列中第%d个是%d\n&amp;quot;&lt;/span&gt;,result,x);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;未找到！\n&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//顺序查找&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//逐个匹配，找到返回逻辑下标，未找到返回0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;SeqSearch&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(SeqList R,&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; n,KeyType k)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; i;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; (i &amp;lt; n &amp;amp;&amp;amp; R[i].key != k)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        i++;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (i &amp;gt;= n)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; i+&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3&gt;&lt;span id=&#34;zhe-ban-cha-zhao&#34;&gt;折半查找&lt;/span&gt;&lt;a href=&#34;#zhe-ban-cha-zhao&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;前提条件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;线性表中的节点，按关键字值的递增或递减顺序排列。例如： $[2,3,10,15,20,25,28,29,30,35,40]$ 。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查找思路&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;首先用要查找的关键字 $k$（例如 $k&amp;#x3D;20$ ）与中间位置的节点的关键字比较，若比较结果相等则查找完成；若不相等，再根据 $k$ 与该中间节点关键字的比较大小确定下一步查找哪个子表。递归进行下去，直到找到满足条件的节点或者该线性表中没有这样的节点。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;性能评价&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&#34;http://tvax2.sinaimg.cn/large/7d4c6366gy1ggyeoffzxtj20nb0cbmxt.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;图1&lt;/center&gt;
+
+&lt;p&gt;将折半查找过程用二叉树来描述(如图1)，把当前查找区间的中间位置上的记录作为根；左子表和右子表中的记录分别作为根的左、右子树。&lt;/p&gt;
+&lt;p&gt;成功的折半查找过程，恰好是走了一条从根到被查记录的路径，比较次数恰为该记录在树中的层数 $h$ 。&lt;/p&gt;
+&lt;p&gt;$ASL_{succ} &amp;#x3D; \displaystyle \sum^{n}_{i&amp;#x3D;1}{p_i * c_i}&amp;#x3D;\frac{1+2 * 2+3 * 4+4 * 4}{11}&amp;#x3D;3$ &lt;/p&gt;
+&lt;p&gt;若查找失败，则其比较过程是一条从根到某个外部节点的路径，所需的比较次数是该路径上内部节点的总数 $h-1$ 。&lt;/p&gt;
+&lt;p&gt;$ASL_{unsucc} &amp;#x3D; \displaystyle \sum^{n}_{i&amp;#x3D;1}{p_i * c_i}&amp;#x3D;\frac {3 * 4+4 * 8}{11}&amp;#x3D;3.67$&lt;/p&gt;
+&lt;img src=&#34;http://tva3.sinaimg.cn/large/7d4c6366gy1ggyloldyloj20kz09nmxk.jpg&#34; width=&#34;700&#34; align=&#34;bottom&#34;&gt;
+&lt;center&gt;图2&lt;/center&gt;
+
+&lt;p&gt;假设折半查找的数组有 $n$ 个有序的，互不相同的元素 $(n&amp;#x3D;2^h-1,h&amp;gt;&amp;#x3D;0)$ ，则该折半查找过程可用满二叉树来描述(如图2)，根据满二叉树的性质有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;节点总数 $n&amp;#x3D;2^h-1$&lt;/li&gt;
+&lt;li&gt;树的高度 $h&amp;#x3D;log_2(n+1)$&lt;/li&gt;
+&lt;li&gt;第 $i$ 层上的记录个数 $2^{i-1}$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$ASL_{bn} &amp;#x3D; \displaystyle \sum^{n}_{i&amp;#x3D;1}{p_i * c_i}$&lt;/p&gt;
+&lt;p&gt;因为第 $i$ 层上的 &lt;strong&gt;某个节点&lt;/strong&gt; 的平均查找长度为 $\frac {1}{n} * i$ &lt;/p&gt;
+&lt;p&gt;所以第 $i$ 层上的 &lt;strong&gt;所有节点&lt;/strong&gt; 的平均查找长度为 $\frac {1}{n} * i * 2^{i-1}$&lt;/p&gt;
+&lt;p&gt;所以满二叉树的平均查找长度为每一层平均查找长度的累加为 $\frac{1}{n} \displaystyle  \sum^{h}_{i&amp;#x3D;1}{2^{i-1}*i}$&lt;/p&gt;
+&lt;p&gt;因为 $\displaystyle  \sum^{h}_{i&amp;#x3D;1}{2^{i-1} * i} &amp;#x3D;1+(h-1) * 2^h$&lt;/p&gt;
+&lt;p&gt;所以 $ASL_{bn}&amp;#x3D;\frac{1}{n} * [1+(h-1) * 2^h]$&lt;/p&gt;
+&lt;p&gt;$&amp;#x3D;\frac{1}{n} * [1+(log_2(n+1)-1) * (n+1)]$&lt;/p&gt;
+&lt;p&gt;约等于 $log_2(n+1)-1$&lt;/p&gt;
+&lt;p&gt;所以满二叉树的折半查找的时间复杂度为 $O(log_2n)$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;48&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;define&lt;/span&gt; MAXL 100&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; KeyType;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;type&#34;&gt;char&lt;/span&gt; InfoType[&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;class&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;struct&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;class&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    KeyType key;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    InfoType data; &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125; NodeType;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;typedef&lt;/span&gt; NodeType SeqList[MAXL];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;BinSearch_r&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(SeqList R,&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; low,&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; high,KeyType k)&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; i,n=&lt;span class=&#34;number&#34;&gt;11&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; result;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    SeqList R;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    KeyType a[] = &amp;#123;&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;10&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;15&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;20&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;25&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;28&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;29&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;30&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;35&lt;/span&gt;,&lt;span class=&#34;number&#34;&gt;40&lt;/span&gt;&amp;#125;,x=&lt;span class=&#34;number&#34;&gt;20&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; ( i = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;; i &amp;lt; n; i++)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        R[i].key = a[i];&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    result = BinSearch_r(R,&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,n&lt;span class=&#34;number&#34;&gt;-1&lt;/span&gt;,x);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (result &amp;gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;序列中第%d个是%d\n&amp;quot;&lt;/span&gt;,result,x);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;未找到！\n&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//折半查找，递归方式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;//前提条件是待查找的序列是有序的&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;BinSearch_r&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(SeqList R,&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; low,&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; high,KeyType k)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; mid;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (low &amp;lt;= high)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        mid = (low+high)/&lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (R[mid].key == k)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; mid+&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt;(R[mid].key &amp;gt; k)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; BinSearch_r(R,low,mid&lt;span class=&#34;number&#34;&gt;-1&lt;/span&gt;,k);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; BinSearch_r(R,mid+&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;,high,k);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="数据结构 线性查找 折半查找 二分查找 ">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">顺序查找和折半查找</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2020-07-18T20:00:00.000Z" itemprop="datePublished">Jul 19, 2020</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/数据结构/">数据结构</a> <a href="/tags/查找/">查找</a>
+</div>
+    </div>
+	<div class="entry-content"><h3><span id="shun-xu-biao-cha-zhao">顺序表查找</span><a href="#shun-xu-biao-cha-zhao" class="header-anchor">#</a></h3><p><strong>查找思路</strong></p>
+<p>例如 $[1,3,5,7,9,4,6,8,2]$ 为查找表的关键字数组，目标是找到关键字 $k&#x3D;9$ 的记录。</p>
+<p>从表的一端开始，顺序扫描线性表，依次将扫描到的关键字和给定值 $k$ 相比较，若当前扫描到的关键字与 $k$ 相等，则查找成功；若扫描结束后，仍未找到关键字等于 $k$ 的记录，则查找失败。</p>
+<p><strong>性能评价</strong></p>
+<p><a href="/2020/07/17/search-introduction#%E5%B9%B3%E5%9D%87%E6%9F%A5%E6%89%BE%E9%95%BF%E5%BA%A6aslaverage-search-length">平均查找长度</a> 公式：<br>$ASL &#x3D; \displaystyle \sum^{n}_{i&#x3D;1}{p_i * c_i}$</p>
+<p>$p_i &#x3D; \frac{1}{n}$ </p>
+<p>$c_i$ 为关键字在数组中的位置序号， $c_i$ 的累加和为: $1+2+3+…+n &#x3D; \frac{n*(n+1)}{2}$</p>
+<p>所以：$ASL &#x3D; \displaystyle \sum^{n}_{i&#x3D;1}{p_i * c_i}&#x3D;\frac{n+1}{2}$</p>
+<p>所以顺序查找的时间复杂度为： $O(n)$ 。</p>
+<p><strong>代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXL 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> InfoType[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    KeyType key;</span><br><span class="line">    InfoType data; </span><br><span class="line">&#125; NodeType;</span><br><span class="line"><span class="keyword">typedef</span> NodeType SeqList[MAXL];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">SeqSearch</span><span class="params">(SeqList R,<span class="type">int</span> n,KeyType k)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i,n=<span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> result;</span><br><span class="line">    SeqList R;</span><br><span class="line">    KeyType a[] = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">8</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">6</span>&#125;,x=<span class="number">9</span>;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        R[i].key = a[i];</span><br><span class="line"></span><br><span class="line">    result = SeqSearch(R,<span class="number">10</span>,x);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (result &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;序列中第%d个是%d\n&quot;</span>,result,x);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;未找到！\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//顺序查找</span></span><br><span class="line"><span class="comment">//逐个匹配，找到返回逻辑下标，未找到返回0</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">SeqSearch</span><span class="params">(SeqList R,<span class="type">int</span> n,KeyType k)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; n &amp;&amp; R[i].key != k)</span><br><span class="line">        i++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i &gt;= n)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="zhe-ban-cha-zhao">折半查找</span><a href="#zhe-ban-cha-zhao" class="header-anchor">#</a></h3><p><strong>前提条件</strong></p>
+<p>线性表中的节点，按关键字值的递增或递减顺序排列。例如： $[2,3,10,15,20,25,28,29,30,35,40]$ 。</p>
+<p><strong>查找思路</strong></p>
+<p>首先用要查找的关键字 $k$（例如 $k&#x3D;20$ ）与中间位置的节点的关键字比较，若比较结果相等则查找完成；若不相等，再根据 $k$ 与该中间节点关键字的比较大小确定下一步查找哪个子表。递归进行下去，直到找到满足条件的节点或者该线性表中没有这样的节点。</p>
+<p><strong>性能评价</strong></p>
+<img src="http://tvax2.sinaimg.cn/large/7d4c6366gy1ggyeoffzxtj20nb0cbmxt.jpg" width="700" align="bottom">
+<center>图1</center>
+
+<p>将折半查找过程用二叉树来描述(如图1)，把当前查找区间的中间位置上的记录作为根；左子表和右子表中的记录分别作为根的左、右子树。</p>
+<p>成功的折半查找过程，恰好是走了一条从根到被查记录的路径，比较次数恰为该记录在树中的层数 $h$ 。</p>
+<p>$ASL_{succ} &#x3D; \displaystyle \sum^{n}_{i&#x3D;1}{p_i * c_i}&#x3D;\frac{1+2 * 2+3 * 4+4 * 4}{11}&#x3D;3$ </p>
+<p>若查找失败，则其比较过程是一条从根到某个外部节点的路径，所需的比较次数是该路径上内部节点的总数 $h-1$ 。</p>
+<p>$ASL_{unsucc} &#x3D; \displaystyle \sum^{n}_{i&#x3D;1}{p_i * c_i}&#x3D;\frac {3 * 4+4 * 8}{11}&#x3D;3.67$</p>
+<img src="http://tva3.sinaimg.cn/large/7d4c6366gy1ggyloldyloj20kz09nmxk.jpg" width="700" align="bottom">
+<center>图2</center>
+
+<p>假设折半查找的数组有 $n$ 个有序的，互不相同的元素 $(n&#x3D;2^h-1,h&gt;&#x3D;0)$ ，则该折半查找过程可用满二叉树来描述(如图2)，根据满二叉树的性质有：</p>
+<ul>
+<li>节点总数 $n&#x3D;2^h-1$</li>
+<li>树的高度 $h&#x3D;log_2(n+1)$</li>
+<li>第 $i$ 层上的记录个数 $2^{i-1}$</li>
+</ul>
+<p>$ASL_{bn} &#x3D; \displaystyle \sum^{n}_{i&#x3D;1}{p_i * c_i}$</p>
+<p>因为第 $i$ 层上的 <strong>某个节点</strong> 的平均查找长度为 $\frac {1}{n} * i$ </p>
+<p>所以第 $i$ 层上的 <strong>所有节点</strong> 的平均查找长度为 $\frac {1}{n} * i * 2^{i-1}$</p>
+<p>所以满二叉树的平均查找长度为每一层平均查找长度的累加为 $\frac{1}{n} \displaystyle  \sum^{h}_{i&#x3D;1}{2^{i-1}*i}$</p>
+<p>因为 $\displaystyle  \sum^{h}_{i&#x3D;1}{2^{i-1} * i} &#x3D;1+(h-1) * 2^h$</p>
+<p>所以 $ASL_{bn}&#x3D;\frac{1}{n} * [1+(h-1) * 2^h]$</p>
+<p>$&#x3D;\frac{1}{n} * [1+(log_2(n+1)-1) * (n+1)]$</p>
+<p>约等于 $log_2(n+1)-1$</p>
+<p>所以满二叉树的折半查找的时间复杂度为 $O(log_2n)$</p>
+<p><strong>代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXL 100</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> InfoType[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    KeyType key;</span><br><span class="line">    InfoType data; </span><br><span class="line">&#125; NodeType;</span><br><span class="line"><span class="keyword">typedef</span> NodeType SeqList[MAXL];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">BinSearch_r</span><span class="params">(SeqList R,<span class="type">int</span> low,<span class="type">int</span> high,KeyType k)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i,n=<span class="number">11</span>;</span><br><span class="line">    <span class="type">int</span> result;</span><br><span class="line">    SeqList R;</span><br><span class="line">    KeyType a[] = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">10</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">25</span>,<span class="number">28</span>,<span class="number">29</span>,<span class="number">30</span>,<span class="number">35</span>,<span class="number">40</span>&#125;,x=<span class="number">20</span>;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        R[i].key = a[i];</span><br><span class="line"></span><br><span class="line">    result = BinSearch_r(R,<span class="number">0</span>,n<span class="number">-1</span>,x);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (result &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;序列中第%d个是%d\n&quot;</span>,result,x);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;未找到！\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//折半查找，递归方式</span></span><br><span class="line"><span class="comment">//前提条件是待查找的序列是有序的</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">BinSearch_r</span><span class="params">(SeqList R,<span class="type">int</span> low,<span class="type">int</span> high,KeyType k)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> mid;</span><br><span class="line">    <span class="keyword">if</span> (low &lt;= high)</span><br><span class="line">    &#123;</span><br><span class="line">        mid = (low+high)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (R[mid].key == k)</span><br><span class="line">            <span class="keyword">return</span> mid+<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(R[mid].key &gt; k)</span><br><span class="line">            <span class="keyword">return</span> BinSearch_r(R,low,mid<span class="number">-1</span>,k);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> BinSearch_r(R,mid+<span class="number">1</span>,high,k);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

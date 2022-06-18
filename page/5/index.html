@@ -1,0 +1,737 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content=""> <!-- TODO: truncate -->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://fonghub.github.com" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        
+
+
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/06/01/time-complexity-algorithm/">算法的时间复杂度</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-06-01T05:00:00.000Z" itemprop="datePublished">Jun 1, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/算法/">算法</a>
+</div>
+    </div>
+      
+        <h5><span id="suan-fa-fu-za-du">算法复杂度</span><a href="#suan-fa-fu-za-du" class="header-anchor">#</a></h5><p>算法复杂度是评价一个算法是否高效的依据。</p>
+<p>算法复杂度分为<strong>时间复杂度</strong>和<strong>空间复杂度</strong>，一个高效的算法具有<strong>用时短</strong>或者<strong>使用空间少</strong>的特点。</p>
+<p>随着存储技术的发展，存储介质的容量也发生了翻天覆地的变化，更有出现一些以空间换时间的算法。因此，如今评价算法的效率更加关注“用时短”方面，即是<strong>时间复杂度</strong>。</p>
+<h5><span id="shi-jian-fu-za-du">时间复杂度</span><a href="#shi-jian-fu-za-du" class="header-anchor">#</a></h5><p>简单的来说，算法的时间复杂度表示程序运行直至完成所需的总时间。</p>
+<p>因为程序可以由不同的程序语言实现，可以在配置不同的机器上面运行，那么不同的程序语言和不同的配置机器之间就没有可比性。因此不能用程序执行的具体时间比较效率，而是要用<strong>基本运算的次数</strong>来度量算法的时间复杂度。</p>
+<p>一个算法是由控制结构（顺序、分支和循环）和原操作（比如有四则运算，比较运算，赋值运算等）构成的，算法时间复杂度取决于两者的基本运算次数之和。进行基本运算的次数越少，其运行时间也就相对越少；基本运算次数越多，其运行时间也就相对越多。</p>
+<h5><span id="shi-jian-fu-za-du-de-biao-shi-fang-fa">时间复杂度的表示方法</span><a href="#shi-jian-fu-za-du-de-biao-shi-fang-fa" class="header-anchor">#</a></h5><p>求解1~1000的累加和：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">1000</span>;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sum=%d\t&quot;</span>,sum);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们已经知道，算法的时间复杂度取决于算法的基本运算的次数。</p>
+<p>以上程序的基本运算次数：$T_n &#x3D; 3n+3$</p>
+<p>算法的时间复杂度通常使用“大O表示法”（ big O notation）表示，大O符号的作用在于用简单的函数来描述复杂函数行为，给出一个上或下界。</p>
+<p>算法中基本运算次数 $T_n$ 是问题规模 $n$ 的某个函数 $f_n$，记作：$T_n &#x3D; O(f_n)$。</p>
+<p>表示 $T_n$ 与 $f_n$ 是同量级函数，具有相同的增长率；<br>表示当 $n$ 趋于正无穷时，存在一个常数 $C$ ，总有 $T_n &lt;&#x3D; C * f_n$ ，<br>简单的来说，当 $n$ 趋于正无穷时，$T_n &#x3D; f_n$。</p>
+<h5><span id="ji-suan-shi-jian-fu-za-du">计算时间复杂度</span><a href="#ji-suan-shi-jian-fu-za-du" class="header-anchor">#</a></h5><p>由 $T_n &#x3D; 3n + 3$ 可得，<br>时间复杂度 $O(f_n)&#x3D;O(3n+3)&#x3D;O(n)$ 。</p>
+<p>计算时间复杂度的步骤：</p>
+<ul>
+<li>求出问题规模n的基本运算次数函数 $T(n)$</li>
+<li>只保留函数 $T(n)$ 的最高阶项</li>
+<li>忽略最高阶项的常数</li>
+</ul>
+<blockquote>
+<p>例如：</p>
+<p>$T_n&#x3D;n^2+3n+4&#x3D;O(n^2+3n+4)&#x3D;O(n^2)$</p>
+<p>$T_n&#x3D;4n^2+2n+1&#x3D;O(4n^2+2n+1)&#x3D;O(n^2)$</p>
+</blockquote>
+<h5><span id="chang-jian-de-suan-fa-shi-jian-fu-za-ji-qi-da-xiao">常见的算法时间复杂及其大小</span><a href="#chang-jian-de-suan-fa-shi-jian-fu-za-ji-qi-da-xiao" class="header-anchor">#</a></h5><table>
+<thead>
+<tr>
+<th>时间复杂度</th>
+<th>时间复杂度量级</th>
+<th>大小（由小到大）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$O(1)$</td>
+<td>常数阶</td>
+<td>1</td>
+</tr>
+<tr>
+<td>$O(\log_2n)$</td>
+<td>对数阶</td>
+<td>2</td>
+</tr>
+<tr>
+<td>$O(n)$</td>
+<td>线性阶</td>
+<td>3</td>
+</tr>
+<tr>
+<td>$O(nlogn)$</td>
+<td>线性对数阶</td>
+<td>4</td>
+</tr>
+<tr>
+<td>$O(n^2)$</td>
+<td>平方阶</td>
+<td>5</td>
+</tr>
+<tr>
+<td>$O(n^3)$</td>
+<td>立方阶</td>
+<td>6</td>
+</tr>
+<tr>
+<td>$O(2^n)$</td>
+<td>指数阶</td>
+<td>7</td>
+</tr>
+</tbody></table>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/30/glossary-stock/">股票APP里的术语</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-30T05:00:00.000Z" itemprop="datePublished">May 30, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/股票/">股票</a>
+</div>
+    </div>
+      
+        <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfapjawuxzj30u01hctc6.jpg" width="400" align="bottom">
+
+
+<h5><span id="jin-kai">今开</span><a href="#jin-kai" class="header-anchor">#</a></h5><p>今日开盘价</p>
+<h5><span id="zuo-shou">昨收</span><a href="#zuo-shou" class="header-anchor">#</a></h5><p>昨日收盘价</p>
+<blockquote>
+<p>今开和昨收都是以集合竞价的方式产生</p>
+</blockquote>
+<h5><span id="ji-he-jing-jie">集合竞价</span><a href="#ji-he-jing-jie" class="header-anchor">#</a></h5><p>在一段时间内（开盘前9:15～9:30，收盘前14:57～15:00）先不交易，大家集中报价，想报多少报多少，然后取能够使整个市场成交最多的价格作为交易价格，这个就是A股的开盘价和收盘价价格的由来。</p>
+<h5><span id="zui-gao">最高</span><a href="#zui-gao" class="header-anchor">#</a></h5><p>当日交易股票的最高价格</p>
+<h5><span id="zui-di">最低</span><a href="#zui-di" class="header-anchor">#</a></h5><p>当日交易股票的最低价格</p>
+<h5><span id="cheng-jiao-liang">成交量</span><a href="#cheng-jiao-liang" class="header-anchor">#</a></h5><p>当日有效成交的股票总股数，上图里的成交量单位是手，所以总股数应该乘以100</p>
+<h5><span id="cheng-jiao-e">成交额</span><a href="#cheng-jiao-e" class="header-anchor">#</a></h5><p>当日有效成交的总金额</p>
+<h5><span id="jun-jie">均价</span><a href="#jun-jie" class="header-anchor">#</a></h5><p>当日（或者当时）交易股票的平均价格</p>
+<p>当时累计的成交额 ÷ 当时累计的成交量 &#x3D; 当时的均价</p>
+<h5><span id="liu-tong-gu-ben">流通股本</span><a href="#liu-tong-gu-ben" class="header-anchor">#</a></h5><p>公司已发行股本中在外流通没有被公司收回的部分。是指可以在二级市场流通的股份。</p>
+<h5><span id="zong-gu-ben">总股本</span><a href="#zong-gu-ben" class="header-anchor">#</a></h5><p>总股本包含流通股和限售股。</p>
+<p>限售股一般是大股东持有的，或者后来增发的，在限售期限内，不可以拿到二级市场买卖。</p>
+<p>当没有限售股时，流通股本 &#x3D; 总股本。</p>
+<h5><span id="liu-tong-shi-zhi">流通市值</span><a href="#liu-tong-shi-zhi" class="header-anchor">#</a></h5><p>流通市值对应流通股本。</p>
+<p>流通市值 &#x3D; 流通股本 × 股价</p>
+<h5><span id="zong-shi-zhi">总市值</span><a href="#zong-shi-zhi" class="header-anchor">#</a></h5><p>总市值对应总股本。</p>
+<p>总市值 &#x3D; 总股本 × 股价</p>
+<h5><span id="huan-shou-lu">换手（率）</span><a href="#huan-shou-lu" class="header-anchor">#</a></h5><p>换手率 &#x3D; 当日（或者当时）累计的成交量 ÷ 流通股本 × 100%</p>
+<h5><span id="zhang-ting">涨停</span><a href="#zhang-ting" class="header-anchor">#</a></h5><p>涨停 &#x3D; 昨收 × （1 + 10%）</p>
+<h5><span id="die-ting">跌停</span><a href="#die-ting" class="header-anchor">#</a></h5><p>涨停 &#x3D; 昨收 × （1 - 10%）</p>
+<blockquote>
+<p>为了减少股市交易的投机行为，证监会规定每个股票每个交易日的最大涨跌幅度为±10%，对特别处理的ST股票规定每个交易日的最大涨幅度为±5%。</p>
+</blockquote>
+<h5><span id="zhen-fu">振幅</span><a href="#zhen-fu" class="header-anchor">#</a></h5><p>股票开盘后的当日最高价和最低价之间的差和前日收盘价的比值。</p>
+<p>振幅 &#x3D; （最高价 - 最低价） ÷ 昨收  </p>
+<p>如果一只股票的振幅较小，说明该股不够活跃，反之则说明该股比较活跃。</p>
+<h5><span id="wei-chai">委差</span><a href="#wei-chai" class="header-anchor">#</a></h5><p>当前5个价位买入挂单与卖出挂单的差值，反映的是买卖双方的力量对比。</p>
+<p>委差 &#x3D; 当前5个价位买入挂单总和 — 当前5个价位卖出挂单总和</p>
+<h5><span id="wei-bi">委比</span><a href="#wei-bi" class="header-anchor">#</a></h5><p>委比 &#x3D; 委差 ÷ (当前委托买量总和 + 当前委托卖量总和) × 100%</p>
+<p>委比反应的是实际操盘中买卖盘相对强度的指标，委比的取值范围为 [-100%,+100%]。</p>
+<p>委比等于-100%，表示当前只有委托卖盘，没有委托买盘，最后可能会跌停；</p>
+<p>委比等于100%，表示当前只有委托买盘，没有委托卖盘，最后可能会涨停；</p>
+<p>委比值大于0（即委差大于0，买盘量大于卖盘量），表示委托买盘量 大于 委托卖盘量，股价上升；</p>
+<p>委比值小于0（即委差小于0，卖盘量大于买盘量），表示委托卖盘量 大于 委托买盘量，股价下升；</p>
+<blockquote>
+<p>例如：当前股价为9.38元，在9.33～9.37元(5个价位)共计买入挂单4000手，9.38～9.42(5个价位)共计6000手卖出挂单，则：</p>
+<p>委差 &#x3D; 买入挂单总和 - 卖出挂单总和 &#x3D; 4000手 - 6000手 &#x3D; -2000手</p>
+<p>委比 &#x3D; 委差 ÷ （买入挂单总和 + 卖出挂单总和） × 100% &#x3D; -2000手 ÷  （ 4000手 + 6000手） × 100% &#x3D; -20%。</p>
+</blockquote>
+<h5><span id="liang-bi">量比</span><a href="#liang-bi" class="header-anchor">#</a></h5><p>量比是衡量相对成交量的指标。</p>
+<p>它是开市后每分钟的平均成交量与过去5个交易日每分钟平均成交量之比。</p>
+<p>量比 ＝ [现成交总手 ÷ 当日累计开市时间(分)] ÷ 过去5个交易日平均每分钟成交量 × 100%</p>
+<h5><span id="jing-zi-chan-yu-mei-gu-jing-zi-chan">净资产与每股净资产</span><a href="#jing-zi-chan-yu-mei-gu-jing-zi-chan" class="header-anchor">#</a></h5><p>公司的净资产包括资产和负债，也叫股东权益。</p>
+<p>每股净资产 &#x3D; 净资产 ÷ 总股本。</p>
+<h5><span id="shi-jing-lu-price-to-book-ratio">市净率（Price-to-Book Ratio）</span><a href="#shi-jing-lu-price-to-book-ratio" class="header-anchor">#</a></h5><p>市净率 &#x3D; 股价 ÷ 每股净资产</p>
+<p>一般来说市净率较低的股票，投资价值较高，相反，则投资价值较低；</p>
+<h5><span id="shou-yi">收益</span><a href="#shou-yi" class="header-anchor">#</a></h5><p>收益即是每股收益。</p>
+<p>每股收益 &#x3D; 公司净利润 ÷ 公司股份数。</p>
+<p>所以公司净利润越高，股数越少，每股收益就越大。</p>
+<h5><span id="shi-ying-lu-pe-ratio">市盈率（PE ratio）</span><a href="#shi-ying-lu-pe-ratio" class="header-anchor">#</a></h5><p>市盈率分 动态市盈率 和 静态市盈率。都是以当前股票价格除以 已知的最近公开的每股收益后的比值。</p>
+<p>静态市盈率 &#x3D; 股价 ÷ 上一年每股收益</p>
+<p>动态市盈率 &#x3D; 股价 ÷ (最近一季度的每股收益 × 4)</p>
+<blockquote>
+<p>如上图：</p>
+<p>恒顺醋业2019年每股收益0.4142元，2020年第一季度每股收益0.0969元</p>
+<p>静态市盈率 &#x3D; 23.24 ÷ 0.4142 &#x3D; 56.11</p>
+<p>动态 &#x3D; 23.24 ÷ (0.0969 × 4) &#x3D; 23.24 ÷ 0.3876 &#x3D; 59.96</p>
+</blockquote>
+<p>市盈率是个性价比指标，表示获取企业的每一元利润，所需支付的价格，市盈率使不同规模不同盈利水平的股票，存在了一定可比性。市盈率还使得股票可以与其他不同类别的资产相比较。</p>
+<h5><span id="nei-pan">内盘</span><a href="#nei-pan" class="header-anchor">#</a></h5><p>内盘常用S表示。</p>
+<p>在成交量中以主动性叫卖价格成交的数量</p>
+<h5><span id="wai-pan">外盘</span><a href="#wai-pan" class="header-anchor">#</a></h5><p>外盘用B表示。</p>
+<p>在成交量中以主动性叫买价格成交的数量</p>
+<blockquote>
+<p>内盘 + 外盘 &#x3D; 成交量</p>
+</blockquote>
+<h5><span id="jing-li-run">净利润</span><a href="#jing-li-run" class="header-anchor">#</a></h5><p>净利润 &#x3D; 每股收益 × 总股本</p>
+<h5><span id="jing-zi-chan-shou-yi-lu-rate-of-return-on-common-stockholders-equity">净资产收益率（Rate of Return on Common Stockholders’ Equity ）</span><a href="#jing-zi-chan-shou-yi-lu-rate-of-return-on-common-stockholders-equity" class="header-anchor">#</a></h5><p>净资产收益率 &#x3D; 净利润 ÷ 净资产 × 100%</p>
+<p>净资产收益率是衡量股东资金使用效率的重要指标，可以反映公司运用自有资产的效率，指标数据越高，说明投资该股票的收益越高。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/24/CDN/">CDN</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-24T05:00:00.000Z" itemprop="datePublished">May 24, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/cdn/">cdn</a>
+</div>
+    </div>
+      
+        <h4><span id="cdn-shi-shi-me">CDN是什么</span><a href="#cdn-shi-shi-me" class="header-anchor">#</a></h4><p>CDN的是Content Delivery Network的简称，即内容分发网络。CDN的本质就是缓存。</p>
+<h4><span id="cdn-de-zuo-yong">CDN的作用</span><a href="#cdn-de-zuo-yong" class="header-anchor">#</a></h4><h5><span id="ti-gao-fang-wen-xiao-lu">提高访问效率</span><a href="#ti-gao-fang-wen-xiao-lu" class="header-anchor">#</a></h5><p>通过在现有的网络中增加一层新的网络架构，将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提高用户访问网站的响应速度，提高访问效率；提高访问效率还体现在解决了跨运营商带来的耗时问题。</p>
+<h5><span id="jian-qing-yuan-fu-wu-qi-fu-zai">减轻源服务器负载</span><a href="#jian-qing-yuan-fu-wu-qi-fu-zai" class="header-anchor">#</a></h5><p>用户可以就近取得内容，不仅可以提高访问效率，还可以减轻源服务器负载，因为请求被转发到了CDN节点，所以源服务器的负载自然得到减轻。</p>
+<h5><span id="yin-cang-yuan-fu-wu-qi-ip">隐藏源服务器IP</span><a href="#yin-cang-yuan-fu-wu-qi-ip" class="header-anchor">#</a></h5><p>通过设置反向代理，隐藏源服务器IP。</p>
+<h4><span id="fang-wen-yuan-li">访问原理</span><a href="#fang-wen-yuan-li" class="header-anchor">#</a></h4><p>1.当用户向某个URL发起请求时，经过本地DNS系统解析，返回CDN节点信息。如果本地DNS无缓存CDN节点信息，则本地DNS系统会将域名的解析权交给CNAME指向的CDN智能DNS负载均衡系统。</p>
+<p>2.CDN智能DNS负载均衡系统根据用户的IP，URL中携带的内容名称，还有服务器的负载能力等因素，综合分析后，向用户返回响应速度最快的节点IP。</p>
+<p>3.用户向指定缓存服务器发起请求，缓存服务器响应用户请求，将用户所需内容传送到用户终端。如果缓存服务器上没有用户想要的内容，那么这台服务器就要向它的上一级缓存服务器请求内容，直至追溯到网站的源服务器将内容拉到本地。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfbu6jq3dij30j80tuq3g.jpg" alt="CDN访问过程" width="700" align="bottom">
+<center>CDN访问过程</center>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/22/Cloudflare-CDN/">使用Cloudflare的免费CDN</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-22T05:00:00.000Z" itemprop="datePublished">May 22, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/cdn/">cdn</a> <a href="/tags/cloudflare/">cloudflare</a>
+</div>
+    </div>
+      
+        <img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1hltvqxxj30ab03s3yd.jpg" width="400" align="bottom">
+
+
+<p>Cloudflare是一家以向客户提供基于反向代理的内容分发网络（Content Delivery Network, CDN）及分布式域名解析服务（Distributed Domain Name Server）为主要业务的美国IT企业。</p>
+<p>在 <a target="_blank" rel="noopener" href="http://www.cloudflare.com/zh-cn/network/china/">Cloudflare</a> 注册一个账号，通过简单几步设置，就可以免费使用CDN了。</p>
+<h4><span id="tian-jia-zhan-dian">添加站点</span><a href="#tian-jia-zhan-dian" class="header-anchor">#</a></h4><p>到域名的 <a target="_blank" rel="noopener" href="https://dash.cloudflare.com/">控制面板</a> 页面的右上角，点击<strong>添加站点</strong>，输入域名。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1h76s8frj30iw0epq2y.jpg" alt="截图使用163.com域名" width="700" align="bottom">
+<center>截图使用163.com域名</center>
+
+
+<h4><span id="xuan-ze-mian-fei-ji-hua">选择免费计划</span><a href="#xuan-ze-mian-fei-ji-hua" class="header-anchor">#</a></h4><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1h9ffjzij30on0htq3f.jpg" alt="免费计划" width="700" align="bottom">
+<center>免费计划</center>
+
+
+<h4><span id="tong-bu-dns-ji-lu">同步DNS记录</span><a href="#tong-bu-dns-ji-lu" class="header-anchor">#</a></h4><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1ha7f0wvj30q30bcq2t.jpg" alt="自动扫描域名的DNS记录" width="700" align="bottom">
+<center>自动扫描域名的DNS记录</center>
+
+<br>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1haqbyqkj30p20pfwfj.jpg" alt="显示同步过来的DNS记录" width="700" align="bottom">
+<center>显示同步过来的DNS记录</center>
+
+
+<br>
+此处同步过来的DNS记录为已经在域名提供商后台的设置信息，如果没有的话，可以在这里添加DNS记录。添加完成点击下一步。
+
+<h4><span id="geng-gai-ming-cheng-fu-wu-qi">更改名称服务器</span><a href="#geng-gai-ming-cheng-fu-wu-qi" class="header-anchor">#</a></h4><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1hbbvdc1j30jh0phdgp.jpg" alt="Cloudflare名称服务器" width="700" align="bottom">
+<center>Cloudflare名称服务器</center>
+<br>
+到域名提供商的后台（比如阿里云）更改名称服务器，更改名称服务器需要一定时间才能完成，通过dig命令查看更改结果。
+
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1hbukiiij30yx0d2aa6.jpg" alt="更改名称服务器" width="700" align="bottom">
+<center>更改名称服务器</center>
+
+
+<h4><span id="shi-yong-dig-ming-ling-jian-yan">使用dig命令检验</span><a href="#shi-yong-dig-ming-ling-jian-yan" class="header-anchor">#</a></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig ns domain</span><br></pre></td></tr></table></figure>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1hd9y7q2j30hg08y0sm.jpg" alt="dig命令结果" width="700" align="bottom">
+<center>dig命令结果</center>
+
+<p>ANSWER SECTION 结果显示，域名有两条名称服务器记录，分别对应上面的名称服务器1 和 名称服务器2，说明名称服务器已经更改生效。</p>
+<h4><span id="cong-cloudflare-shan-chu-zhan-dian">从Cloudflare删除站点</span><a href="#cong-cloudflare-shan-chu-zhan-dian" class="header-anchor">#</a></h4><p>最后如果不想使用Cloudflare了，到域名的 <a target="_blank" rel="noopener" href="https://dash.cloudflare.com/">控制面板</a> 页面，右下角的 <strong>高级操作</strong> ，选择 <strong>从Cloudflare中删除站点</strong>。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gf1hca40dej30gj05r743.jpg" alt="删除站点" width="700" align="bottom">
+<center>删除站点</center>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/20/SMTP-protocol-and-POP3-protocol/">使用SMTP协议和POP3协议手动收发邮件</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-20T05:00:00.000Z" itemprop="datePublished">May 20, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/email/">email</a> <a href="/tags/协议/">协议</a>
+</div>
+    </div>
+      
+        <p>通过上一篇博文<a target="_blank" rel="noopener" href="http://www.chenzaofeng.xyz/2020/05/11/How-to-send-and-receive-email.html">理解电子邮件的收发过程</a>我们知道，SMTP服务器是遵循SMTP协议的发送邮件服务器，用来发送邮件的。POP3服务器是遵循POP3协议的服务器，用来接收电子邮件的。接下来就开始体验，通过终端窗口，使用SMTP协议和POP3协议来收发邮件。</p>
+<h4><span id="shi-yong-smtp1-xie-yi-fa-song-you-jian">使用SMTP协议发送邮件</span><a href="#shi-yong-smtp1-xie-yi-fa-song-you-jian" class="header-anchor">#</a></h4><p>邮件客户端与SMPT服务器通过指令连接，并且使用一问一答的方式来发送消息。</p>
+<h5><span id="lian-jie">连接</span><a href="#lian-jie" class="header-anchor">#</a></h5><p>使用telnet命令与163邮箱的SMTP服务器建立连接，25表示端口号 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet smtp.163.com 25  </span><br></pre></td></tr></table></figure>
+
+<h5><span id="ren-zheng">认证</span><a href="#ren-zheng" class="header-anchor">#</a></h5><p>1.告诉SMTP服务器发送者的域名 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ehlo 163.com</span><br></pre></td></tr></table></figure>
+
+<p>2.选择登录认证方式，一般选择的是login</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth login</span><br></pre></td></tr></table></figure>
+
+<p>3.接着输入经过base64加密的账号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emFvZ*******oZW4</span><br></pre></td></tr></table></figure>
+
+<p>4.输入经过base64加密的密码 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UVRXSU**************5RQw</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>一般的，邮箱服务商默认是不允许用户在邮件客户端软件登陆的，但如果需要，需要去后台开启，并且获得授权码，使用邮箱地址+授权码在邮件客户端登陆。</p>
+</blockquote>
+<p>认证成功会返回 </p>
+<p><code>235 Authentication successful</code></p>
+<h5><span id="shu-ru-fa-jian-ren-yu-shou-jian-ren">输入发件人与收件人</span><a href="#shu-ru-fa-jian-ren-yu-shou-jian-ren" class="header-anchor">#</a></h5><p>分别输入发件人与收件人 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mail from:&lt;za*****en@163.com&gt;</span><br><span class="line"></span><br><span class="line">rcpt to:&lt;fe*****ng@163.com&gt;</span><br></pre></td></tr></table></figure>
+
+<p>输入正确会返回 </p>
+<p><code>250 Mail OK</code></p>
+<h5><span id="shu-ru-you-jian-shu-ju">输入邮件数据</span><a href="#shu-ru-you-jian-shu-ju" class="header-anchor">#</a></h5><p>输入 <code>data</code> 命令，然后编写要发送的邮件内容。</p>
+<figure class="highlight plaintext"><figcaption><span>表示发件人，```to``` 表示收件人（可多个），```cc``` 表示抄送，```bcc``` 表示暗抄送，```subject```表示邮件标题。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">接着 ```空一行```，然后输入邮件内容，最后以点 ```.``` 结束数据输入。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>data</p>
+<p>from:<a href="mailto:&#122;&#x61;&#x2a;&#x2a;&#42;&#x2a;&#x2a;&#x65;&#110;&#64;&#x31;&#54;&#x33;&#46;&#99;&#111;&#109;">&#122;&#x61;&#x2a;&#x2a;&#42;&#x2a;&#x2a;&#x65;&#110;&#64;&#x31;&#54;&#x33;&#46;&#99;&#111;&#109;</a><br>to:<a href="mailto:&#102;&#101;&#42;&#x2a;&#x2a;&#42;&#x2a;&#110;&#x67;&#x40;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#109;">&#102;&#101;&#42;&#x2a;&#x2a;&#42;&#x2a;&#110;&#x67;&#x40;&#49;&#x36;&#51;&#x2e;&#x63;&#111;&#109;</a><br>cc:<a href="mailto:&#101;&#114;&#x64;&#x6f;&#42;&#x2a;&#x2a;&#42;&#x2a;&#x6f;&#x6e;&#103;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#x6d;">&#101;&#114;&#x64;&#x6f;&#42;&#x2a;&#x2a;&#42;&#x2a;&#x6f;&#x6e;&#103;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#x6f;&#x6d;</a><br>bcc:<a href="mailto:&#53;&#x31;&#42;&#x2a;&#x2a;&#42;&#53;&#x32;&#x31;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#x6d;">&#53;&#x31;&#42;&#x2a;&#x2a;&#42;&#53;&#x32;&#x31;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#x6d;</a><br>subject:This is a test email. Ignore it</p>
+<p>This is the HTML message body <b>in bold bold bold!</b></p>
+<p>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 断开连接</span><br><span class="line"></span><br><span class="line">使用 ```quit``` 命令断开连接。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 使用POP3[&lt;sup&gt;2&lt;/sup&gt;](#reference)协议接收邮件</span><br><span class="line"></span><br><span class="line">##### 连接</span><br><span class="line">使用telnet命令与163邮箱的pop3服务器建立连接，110表示端口号</span><br></pre></td></tr></table></figure>
+<p>telnet pop3.163.com 110</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##### 认证状态</span><br><span class="line">与POP3服务器成功建立连接后，POP3服务器会话此时处于认证状态，客户端需要提供账号和密码来为自己认证。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>user za*****en</p>
+<p>pass QTWIF*****STQC</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; POP3认证的时候，账号密码使用原文。</span><br><span class="line"></span><br><span class="line">##### 事务状态</span><br><span class="line">客户端认证成功后，POP3服务器进入事务状态，具体操作是：POP3服务器锁住并且打开邮箱。</span><br><span class="line"></span><br><span class="line">处于事务状态可以执行以下命令来操作邮件：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>STAT Command ………… 查询邮箱中的统计信息<br>LIST Command ………… 列出邮箱中的邮件信息<br>RETR Command ………… 获取某封邮件的内容<br>DELE Command ………… 给某封邮件设置删除标记<br>NOOP Command ………… 检查客户端与POP3服务器的连接情况<br>RSET Command ………… 清除所有邮件的删除标记</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">使用 ```list``` 命令查看邮件列表，返回邮件列表序号和邮件的存储大小，单位字节。</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>list<br>+OK 35 11563487<br>1 6488<br>2 16067<br>3 88116<br>4 34166<br>5 39133<br>6 43443<br>7 3747<br>8 42304<br>9 2366<br>10 2100<br>11 85673<br>12 3337<br>13 12782<br>14 90477<br>15 10484<br>16 21241<br>17 81829<br>18 1591<br>19 3132<br>20 2033<br>21 1626<br>22 1601<br>23 3120<br>24 85708<br>25 1626<br>26 2143<br>27 97037<br>28 16652<br>29 16708<br>30 85513<br>31 4788181<br>32 5839338<br>33 23664<br>34 8468<br>35 1593<br>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">使用 ```retr msg``` 命令获取邮件内容，参数msg为邮件序号</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>retr 35<br>+OK 1593 octets<br>Received: from qq.com (unknown [113.96.223.68])<br>        by mx40 (Coremail) with SMTP id WsCowAAH4Dv04MRekurPAA–.17594S3;<br>        Wed, 20 May 2020 15:49:08 +0800 (CST)<br>DKIM-Signature: v&#x3D;1; a&#x3D;rsa-sha256; c&#x3D;relaxed&#x2F;relaxed; d&#x3D;qq.com; s&#x3D;s201512;<br>        t&#x3D;1589960948; bh&#x3D;Rg9Ilk6oCZAHksj409f6LHX6GuP72cTqrNUPvlZJqnM&#x3D;;<br>        h&#x3D;From:To:Subject:Mime-Version:Date:Message-ID;<br>        b&#x3D;rtqnxFIs3rmz4zLMErF3Q1rjULVsgBujmpY&#x2F;wzoFYYa8OKTbr4yg4oN3qP8WC0NPW<br>         MIPQYWPXfZ99rbe9aEWLam7D4CB+qzTuS9LY&#x2F;x2D7TizGrRcjsvrwJ0xKhkCXocx2G<br>         GBqd7+3iRQhZQiF0SLDvr81rqZkvfDuIIh73WzEs&#x3D;<br>From: “&#x3D;?gb18030?B?Y2hlbnphb2Zlbmc&#x3D;?&#x3D;” <a href="mailto:&#53;&#x31;&#42;&#x2a;&#42;&#42;&#53;&#50;&#49;&#64;&#x71;&#113;&#46;&#x63;&#x6f;&#x6d;">&#53;&#x31;&#42;&#x2a;&#42;&#42;&#53;&#50;&#49;&#64;&#x71;&#113;&#46;&#x63;&#x6f;&#x6d;</a><br>To: za<em><strong><strong><a href="mailto:&#x65;&#x6e;&#64;&#49;&#x36;&#x33;&#46;&#99;&#111;&#109;">&#x65;&#x6e;&#64;&#49;&#x36;&#x33;&#46;&#99;&#111;&#109;</a><br>Subject: &#x3D;?gbk?B?19S2r7vYuLQ6aGVsbG8gd29ybGQ&#x3D;?&#x3D;<br>Mime-Version: 1.0<br>Content-Type: text&#x2F;html;<br>        charset&#x3D;”gbk”<br>Content-Transfer-Encoding: base64<br>Date: Wed, 20 May 2020 15:49:07 +0800<br>Message-ID: <a href="mailto:&#x74;&#x65;&#110;&#99;&#101;&#x6e;&#116;&#x5f;&#50;&#x41;&#48;&#x41;&#55;&#54;&#x30;&#51;&#49;&#x34;&#56;&#x46;&#51;&#56;&#70;&#68;&#x35;&#66;&#x39;&#56;&#x36;&#x46;&#x38;&#x36;&#64;&#113;&#113;&#46;&#x63;&#111;&#109;">&#x74;&#x65;&#110;&#99;&#101;&#x6e;&#116;&#x5f;&#50;&#x41;&#48;&#x41;&#55;&#54;&#x30;&#51;&#49;&#x34;&#56;&#x46;&#51;&#56;&#70;&#68;&#x35;&#66;&#x39;&#56;&#x36;&#x46;&#x38;&#x36;&#64;&#113;&#113;&#46;&#x63;&#111;&#109;</a><br>X-QQ-MIME: TCMime 1.0 by Tencent<br>X-Mailer: QQMail 2.x<br>X-QQ-Mailer: QQMail 2.x<br>X-QQ-HolidayReply: true<br>X-QQ-mid: bglocal204t1589960947t3211568<br>X-QQ-SENDSIZE: 520<br>Received: from qq.com (unknown [127.0.0.1])<br>        by smtp.qq.com (ESMTP) with SMTP<br>        id ; Wed, 20 May 2020 15:49:07 +0800 (CST)<br>Feedback-ID: bglocal:qq.com:bgspam:bgspam8<br>X-CM-TRANSID:WsCowAAH4Dv04MRekurPAA–.17594S3<br>Authentication-Results: mx40; spf&#x3D;pass smtp.mail&#x3D;51</strong></strong>521+auto_&#x3D;zaofe<br>        ngchen&#x3D;<a href="mailto:&#49;&#x36;&#51;&#46;&#x63;&#111;&#109;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#109;">&#49;&#x36;&#51;&#46;&#x63;&#111;&#109;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#109;</a>; dkim&#x3D;pass header.i&#x3D;@qq.com<br>X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73<br>        VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUg7UUDUUUU<br>Sender: 51<strong><strong>521+auto_&#x3D;za</strong></strong></em>en&#x3D;<a href="mailto:&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;&#x40;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;">&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;&#x40;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>xPq1xNPKvP7O0tLRvq3K1bW9wcujrNC70LujoQ&#x3D;&#x3D;<br>.</p>
+<p>&#96;&#96;&#96;</p>
+<h5><span id="geng-xin-zhuang-tai">更新状态</span><a href="#geng-xin-zhuang-tai" class="header-anchor">#</a></h5><p>当客户端从事务状态发出 <code>quit</code> 命令时，POP3会话从事务状态进入更新状态。</p>
+<blockquote>
+<p>如果会话因客户端以外的原因被终结，那么POP3不会进入更新状态，也不会操作（包括删除、移动等）邮箱里面的邮件</p>
+</blockquote>
+<div id="reference"></div>
+#### 参考
+
+<p>[1] <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2821#section-4.1">smtp-rfc2821</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc1939">pop3-rfc1939</a></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/13/Send-email-using-PHPMailer-class/">使用PHPMailer类发送电子邮件</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-13T05:00:00.000Z" itemprop="datePublished">May 13, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/email/">email</a> <a href="/tags/php/">php</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-xia-zai-phpmailer">一、下载phpMailer</span><a href="#yi-xia-zai-phpmailer" class="header-anchor">#</a></h5><p><a target="_blank" rel="noopener" href="https://github.com/PHPMailer/PHPMailer">phpMailer</a> 是一个非常强大的PHP邮件发送类，可以设定发送邮件地址、回复地址、邮件主题、html网页、上传附件、并且使用起来非常方便。</p>
+<p>以下测试使用 phpMailer 连接163邮箱服务，发送邮件。当然连接QQ邮箱服务发送邮件也一样的，唯一的区别是端口不一样，163的smtp服务使用25端口，而QQ的smtp服务使用587端口。</p>
+<p>phpMailer包含以下5个类。此处要注意，把phpMailer的源码放到自己项目里的时候，要根据项目的文件结构，修改源码的命名空间，否则有可能出现调用不到的错误。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ger493i2i2j30s108y0t3.jpg" alt="phpMailer源码" width="700" align="bottom">
+<center>phpMailer源码</center>
+
+
+<h5><span id="er-zhun-bei-huan-jing">二、准备环境</span><a href="#er-zhun-bei-huan-jing" class="header-anchor">#</a></h5><p>PHPMailer通过socket连接邮件服务器，所以需要PHP环境需要装有sockets扩展，此外如果需要SSL加密邮件，还需要openssl扩展。</p>
+<p>邮箱服务商默认是不允许用户在邮件客户端软件登陆的，但如果需要，需要去后台开启，并且获得授权码，使用邮箱地址+授权码在邮件客户端登陆。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ger495elanj30kq0b53zq.jpg" alt="开启客户端登陆服务" width="700" align="bottom">
+<center>开启客户端登陆服务</center>
+
+
+<h5><span id="san-bian-xie-dai-ma">三、编写代码</span><a href="#san-bian-xie-dai-ma" class="header-anchor">#</a></h5><p>一切准备好了，可以测试发邮件了：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sendEmail</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$mail</span> = <span class="keyword">new</span> <span class="title class_">\Task\Sdk\PHPMailer\PHPMailer</span>(<span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//发送邮件配置信息</span></span><br><span class="line">        <span class="variable">$email_setting</span> = <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">&#x27;host&#x27;</span>=&gt;<span class="string">&quot;smtp.163.com&quot;</span>,                     <span class="comment">//smtp收件箱地址</span></span><br><span class="line">            <span class="string">&#x27;port&#x27;</span>=&gt;<span class="string">&quot;25&quot;</span>,                               <span class="comment">//smtp收件箱端口</span></span><br><span class="line">            <span class="string">&#x27;username&#x27;</span>=&gt;<span class="string">&quot;username1@163.com&quot;</span>,            <span class="comment">//smtp认真用户名和密码</span></span><br><span class="line">            <span class="string">&#x27;password&#x27;</span>=&gt;<span class="string">&quot;QTWIF*****STQC&quot;</span>,               <span class="comment">//登陆授权码</span></span><br><span class="line">            <span class="string">&#x27;charset&#x27;</span>=&gt;<span class="string">&quot;utf-8&quot;</span>,                         <span class="comment">//邮件字符编码</span></span><br><span class="line">            <span class="string">&#x27;from&#x27;</span>=&gt;[<span class="string">&quot;username1@163.com&quot;</span>, <span class="string">&quot;username1&quot;</span>], <span class="comment">//发件人地址</span></span><br><span class="line">            <span class="string">&#x27;to&#x27;</span>=&gt;[                                     <span class="comment">//收件人地址和名称，可多个</span></span><br><span class="line">                [<span class="string">&quot;username2@163.com&quot;</span>,<span class="string">&quot;username2&quot;</span>]</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&#x27;cc&#x27;</span>=&gt;[                                     <span class="comment">//抄送地址和名称，可多个</span></span><br><span class="line">                [<span class="string">&quot;username3@163.com&quot;</span>,<span class="string">&quot;username3&quot;</span>]</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&#x27;bcc&#x27;</span>=&gt;[                                    <span class="comment">//密抄送地址和名称，可多个</span></span><br><span class="line">                [<span class="string">&quot;username4@qq.com&quot;</span>,<span class="string">&quot;username4&quot;</span>]</span><br><span class="line">            ],</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">isSMTP</span>();                                <span class="comment">//发送邮件，使用smtp协议               </span></span><br><span class="line">        <span class="variable">$mail</span>-&gt;Host         = <span class="variable">$email_setting</span>[<span class="string">&#x27;host&#x27;</span>];                        </span><br><span class="line">        <span class="variable">$mail</span>-&gt;SMTPAutoTLS  = <span class="literal">false</span>;                    <span class="comment">//关闭自动启用TLS加密</span></span><br><span class="line">        <span class="variable">$mail</span>-&gt;SMTPAuth     = <span class="literal">true</span>;                              </span><br><span class="line">        <span class="variable">$mail</span>-&gt;Username     = <span class="variable">$email_setting</span>[<span class="string">&#x27;username&#x27;</span>];                 </span><br><span class="line">        <span class="variable">$mail</span>-&gt;Password     = <span class="variable">$email_setting</span>[<span class="string">&#x27;password&#x27;</span>];                         </span><br><span class="line">        <span class="variable">$mail</span>-&gt;Port         = <span class="variable">$email_setting</span>[<span class="string">&#x27;port&#x27;</span>];                                 </span><br><span class="line">        <span class="variable">$mail</span>-&gt;CharSet      = <span class="variable">$email_setting</span>[<span class="string">&#x27;charset&#x27;</span>];                          </span><br><span class="line"></span><br><span class="line">        <span class="comment">//发件人</span></span><br><span class="line">        <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">setFrom</span>(<span class="variable">$email_setting</span>[<span class="string">&#x27;from&#x27;</span>][<span class="number">0</span>], <span class="variable">$email_setting</span>[<span class="string">&#x27;from&#x27;</span>][<span class="number">1</span>]);</span><br><span class="line">        <span class="comment">//收件人</span></span><br><span class="line">        <span class="keyword">foreach</span>(<span class="variable">$email_setting</span>[<span class="string">&#x27;to&#x27;</span>] <span class="keyword">as</span> <span class="variable">$to</span>)&#123;</span><br><span class="line">            <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">addAddress</span>(<span class="variable">$to</span>[<span class="number">0</span>],<span class="variable">$to</span>[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//抄送</span></span><br><span class="line">        <span class="keyword">foreach</span>(<span class="variable">$email_setting</span>[<span class="string">&#x27;cc&#x27;</span>] <span class="keyword">as</span> <span class="variable">$cc</span>)&#123;</span><br><span class="line">            <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">addCC</span>(<span class="variable">$cc</span>[<span class="number">0</span>],<span class="variable">$cc</span>[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//密抄送</span></span><br><span class="line">        <span class="keyword">foreach</span>(<span class="variable">$email_setting</span>[<span class="string">&#x27;bcc&#x27;</span>] <span class="keyword">as</span> <span class="variable">$bcc</span>)&#123;</span><br><span class="line">            <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">addBCC</span>(<span class="variable">$bcc</span>[<span class="number">0</span>],<span class="variable">$bcc</span>[<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Content</span></span><br><span class="line">        <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">isHTML</span>(<span class="literal">true</span>);                            <span class="comment">//email格式为HTML</span></span><br><span class="line">        <span class="variable">$mail</span>-&gt;Subject = <span class="string">&#x27;这是一封测试邮件，不用理会&#x27;</span>;</span><br><span class="line">        <span class="variable">$mail</span>-&gt;Body    = <span class="string">&#x27;This is the HTML message body &lt;b&gt;in bold!&lt;/b&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$mail</span>-&gt;<span class="title function_ invoke__">send</span>();</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;Message has been sent&#x27;</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (<span class="built_in">Exception</span> <span class="variable">$e</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Message could not be sent. Mailer Error: <span class="subst">&#123;$mail-&gt;ErrorInfo&#125;</span>&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5><span id="si-bu-chong">四、补充</span><a href="#si-bu-chong" class="header-anchor">#</a></h5><p>电子邮件中的CC 英文全称是 Carbon Copy(抄送)。</p>
+<p>电子邮件中的BCC英文全称是 Blind Carbon Copy(暗抄送)。</p>
+<p>两者的区别在于在BCC栏中的收件人可以看到所有的收件人名(TO，CC，BCC)，而在TO和CC栏中的收件人看不到BBC的收件人名。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/11/How-to-send-and-receive-email/">理解电子邮件的收发过程</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-11T05:00:00.000Z" itemprop="datePublished">May 11, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/email/">email</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-dian-zi-you-jian-de-shou-fa-guo-cheng">一、电子邮件的收发过程</span><a href="#yi-dian-zi-you-jian-de-shou-fa-guo-cheng" class="header-anchor">#</a></h5><p>模拟用户A在邮件客户端上使用QQ邮箱，发送邮件给用户B的163邮箱的过程<a href="#reference"><sup>1</sup></a>。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geot5tg58zj30vm0gi0u6.jpg" alt="邮件的收发过程" width="700" align="bottom">
+<center>邮件的收发过程</center>
+
+
+<ol>
+<li><p>用户A在邮件客户端上写好邮件，发出去后，邮件先到达QQ邮箱的SMTP服务器；</p>
+</li>
+<li><p>QQ邮箱的SMTP服务器根据收件地址判断，收件地址与发件地址是否属于同一个邮箱服务商：</p>
+<ol>
+<li><p>同属于一个邮箱服务商，QQ邮箱的SMTP服务器会把邮件保存到QQ邮箱的内部存储空间</p>
+</li>
+<li><p>属于不同邮箱服务商，QQ邮箱的SMTP服务器把邮件转发给163邮箱的SMTP服务器</p>
+</li>
+</ol>
+</li>
+<li><p>163邮箱的SMTP服务器收到邮件后，也会像第2步骤一样判断是否同属于一个邮箱服务商，最后保存到163邮箱的内部存储空间；</p>
+</li>
+<li><p>现在的邮件客户端都有定时自动收取邮件的功能，用户也可以手动收取邮件。邮件客户端向163邮箱的POP3服务器发起收取邮件的请求后，POP3服务器从163邮箱的内部存储空间接收邮件，然后返回给邮件客户端。</p>
+</li>
+</ol>
+<h5><span id="er-3-chong-you-jian-xie-yi">二、3种邮件协议</span><a href="#er-3-chong-you-jian-xie-yi" class="header-anchor">#</a></h5><p>电子邮件的收发过程中，第1步发送邮件和第2.2步转发邮件使用的是SMTP协议；第4步收取邮件使用的是POP3协议。</p>
+<p><strong>SMTP</strong>是Simple Mail Transfer Protocol的简称，即简单邮件传输协议。它定义了邮件客户端软件和SMTP邮件服务器之间，以及两台SMTP邮件服务器之间的通信规则。SMTP协议属于TCP&#x2F;IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。SMTP服务器是遵循SMTP协议的发送邮件服务器，用来发送邮件的。</p>
+<p><strong>POP3</strong>是Post Office Protocol 3的简称，即邮局协议的第3个版本，它定义了邮件客户端软件和POP3邮件服务器的通信规则。POP3服务器是遵循POP3协议的服务器，用来接收电子邮件的。</p>
+<p><strong>IMAP</strong>全称是Internet Mail Access Protocol，即互联网邮件访问协议，它是跟POP3类似的邮件访问标准协议之一，可以看作是POP3协议的扩展。</p>
+<blockquote>
+<p>IMAP和POP3的区别</p>
+<p>POP3允许邮件客户端下载服务器上的邮件，但是在邮件客户端的操作（如：移动邮件、标记已读等），是不会反馈到服务器上的。<br>但是IMAP就不同了，邮件客户端的操作都会反馈到服务器上，对邮件进行的操作（如：移动邮件、标记已读等），服务器上的邮件也会做相应的动作。也就是说，IMAP是“双向”的。<br>同时，IMAP可以只下载邮件的主题，只有当真正需要的时候，才会下载邮件的所有内容。</p>
+</blockquote>
+<div id="reference"></div>
+
+<h5><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h5><p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/7652934.html">邮件实现详解（一）——邮件发送的基本过程与概念</a></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/04/30/customize-domain-name/">如何为你的GitHub Pages自定义域名</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-04-30T05:17:00.000Z" itemprop="datePublished">Apr 30, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/github/">github</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-qian-ti-tiao-jian">一、前提条件</span><a href="#yi-qian-ti-tiao-jian" class="header-anchor">#</a></h5><p>1.已经搭建了GitHub Pages站点</p>
+<p>2.已经购买了域名(国内的话要实名认证)</p>
+<h5><span id="er-yu-ming-jie-xi">二、域名解析</span><a href="#er-yu-ming-jie-xi" class="header-anchor">#</a></h5><p>到域名提供商的后台，为域名添加解析，此处以阿里云为例。</p>
+<p>添加两条CNAME记录，主机记录分别是「www」和「@」，如下图：</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec4zzksilj30tw0bwwf5.jpg" alt="域名解析" width="700" align="bottom">
+<center>域名解析</center>
+
+
+
+<blockquote>
+<p>主机记录「www」和「@」的区别是解析的域名的形式，以域名chenzaofeng.xyz为例：</p>
+<p>主机记录「www」对应 <a target="_blank" rel="noopener" href="http://www.chenzaofeng.xyz域名/">www.chenzaofeng.xyz域名</a></p>
+<p>主机记录「@」对应 chenzaofeng.xyz域名</p>
+<p>一般「www」和「@」都是一起出现</p>
+</blockquote>
+<h5><span id="san-dao-github-cang-ku-pei-zhi-yu-ming">三、到GitHub仓库配置域名</span><a href="#san-dao-github-cang-ku-pei-zhi-yu-ming" class="header-anchor">#</a></h5><p>回到GitHub Pages的仓库，到Settings选项卡下面，找到GitHub Pages块（如下图），在Custom domain下面的输入框里填入域名，保存就完成了。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec53jgdwtj30mt0ib3zd.jpg" alt="配置域名" width="700" align="bottom">
+<center>配置域名</center>
+
+
+
+<p>此时到Code选项卡下面，会发现多了个CNAME文件,这个文件的内容就是刚刚填写的域名。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec53xw159j30t108rdg6.jpg
+" alt="CNAME文件" width="700" align="bottom"></p>
+<center>CNAME文件</center>
+
+<p>等待10分钟后就可以使用自定义的域名访问GitHub Pages站点了。</p>
+<h5><span id="si-bu-chong">四、补充</span><a href="#si-bu-chong" class="header-anchor">#</a></h5><p>在第二步解析域名的时候，一开始我添加的是两条A记录，等到第三步配置好之后，就收到了GitHub的提示邮件，建议我使用CNAME记录，于是才修改了回来，感兴趣的可以尝试一下。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec5473ky1j30lo07maar.jpg" alt="推荐使用CNAME记录" width="700" align="bottom">
+<center>推荐使用CNAME记录</center>
+
+<p>关于CNAME记录和A记录，不用在意名字什么意思，只要知道A记录指向的是一个IPV4地址，CNAME记录指向的是另一个域名就好了。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/04/12/Build-a-blog-with-GitHub/">如何利用GitHub快速搭建一个博客</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-04-12T04:19:00.000Z" itemprop="datePublished">Apr 12, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/github/">github</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-qian-ti-tiao-jian">一、前提条件</span><a href="#yi-qian-ti-tiao-jian" class="header-anchor">#</a></h5><p>1.拥有一个GitHub账号</p>
+<p>2.安装了ruby环境（版本在2.4以上）</p>
+<h5><span id="er-zhun-bei-gong-zuo-an-zhuang-jekyll">二、准备工作——安装Jekyll</span><a href="#er-zhun-bei-gong-zuo-an-zhuang-jekyll" class="header-anchor">#</a></h5><p>1.执行命令 <code>ruby -v</code>，查看ruby版本，是否为<code>2.4.0</code>或更高版本</p>
+<p>2.执行 <code>gem -v</code>,查看RubyGems检查版本</p>
+<p>3.执行命令，安装<code>jekyll</code>和<code>bundler</code> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install jekyll bundler</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装Jekyll过程如果遇到网络问题，可以多试几次。</p>
+<p>以下是<a target="_blank" rel="noopener" href="https://www.jekyll.com.cn/docs/installation/">官方文档</a>，根据你的操作系统选择阅读</p>
+</blockquote>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr7czwkvlj30ye0u0tgq.jpg" alt="官方文档" width="700" align="bottom">
+<center>官方文档</center>
+
+<h5><span id="san-kai-shi-da-jian">三、开始搭建</span><a href="#san-kai-shi-da-jian" class="header-anchor">#</a></h5><p>1.进入我的<a target="_blank" rel="noopener" href="https://github.com/zaofengchen/zaofengchen.github.io">仓库</a></p>
+<p>2.点击右上角的 Fork 将我的仓库拉倒你的账号下</p>
+<p>3.克隆仓库到本地</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:your_github_name/zaofengchen.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>4.进入博客目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd zaofengchen.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>5.开启服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jekyll serve</span><br></pre></td></tr></table></figure>
+
+<p>6.访问</p>
+<p>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:4000/">http://127.0.0.1:4000</a> </p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr3c0b6wdj31sj0u0go2.jpg" alt="首页" width="700" align="bottom">
+<center>首页显示</center>
+<br>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr3bzfixaj31sg0u07be.jpg" alt="首页" width="700" align="bottom">
+<center>内容页显示</center>
+
+<p>7.测试发博文</p>
+<p>在<code>_posts</code>目录下新建一个markdown文件，文件名以.md为后缀</p>
+<p>例如：<code>2020-04-13-如何最快的搭建一个博客.md</code><br>文件名必须使用规定的格式</p>
+<p>编写文件，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: page</span><br><span class="line">title:  &quot;这是一篇测试博客!&quot;</span><br><span class="line">date:   2020-04-13 04:05:33 +0800</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">**登鹳雀楼** </span><br><span class="line"></span><br><span class="line">_唐代：王之涣_</span><br><span class="line"></span><br><span class="line">白日依山尽，黄河入海流。</span><br><span class="line"></span><br><span class="line">欲穷千里目，更上一层楼。</span><br></pre></td></tr></table></figure>
+<p>此时再次访问<a target="_blank" rel="noopener" href="http://127.0.0.1:4000/">首页</a> 会出现新的博文</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr64vog7zj31py0u0dj0.jpg" alt="首页" width="700" align="bottom">
+<center>首页显示</center>
+<br>
+
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr650degmj31py0u0jur.jpg" alt="新的博文" width="700" align="bottom">
+<center>新的博文显示</center>
+
+<p>8.发布到GitHub</p>
+<ul>
+<li>为你的博客新建一个仓库，仓库名为：<code>your_github_name.github.io</code></li>
+<li>回到终端，按住 <code>ctrl-c</code>，停止服务</li>
+<li>修改博客目录名字为<code>your_github_name.github.io</code>，进入博客目录</li>
+<li>执行命令<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;init&quot;</span><br><span class="line">git remote add origin git@github.com:zaofengchen/your_github_name.github.io</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>访问 <a target="_blank" rel="noopener" href="http://your_github_name.github.io/">http://your_github_name.github.io</a> 即可看到博客</p>
+<p>至此，一个博客就搭建完成了。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+  <nav id="pagenavi">
+    
+        <a href="/page/4/" class="prev">Prev</a>
+    
+    
+  <div class="center"><a href="/archives/index.html">Blog Archives</a></div>
+  </nav>
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
