@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>Homebrew -- macOS缺失的软件包的管理器 - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;p&gt;&lt;a href=&#34;https://brew.sh/index_zh-cn&#34;&gt;Homebrew&lt;/a&gt; 是 macOS（或 Linux）缺失的软件包的管理器。&lt;/p&gt;
+&lt;p&gt;使用 Homebrew 安装 Apple（或您的 Linux 系统）没有预装但 你 &lt;a href=&#34;https://formulae.brew.sh/&#34;&gt;需要的东西&lt;/a&gt;。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;an-zhuang-homebrew&#34;&gt;安装 Homebrew&lt;/span&gt;&lt;a href=&#34;#an-zhuang-homebrew&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;将以下命令粘贴至终端，实现安装。&lt;/p&gt;
+&lt;figure class=&#34;highlight sh&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/bin/bash -c &lt;span class=&#34;string&#34;&gt;&amp;quot;&lt;span class=&#34;subst&#34;&gt;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&lt;/span&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2&gt;&lt;span id=&#34;homebrew-lei-xing&#34;&gt;Homebrew 类型&lt;/span&gt;&lt;a href=&#34;#homebrew-lei-xing&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span id=&#34;formula&#34;&gt;formula&lt;/span&gt;&lt;a href=&#34;#formula&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;formula 意思是一些软件包，包含命令行工具、开发库、一些字体、插件等，共性是不提供界面，提供给终端或者是开发者使用。&lt;/p&gt;
+&lt;p&gt;安装 formula 前可以在 &lt;a href=&#34;https://formulae.brew.sh/formula/&#34;&gt;formulae listing页面&lt;/a&gt; 搜索目标 formula ，查看 formula 的详情细节，包括安装命令，描述，版本号和安装数量统计等。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;cask&#34;&gt;cask&lt;/span&gt;&lt;a href=&#34;#cask&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;cask 是用户软件，比如 chrome、wechat、qq 这些提供用户交互界面的软件。&lt;/p&gt;
+&lt;p&gt;同样的，安装 cask 前可以在 &lt;a href=&#34;https://formulae.brew.sh/cask/&#34;&gt;casks listing页面&lt;/a&gt; 搜索目标 cask ，查看 cask 的详情细节。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://formulae.brew.sh/cask/&#34;&gt;casks listing页面&lt;/a&gt; 包含了大部分常用的软件：微信、qq、浏览器、笔记、播放器等等。一定程度上可以代替App store。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;homebrew-ming-ling&#34;&gt;Homebrew 命令&lt;/span&gt;&lt;a href=&#34;#homebrew-ming-ling&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span id=&#34;chang-yong-ming-ling&#34;&gt;常用命令&lt;/span&gt;&lt;a href=&#34;#chang-yong-ming-ling&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;命令&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew update&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;同步远程的 formulae 到本地，更新本地的 formulae 库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install formula&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装 formula&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew remove formula&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;卸载 formula&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask cask&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装 cask&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew list&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;查看已安装的包列表&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew list –versions&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;查看你安装过的包列表（包括版本号）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew info [formula|cask]&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;查看[formula|cask]的简要信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew upgrade [formula|cask]&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;升级[formula|cask]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3&gt;&lt;span id=&#34;chang-yong-ruan-jian-an-zhuang-ming-ling&#34;&gt;常用软件安装命令&lt;/span&gt;&lt;a href=&#34;#chang-yong-ruan-jian-an-zhuang-ming-ling&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;命令&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask sublime-text&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装sublime编辑器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask qq&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装qq&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask wechat&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装微信&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask firefox&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装firefox&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask chrome-remote-desktop-host&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装chrome&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew install –cask yinxiangbiji&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;安装印象笔记&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3&gt;&lt;span id=&#34;qi-ta-ming-ling&#34;&gt;其他命令&lt;/span&gt;&lt;a href=&#34;#qi-ta-ming-ling&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;命令&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew outdated&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;列出需要升级的 formulae&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;管理后台运行服务工具&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services [list] (–json):&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;列出有关当前用户的所有托管服务的信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services info (formula|–all) [–json]&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;列出当前用户的所有托管服务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services start (formula|–all)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;马上开启formula服务，并且注册到当前用户的启动进程上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services stop (formula|–all)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;马上停止formula服务，并且取消注册到当前用户的启动进程上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services restart (formula|–all)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;brew services run (formula|–all)&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;运行formula服务，但是并不注册到当前用户的启动进程上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="macOS Homebrew ">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://chenfeng.org" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Homebrew -- macOS缺失的软件包的管理器</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2022-07-18T15:00:00.000Z" itemprop="datePublished">Jul 18, 2022</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/macOS/">macOS</a>
+</div>
+    </div>
+	<div class="entry-content"><p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">Homebrew</a> 是 macOS（或 Linux）缺失的软件包的管理器。</p>
+<p>使用 Homebrew 安装 Apple（或您的 Linux 系统）没有预装但 你 <a target="_blank" rel="noopener" href="https://formulae.brew.sh/">需要的东西</a>。</p>
+<h2><span id="an-zhuang-homebrew">安装 Homebrew</span><a href="#an-zhuang-homebrew" class="header-anchor">#</a></h2><p>将以下命令粘贴至终端，实现安装。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2><span id="homebrew-lei-xing">Homebrew 类型</span><a href="#homebrew-lei-xing" class="header-anchor">#</a></h2><h3><span id="formula">formula</span><a href="#formula" class="header-anchor">#</a></h3><p>formula 意思是一些软件包，包含命令行工具、开发库、一些字体、插件等，共性是不提供界面，提供给终端或者是开发者使用。</p>
+<p>安装 formula 前可以在 <a target="_blank" rel="noopener" href="https://formulae.brew.sh/formula/">formulae listing页面</a> 搜索目标 formula ，查看 formula 的详情细节，包括安装命令，描述，版本号和安装数量统计等。</p>
+<h3><span id="cask">cask</span><a href="#cask" class="header-anchor">#</a></h3><p>cask 是用户软件，比如 chrome、wechat、qq 这些提供用户交互界面的软件。</p>
+<p>同样的，安装 cask 前可以在 <a target="_blank" rel="noopener" href="https://formulae.brew.sh/cask/">casks listing页面</a> 搜索目标 cask ，查看 cask 的详情细节。</p>
+<p><a target="_blank" rel="noopener" href="https://formulae.brew.sh/cask/">casks listing页面</a> 包含了大部分常用的软件：微信、qq、浏览器、笔记、播放器等等。一定程度上可以代替App store。</p>
+<h2><span id="homebrew-ming-ling">Homebrew 命令</span><a href="#homebrew-ming-ling" class="header-anchor">#</a></h2><h3><span id="chang-yong-ming-ling">常用命令</span><a href="#chang-yong-ming-ling" class="header-anchor">#</a></h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">brew update</td>
+<td align="left">同步远程的 formulae 到本地，更新本地的 formulae 库</td>
+</tr>
+<tr>
+<td align="left">brew install formula</td>
+<td align="left">安装 formula</td>
+</tr>
+<tr>
+<td align="left">brew remove formula</td>
+<td align="left">卸载 formula</td>
+</tr>
+<tr>
+<td align="left">brew install –cask cask</td>
+<td align="left">安装 cask</td>
+</tr>
+<tr>
+<td align="left">brew list</td>
+<td align="left">查看已安装的包列表</td>
+</tr>
+<tr>
+<td align="left">brew list –versions</td>
+<td align="left">查看你安装过的包列表（包括版本号）</td>
+</tr>
+<tr>
+<td align="left">brew info [formula|cask]</td>
+<td align="left">查看[formula|cask]的简要信息</td>
+</tr>
+<tr>
+<td align="left">brew upgrade [formula|cask]</td>
+<td align="left">升级[formula|cask]</td>
+</tr>
+</tbody></table>
+<h3><span id="chang-yong-ruan-jian-an-zhuang-ming-ling">常用软件安装命令</span><a href="#chang-yong-ruan-jian-an-zhuang-ming-ling" class="header-anchor">#</a></h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">brew install –cask sublime-text</td>
+<td align="left">安装sublime编辑器</td>
+</tr>
+<tr>
+<td align="left">brew install –cask qq</td>
+<td align="left">安装qq</td>
+</tr>
+<tr>
+<td align="left">brew install –cask wechat</td>
+<td align="left">安装微信</td>
+</tr>
+<tr>
+<td align="left">brew install –cask firefox</td>
+<td align="left">安装firefox</td>
+</tr>
+<tr>
+<td align="left">brew install –cask chrome-remote-desktop-host</td>
+<td align="left">安装chrome</td>
+</tr>
+<tr>
+<td align="left">brew install –cask yinxiangbiji</td>
+<td align="left">安装印象笔记</td>
+</tr>
+</tbody></table>
+<h3><span id="qi-ta-ming-ling">其他命令</span><a href="#qi-ta-ming-ling" class="header-anchor">#</a></h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">brew outdated</td>
+<td align="left">列出需要升级的 formulae</td>
+</tr>
+<tr>
+<td align="left">brew services</td>
+<td align="left">管理后台运行服务工具</td>
+</tr>
+<tr>
+<td align="left">brew services [list] (–json):</td>
+<td align="left">列出有关当前用户的所有托管服务的信息</td>
+</tr>
+<tr>
+<td align="left">brew services info (formula|–all) [–json]</td>
+<td align="left">列出当前用户的所有托管服务</td>
+</tr>
+<tr>
+<td align="left">brew services start (formula|–all)</td>
+<td align="left">马上开启formula服务，并且注册到当前用户的启动进程上</td>
+</tr>
+<tr>
+<td align="left">brew services stop (formula|–all)</td>
+<td align="left">马上停止formula服务，并且取消注册到当前用户的启动进程上</td>
+</tr>
+<tr>
+<td align="left">brew services restart (formula|–all)</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">brew services run (formula|–all)</td>
+<td align="left">运行formula服务，但是并不注册到当前用户的启动进程上</td>
+</tr>
+</tbody></table>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
