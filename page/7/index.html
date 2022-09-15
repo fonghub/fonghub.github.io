@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content=""> <!-- TODO: truncate -->
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://chenfeng.org" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        
+
+
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/05/11/How-to-send-and-receive-email/">理解电子邮件的收发过程</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-05-11T05:00:00.000Z" itemprop="datePublished">May 11, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/email/">email</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-dian-zi-you-jian-de-shou-fa-guo-cheng">一、电子邮件的收发过程</span><a href="#yi-dian-zi-you-jian-de-shou-fa-guo-cheng" class="header-anchor">#</a></h5><p>模拟用户A在邮件客户端上使用QQ邮箱，发送邮件给用户B的163邮箱的过程<a href="#reference"><sup>1</sup></a>。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1geot5tg58zj30vm0gi0u6.jpg" alt="邮件的收发过程" width="700" align="bottom">
+<center>邮件的收发过程</center>
+
+
+<ol>
+<li><p>用户A在邮件客户端上写好邮件，发出去后，邮件先到达QQ邮箱的SMTP服务器；</p>
+</li>
+<li><p>QQ邮箱的SMTP服务器根据收件地址判断，收件地址与发件地址是否属于同一个邮箱服务商：</p>
+<ol>
+<li><p>同属于一个邮箱服务商，QQ邮箱的SMTP服务器会把邮件保存到QQ邮箱的内部存储空间</p>
+</li>
+<li><p>属于不同邮箱服务商，QQ邮箱的SMTP服务器把邮件转发给163邮箱的SMTP服务器</p>
+</li>
+</ol>
+</li>
+<li><p>163邮箱的SMTP服务器收到邮件后，也会像第2步骤一样判断是否同属于一个邮箱服务商，最后保存到163邮箱的内部存储空间；</p>
+</li>
+<li><p>现在的邮件客户端都有定时自动收取邮件的功能，用户也可以手动收取邮件。邮件客户端向163邮箱的POP3服务器发起收取邮件的请求后，POP3服务器从163邮箱的内部存储空间接收邮件，然后返回给邮件客户端。</p>
+</li>
+</ol>
+<h5><span id="er-3-chong-you-jian-xie-yi">二、3种邮件协议</span><a href="#er-3-chong-you-jian-xie-yi" class="header-anchor">#</a></h5><p>电子邮件的收发过程中，第1步发送邮件和第2.2步转发邮件使用的是SMTP协议；第4步收取邮件使用的是POP3协议。</p>
+<p><strong>SMTP</strong>是Simple Mail Transfer Protocol的简称，即简单邮件传输协议。它定义了邮件客户端软件和SMTP邮件服务器之间，以及两台SMTP邮件服务器之间的通信规则。SMTP协议属于TCP&#x2F;IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。SMTP服务器是遵循SMTP协议的发送邮件服务器，用来发送邮件的。</p>
+<p><strong>POP3</strong>是Post Office Protocol 3的简称，即邮局协议的第3个版本，它定义了邮件客户端软件和POP3邮件服务器的通信规则。POP3服务器是遵循POP3协议的服务器，用来接收电子邮件的。</p>
+<p><strong>IMAP</strong>全称是Internet Mail Access Protocol，即互联网邮件访问协议，它是跟POP3类似的邮件访问标准协议之一，可以看作是POP3协议的扩展。</p>
+<blockquote>
+<p>IMAP和POP3的区别</p>
+<p>POP3允许邮件客户端下载服务器上的邮件，但是在邮件客户端的操作（如：移动邮件、标记已读等），是不会反馈到服务器上的。<br>但是IMAP就不同了，邮件客户端的操作都会反馈到服务器上，对邮件进行的操作（如：移动邮件、标记已读等），服务器上的邮件也会做相应的动作。也就是说，IMAP是“双向”的。<br>同时，IMAP可以只下载邮件的主题，只有当真正需要的时候，才会下载邮件的所有内容。</p>
+</blockquote>
+<div id="reference"></div>
+
+<h5><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h5><p>[1] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ysocean/p/7652934.html">邮件实现详解（一）——邮件发送的基本过程与概念</a></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/04/30/customize-domain-name/">如何为你的GitHub Pages自定义域名</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-04-30T05:17:00.000Z" itemprop="datePublished">Apr 30, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/github/">github</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-qian-ti-tiao-jian">一、前提条件</span><a href="#yi-qian-ti-tiao-jian" class="header-anchor">#</a></h5><p>1.已经搭建了GitHub Pages站点</p>
+<p>2.已经购买了域名(国内的话要实名认证)</p>
+<h5><span id="er-yu-ming-jie-xi">二、域名解析</span><a href="#er-yu-ming-jie-xi" class="header-anchor">#</a></h5><p>到域名提供商的后台，为域名添加解析，此处以阿里云为例。</p>
+<p>添加两条CNAME记录，主机记录分别是「www」和「@」，如下图：</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec4zzksilj30tw0bwwf5.jpg" alt="域名解析" width="700" align="bottom">
+<center>域名解析</center>
+
+
+
+<blockquote>
+<p>主机记录「www」和「@」的区别是解析的域名的形式，以域名chenzaofeng.xyz为例：</p>
+<p>主机记录「www」对应 <a target="_blank" rel="noopener" href="http://www.chenzaofeng.xyz域名/">www.chenzaofeng.xyz域名</a></p>
+<p>主机记录「@」对应 chenzaofeng.xyz域名</p>
+<p>一般「www」和「@」都是一起出现</p>
+</blockquote>
+<h5><span id="san-dao-github-cang-ku-pei-zhi-yu-ming">三、到GitHub仓库配置域名</span><a href="#san-dao-github-cang-ku-pei-zhi-yu-ming" class="header-anchor">#</a></h5><p>回到GitHub Pages的仓库，到Settings选项卡下面，找到GitHub Pages块（如下图），在Custom domain下面的输入框里填入域名，保存就完成了。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec53jgdwtj30mt0ib3zd.jpg" alt="配置域名" width="700" align="bottom">
+<center>配置域名</center>
+
+
+
+<p>此时到Code选项卡下面，会发现多了个CNAME文件,这个文件的内容就是刚刚填写的域名。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec53xw159j30t108rdg6.jpg
+" alt="CNAME文件" width="700" align="bottom"></p>
+<center>CNAME文件</center>
+
+<p>等待10分钟后就可以使用自定义的域名访问GitHub Pages站点了。</p>
+<h5><span id="si-bu-chong">四、补充</span><a href="#si-bu-chong" class="header-anchor">#</a></h5><p>在第二步解析域名的时候，一开始我添加的是两条A记录，等到第三步配置好之后，就收到了GitHub的提示邮件，建议我使用CNAME记录，于是才修改了回来，感兴趣的可以尝试一下。</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gec5473ky1j30lo07maar.jpg" alt="推荐使用CNAME记录" width="700" align="bottom">
+<center>推荐使用CNAME记录</center>
+
+<p>关于CNAME记录和A记录，不用在意名字什么意思，只要知道A记录指向的是一个IPV4地址，CNAME记录指向的是另一个域名就好了。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/04/12/Build-a-blog-with-GitHub/">如何利用GitHub快速搭建一个博客</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-04-12T04:19:00.000Z" itemprop="datePublished">Apr 12, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/github/">github</a>
+</div>
+    </div>
+      
+        <h5><span id="yi-qian-ti-tiao-jian">一、前提条件</span><a href="#yi-qian-ti-tiao-jian" class="header-anchor">#</a></h5><p>1.拥有一个GitHub账号</p>
+<p>2.安装了ruby环境（版本在2.4以上）</p>
+<h5><span id="er-zhun-bei-gong-zuo-an-zhuang-jekyll">二、准备工作——安装Jekyll</span><a href="#er-zhun-bei-gong-zuo-an-zhuang-jekyll" class="header-anchor">#</a></h5><p>1.执行命令 <code>ruby -v</code>，查看ruby版本，是否为<code>2.4.0</code>或更高版本</p>
+<p>2.执行 <code>gem -v</code>,查看RubyGems检查版本</p>
+<p>3.执行命令，安装<code>jekyll</code>和<code>bundler</code> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install jekyll bundler</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>安装Jekyll过程如果遇到网络问题，可以多试几次。</p>
+<p>以下是<a target="_blank" rel="noopener" href="https://www.jekyll.com.cn/docs/installation/">官方文档</a>，根据你的操作系统选择阅读</p>
+</blockquote>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr7czwkvlj30ye0u0tgq.jpg" alt="官方文档" width="700" align="bottom">
+<center>官方文档</center>
+
+<h5><span id="san-kai-shi-da-jian">三、开始搭建</span><a href="#san-kai-shi-da-jian" class="header-anchor">#</a></h5><p>1.进入我的<a target="_blank" rel="noopener" href="https://github.com/zaofengchen/zaofengchen.github.io">仓库</a></p>
+<p>2.点击右上角的 Fork 将我的仓库拉倒你的账号下</p>
+<p>3.克隆仓库到本地</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:your_github_name/zaofengchen.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>4.进入博客目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd zaofengchen.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>5.开启服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jekyll serve</span><br></pre></td></tr></table></figure>
+
+<p>6.访问</p>
+<p>访问 <a target="_blank" rel="noopener" href="http://127.0.0.1:4000/">http://127.0.0.1:4000</a> </p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr3c0b6wdj31sj0u0go2.jpg" alt="首页" width="700" align="bottom">
+<center>首页显示</center>
+<br>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr3bzfixaj31sg0u07be.jpg" alt="首页" width="700" align="bottom">
+<center>内容页显示</center>
+
+<p>7.测试发博文</p>
+<p>在<code>_posts</code>目录下新建一个markdown文件，文件名以.md为后缀</p>
+<p>例如：<code>2020-04-13-如何最快的搭建一个博客.md</code><br>文件名必须使用规定的格式</p>
+<p>编写文件，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: page</span><br><span class="line">title:  &quot;这是一篇测试博客!&quot;</span><br><span class="line">date:   2020-04-13 04:05:33 +0800</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">**登鹳雀楼** </span><br><span class="line"></span><br><span class="line">_唐代：王之涣_</span><br><span class="line"></span><br><span class="line">白日依山尽，黄河入海流。</span><br><span class="line"></span><br><span class="line">欲穷千里目，更上一层楼。</span><br></pre></td></tr></table></figure>
+<p>此时再次访问<a target="_blank" rel="noopener" href="http://127.0.0.1:4000/">首页</a> 会出现新的博文</p>
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr64vog7zj31py0u0dj0.jpg" alt="首页" width="700" align="bottom">
+<center>首页显示</center>
+<br>
+
+<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gdr650degmj31py0u0jur.jpg" alt="新的博文" width="700" align="bottom">
+<center>新的博文显示</center>
+
+<p>8.发布到GitHub</p>
+<ul>
+<li>为你的博客新建一个仓库，仓库名为：<code>your_github_name.github.io</code></li>
+<li>回到终端，按住 <code>ctrl-c</code>，停止服务</li>
+<li>修改博客目录名字为<code>your_github_name.github.io</code>，进入博客目录</li>
+<li>执行命令<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;init&quot;</span><br><span class="line">git remote add origin git@github.com:zaofengchen/your_github_name.github.io</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>访问 <a target="_blank" rel="noopener" href="http://your_github_name.github.io/">http://your_github_name.github.io</a> 即可看到博客</p>
+<p>至此，一个博客就搭建完成了。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+  <nav id="pagenavi">
+    
+        <a href="/page/6/" class="prev">Prev</a>
+    
+    
+  <div class="center"><a href="/archives/index.html">Blog Archives</a></div>
+  </nav>
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2022
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

@@ -3,11 +3,51 @@
 <head>
 	<meta charset="utf-8">
     
-	<title>Archives - 不知有晋</title>
+	<title>redis-string数据类型小结 - 不知有晋</title>
     <meta name="author" content="CFONG">
     
-	<meta name="description" content=""> <!-- TODO: truncate -->
-	
+	<meta name="description" content="&lt;p&gt;Redis 字符串数据类型的相关命令用于管理 redis 字符串值。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;设置值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置一个键值 set key val&lt;/li&gt;
+&lt;li&gt;批量设置键值 mset key val [key val …]&lt;/li&gt;
+&lt;li&gt;设置唯一的键值对 setnx&lt;/li&gt;
+&lt;li&gt;批量设置唯一的键值对 msetnx&lt;/li&gt;
+&lt;li&gt;设置新值返回旧值 getset key val&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;获取值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;获取键值 get&lt;/li&gt;
+&lt;li&gt;批量获取键值 mget&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;值增加1 incr key&lt;/li&gt;
+&lt;li&gt;值增加指定增幅 incrby key increment&lt;/li&gt;
+&lt;li&gt;值减1 decr key&lt;/li&gt;
+&lt;li&gt;值减少指定减幅 decrby key decrement&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;过期时间&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;字符串操作&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;返回值的子串 getrange key start end&lt;/li&gt;
+&lt;li&gt;使用子串覆盖值 setrange key offset val&lt;/li&gt;
+&lt;li&gt;返回值的长度 strlen key&lt;/li&gt;
+&lt;li&gt;字符串追加到值的后面 append key value&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/img/redis-string.png&#34; alt=&#34;string&#34;&gt;&lt;/p&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="redis ">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
@@ -91,146 +131,76 @@
 <div id="toload">
 <!-- begin toload -->
     <div id="content" class="inner">
-        
+        <article class="post">
+	<h2 class="title">redis-string数据类型小结</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+	<div class="entry-content"><p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p>
+<ul>
+<li><p>设置值</p>
+<ul>
+<li>设置一个键值 set key val</li>
+<li>批量设置键值 mset key val [key val …]</li>
+<li>设置唯一的键值对 setnx</li>
+<li>批量设置唯一的键值对 msetnx</li>
+<li>设置新值返回旧值 getset key val</li>
+</ul>
+</li>
+<li><p>获取值</p>
+<ul>
+<li>获取键值 get</li>
+<li>批量获取键值 mget</li>
+</ul>
+</li>
+<li><p>修改值</p>
+<ul>
+<li>值增加1 incr key</li>
+<li>值增加指定增幅 incrby key increment</li>
+<li>值减1 decr key</li>
+<li>值减少指定减幅 decrby key decrement</li>
+</ul>
+</li>
+<li><p>过期时间</p>
+<ul>
+<li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li>
+</ul>
+</li>
+<li><p>字符串操作</p>
+<ul>
+<li>返回值的子串 getrange key start end</li>
+<li>使用子串覆盖值 setrange key offset val</li>
+<li>返回值的长度 strlen key</li>
+<li>字符串追加到值的后面 append key value</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/redis-string.png" alt="string"></p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
-
-      
-	  <section class="archives"><h1 class="year">2020</h1><div class="top-border-padding"></div>
-    
-    <article>
-      <h2 class="title"><a href="/2020/07/06/rabbitmq/">RabbitMQ入门</a></h2>
-    	<div class="meta">
-    		<span class="date">Jul 6</span>
-    		<span class="tags">
-
-<a href="/tags/rabbitmq/">rabbitmq</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/07/01/JS-Date-Helper/">JS Date日期助手函数</a></h2>
-    	<div class="meta">
-    		<span class="date">Jul 1</span>
-    		<span class="tags">
-
-<a href="/tags/javascript/">javascript</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/28/leetcode-209/">leetcode 209m 长度最小的子数组</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 28</span>
-    		<span class="tags">
-
-<a href="/tags/leetcode/">leetcode</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/18/string-BF/">串的模式匹配(Brute-Force算法)</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 18</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/串/">串</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/17/leetcode-125/">leetcode 125e 验证回文串</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 18</span>
-    		<span class="tags">
-
-<a href="/tags/leetcode/">leetcode</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/17/string/">串结构——顺序串、链串</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 17</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/串/">串</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/14/leetcode-1300/">leetcode 1300m 转变数组后最接近目标值的数组和</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 14</span>
-    		<span class="tags">
-
-<a href="/tags/leetcode/">leetcode</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/13/mount-tiantang/">风雨天堂顶</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 14</span>
-    		<span class="tags">
-
-<a href="/tags/爬山/">爬山</a> <a href="/tags/游玩/">游玩</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/10/queue/">队列结构——顺序队列、循环队列、链队列</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 10</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/队列/">队列</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/08/stack/">栈结构——顺序栈、链栈</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 8</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/栈/">栈</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-  
-    </section>
-  
-
-
-    <nav id="pagenavi">
-        
-            <a href="/archives/page/4/" class="prev">Prev</a>
-        
-        
-            <a href="/archives/page/6/" class="next">Next</a>
-        
-    </nav>
 
 
     </div>

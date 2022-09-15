@@ -3,11 +3,50 @@
 <head>
 	<meta charset="utf-8">
     
-	<title>Archives - 不知有晋</title>
+	<title>redis-set数据类型小结 - 不知有晋</title>
     <meta name="author" content="CFONG">
     
-	<meta name="description" content=""> <!-- TODO: truncate -->
-	
+	<meta name="description" content="&lt;p&gt;集合具有无序性和唯一性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增加元素&lt;ul&gt;
+&lt;li&gt;增加一个或多个元素 sadd key menber1 [member2 member3]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;查询元素&lt;ul&gt;
+&lt;li&gt;查询集合数量 scard key&lt;/li&gt;
+&lt;li&gt;返回所有集合元素 smembers key&lt;/li&gt;
+&lt;li&gt;随机返回集合元素 srandmember key [count]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;删除元素&lt;ul&gt;
+&lt;li&gt;随机删除集合元素 spop key [count]&lt;/li&gt;
+&lt;li&gt;删除集合中指定元素 srem key member [m1 m2]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;判断是否存在元素 sismember key member&lt;/li&gt;
+&lt;li&gt;移动元素 smove source destination member&lt;/li&gt;
+&lt;li&gt;集合运算&lt;ul&gt;
+&lt;li&gt;差集&lt;ul&gt;
+&lt;li&gt;返回差集 sdiff s1 s2&lt;/li&gt;
+&lt;li&gt;返回差集并存储 sdiffstore destination s1 s2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;交集&lt;ul&gt;
+&lt;li&gt;返回交集 sinter s1 s2&lt;/li&gt;
+&lt;li&gt;返回交集并存储 sinterstore destination s1 s2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;并集&lt;ul&gt;
+&lt;li&gt;返回并集 sunion s1 s2&lt;/li&gt;
+&lt;li&gt;返回并集并存储 sunionstore destination s1 s2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/img/redis-set.png&#34; alt=&#34;set&#34;&gt;&lt;/p&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="redis ">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
@@ -91,146 +130,75 @@
 <div id="toload">
 <!-- begin toload -->
     <div id="content" class="inner">
-        
+        <article class="post">
+	<h2 class="title">redis-set数据类型小结</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+	<div class="entry-content"><p>集合具有无序性和唯一性</p>
+<ul>
+<li>增加元素<ul>
+<li>增加一个或多个元素 sadd key menber1 [member2 member3]</li>
+</ul>
+</li>
+<li>查询元素<ul>
+<li>查询集合数量 scard key</li>
+<li>返回所有集合元素 smembers key</li>
+<li>随机返回集合元素 srandmember key [count]</li>
+</ul>
+</li>
+<li>删除元素<ul>
+<li>随机删除集合元素 spop key [count]</li>
+<li>删除集合中指定元素 srem key member [m1 m2]</li>
+</ul>
+</li>
+<li>判断是否存在元素 sismember key member</li>
+<li>移动元素 smove source destination member</li>
+<li>集合运算<ul>
+<li>差集<ul>
+<li>返回差集 sdiff s1 s2</li>
+<li>返回差集并存储 sdiffstore destination s1 s2</li>
+</ul>
+</li>
+<li>交集<ul>
+<li>返回交集 sinter s1 s2</li>
+<li>返回交集并存储 sinterstore destination s1 s2</li>
+</ul>
+</li>
+<li>并集<ul>
+<li>返回并集 sunion s1 s2</li>
+<li>返回并集并存储 sunionstore destination s1 s2</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/redis-set.png" alt="set"></p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
 
 
-
-      
-	  <section class="archives"><h1 class="year">2020</h1><div class="top-border-padding"></div>
-    
-    <article>
-      <h2 class="title"><a href="/2020/07/06/rabbitmq/">RabbitMQ入门</a></h2>
-    	<div class="meta">
-    		<span class="date">Jul 6</span>
-    		<span class="tags">
-
-<a href="/tags/rabbitmq/">rabbitmq</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/07/01/JS-Date-Helper/">JS Date日期助手函数</a></h2>
-    	<div class="meta">
-    		<span class="date">Jul 1</span>
-    		<span class="tags">
-
-<a href="/tags/javascript/">javascript</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/28/leetcode-209/">leetcode 209m 长度最小的子数组</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 28</span>
-    		<span class="tags">
-
-<a href="/tags/leetcode/">leetcode</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/18/string-BF/">串的模式匹配(Brute-Force算法)</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 18</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/串/">串</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/17/leetcode-125/">leetcode 125e 验证回文串</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 18</span>
-    		<span class="tags">
-
-<a href="/tags/leetcode/">leetcode</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/17/string/">串结构——顺序串、链串</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 17</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/串/">串</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/14/leetcode-1300/">leetcode 1300m 转变数组后最接近目标值的数组和</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 14</span>
-    		<span class="tags">
-
-<a href="/tags/leetcode/">leetcode</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/13/mount-tiantang/">风雨天堂顶</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 14</span>
-    		<span class="tags">
-
-<a href="/tags/爬山/">爬山</a> <a href="/tags/游玩/">游玩</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/10/queue/">队列结构——顺序队列、循环队列、链队列</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 10</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/队列/">队列</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-    <article>
-      <h2 class="title"><a href="/2020/06/08/stack/">栈结构——顺序栈、链栈</a></h2>
-    	<div class="meta">
-    		<span class="date">Jun 8</span>
-    		<span class="tags">
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/栈/">栈</a>
-</span>
-    	    
-    	</div>
-    </article>
-  
-  
-    </section>
-  
-
-
-    <nav id="pagenavi">
-        
-            <a href="/archives/page/4/" class="prev">Prev</a>
-        
-        
-            <a href="/archives/page/6/" class="next">Next</a>
-        
-    </nav>
 
 
     </div>

@@ -6,7 +6,7 @@
   <link href="http://chenfeng.org/atom.xml" rel="self"/>
   
   <link href="http://chenfeng.org/"/>
-  <updated>2022-07-26T17:15:31.835Z</updated>
+  <updated>2022-09-15T16:41:47.894Z</updated>
   <id>http://chenfeng.org/</id>
   
   <author>
@@ -15,6 +15,152 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redis-string数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-1-string/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-1-string/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-15T16:41:47.894Z</updated>
+    
+    <content type="html"><![CDATA[<p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p><ul><li><p>设置值</p><ul><li>设置一个键值 set key val</li><li>批量设置键值 mset key val [key val …]</li><li>设置唯一的键值对 setnx</li><li>批量设置唯一的键值对 msetnx</li><li>设置新值返回旧值 getset key val</li></ul></li><li><p>获取值</p><ul><li>获取键值 get</li><li>批量获取键值 mget</li></ul></li><li><p>修改值</p><ul><li>值增加1 incr key</li><li>值增加指定增幅 incrby key increment</li><li>值减1 decr key</li><li>值减少指定减幅 decrby key decrement</li></ul></li><li><p>过期时间</p><ul><li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li></ul></li><li><p>字符串操作</p><ul><li>返回值的子串 getrange key start end</li><li>使用子串覆盖值 setrange key offset val</li><li>返回值的长度 strlen key</li><li>字符串追加到值的后面 append key value</li></ul></li></ul><p><img src="/img/redis-string.png" alt="string"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Redis 字符串数据类型的相关命令用于管理 redis 字符串值。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;设置值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;设置一个键值 set key val&lt;/li&gt;
+&lt;li&gt;批量设置键值 mset key val [key val …]&lt;/li&gt;
+&lt;li&gt;</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-hash数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-2-hash/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-2-hash/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-15T17:02:40.468Z</updated>
+    
+    <content type="html"><![CDATA[<p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p><ul><li>新增记录<ul><li>新增一条 hset key field value</li><li>批量新增 hmset key field value [field value field value …]</li><li>新增一条记录，唯一性 hsetnx key field value</li></ul></li><li>查询记录<ul><li>查询一条 hget key field</li><li>批量查询 hmget key field [field field]</li><li>全表查询 hgetall key</li></ul></li><li>修改记录<ul><li>值增加指定增幅 hincrby key field increment</li><li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li></ul></li><li>删除记录 hdel key field</li><li>查询表长 hlen key</li><li>查询所有的字段 hkeys key</li><li>查询所有的值 hvals key</li><li>判断字段是否存在 hexists key field</li></ul><p><img src="/img/redis-hash.png" alt="hash"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新增记录&lt;ul&gt;
+&lt;li&gt;新增一条 hset key field value&lt;/li&gt;
+&lt;li&gt;批量新增 hm</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-list数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-3-list/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-3-list/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-15T17:02:45.684Z</updated>
+    
+    <content type="html"><![CDATA[<p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p><ul><li><p>新增值</p><ul><li>队列头增加值 lpush key value [value2 value3]</li><li>队列尾增加值 rpush key value [value2 value3]</li><li>相对位置插入值 linsert key before|after pivot value</li><li>新增带判断，链表不存在时增加失败<ul><li>队列头增加值 lpushx key value</li><li>队列尾增加值 rpushx key value</li></ul></li></ul></li><li><p>查询值</p><ul><li>通过索引获取单个值 lndex key index</li><li>通过索引获取多个值 lrange key start stop</li></ul></li><li><p>修改值</p><ul><li>通过索引修改指定位置的值 lset key index value</li></ul></li><li><p>删除值</p><ul><li>队列头删除并获得值 lpop key</li><li>阻塞式表头删除并获得值 blpop key timeout</li><li>表尾删除并获得值 rpop key</li><li>阻塞式表尾删除并获得值 brpop key timeout</li><li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li><li>删除索引范围外的元素值 ltrim key start stop</li></ul></li><li><p>操作链表</p><ul><li>移动元素 rpoplpush source destination</li><li>阻塞式移动元素 brpoplpush source destination</li></ul></li><li><p>获取链表长度 llen key</p></li></ul><p><img src="/img/redis-list.png" alt="list"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;新增值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;队列头增加值 lpush key value [value2 value3]&lt;/li&gt;
+&lt;li&gt;队列尾增加值 rpush k</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-zset(有序集合)数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-5-zset/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-5-zset/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-15T17:02:59.639Z</updated>
+    
+    <content type="html"><![CDATA[<p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p><ul><li>增加元素<ul><li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li></ul></li><li>查询元素<ul><li>返回集合元素数量 zcard key</li><li>返回指定分数范围内元素数量 count key start stop</li><li>返回指定索引范围内元素 zrange key start stop [withscores]</li><li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li><li>返回指定元素的索引 zrank key member</li><li>返回指定元素的分数 zscore key member</li></ul></li><li>修改元素<ul><li>修改元素分数 zincrby key increment member</li></ul></li><li>删除元素<ul><li>删除指定元素 zrem key member</li><li>删除指定分数范围里的元素 zremrangebyscore key start stop </li><li>删除指定索引范围里的元素 zremrangebyrank key start stop</li></ul></li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff num z1 z2</li><li>返回差集并存储 sdiffstore destination num z1 z2</li></ul></li><li>交集<ul><li>返回交集，分数相加 zinter num key key [key …]</li><li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li></ul></li><li>并集<ul><li>返回并集 zunion num k1 k2</li><li>返回并集并存储 zunionstore destination num k1 k2</li></ul></li></ul></li></ul><p><img src="/img/redis-zset.png" alt="zset"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增加元素&lt;ul&gt;
+&lt;li&gt;增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]&lt;/li&gt;
+&lt;/ul</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-set数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-4-set/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-4-set/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-15T17:02:54.213Z</updated>
+    
+    <content type="html"><![CDATA[<p>集合具有无序性和唯一性</p><ul><li>增加元素<ul><li>增加一个或多个元素 sadd key menber1 [member2 member3]</li></ul></li><li>查询元素<ul><li>查询集合数量 scard key</li><li>返回所有集合元素 smembers key</li><li>随机返回集合元素 srandmember key [count]</li></ul></li><li>删除元素<ul><li>随机删除集合元素 spop key [count]</li><li>删除集合中指定元素 srem key member [m1 m2]</li></ul></li><li>判断是否存在元素 sismember key member</li><li>移动元素 smove source destination member</li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff s1 s2</li><li>返回差集并存储 sdiffstore destination s1 s2</li></ul></li><li>交集<ul><li>返回交集 sinter s1 s2</li><li>返回交集并存储 sinterstore destination s1 s2</li></ul></li><li>并集<ul><li>返回并集 sunion s1 s2</li><li>返回并集并存储 sunionstore destination s1 s2</li></ul></li></ul></li></ul><p><img src="/img/redis-set.png" alt="set"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;集合具有无序性和唯一性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增加元素&lt;ul&gt;
+&lt;li&gt;增加一个或多个元素 sadd key menber1 [member2 member3]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;查询元素&lt;ul&gt;
+&lt;li&gt;查询集合数量 scard key&lt;/li</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
   
   <entry>
     <title>THINKPHP6如何实现门面模式</title>
@@ -410,147 +556,6 @@
     
     
     <category term="mysql" scheme="http://chenfeng.org/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用PHP和SHELL脚本删除日志</title>
-    <link href="http://chenfeng.org/2021/03/12/delete-log/"/>
-    <id>http://chenfeng.org/2021/03/12/delete-log/</id>
-    <published>2021-03-12T11:00:00.000Z</published>
-    <updated>2022-07-10T02:53:27.807Z</updated>
-    
-    <content type="html"><![CDATA[<h4><span id="si-lu">思路</span><a href="#si-lu" class="header-anchor">#</a></h4><p>一般来说，日志文件都是按照日期来命名的，例如这样: <code>21_03_01.log</code>。</p><p>每一个日志文件只记录当天某个功能的日志信息，这种做法方便于定为错误。</p><p>通过日志文件的属性——最后修改时间，可以得知日志文件记录的是哪一天的日志，距离现在过去多少天了。</p><p>当每天的日志量不多，可以考虑保存最近30天的日志量，保存再多也没有意义。</p><p>当每日的日志量很多的话，出于存储空间的考虑，可以考虑保存最近7天的日志量。</p><h4><span id="shi-yong-php-shan-chu-ri-zhi-wen-jian">使用PHP删除日志文件</span><a href="#shi-yong-php-shan-chu-ri-zhi-wen-jian" class="header-anchor">#</a></h4><p>需要删除日志文件的时候，通过web端手动调用接口 或者 通过 CLI 的方式，自动定时的调用接口，删除日志文件。</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除日志文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delLogs</span>(<span class="params"><span class="variable">$day</span>=<span class="number">30</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$day</span> &lt; <span class="number">8</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;保留不少于一个星期的日志文件&quot;</span>;</span><br><span class="line">        <span class="keyword">die</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="variable">$logDir</span> = <span class="title function_ invoke__">realpath</span>(LOG_PATH);   </span><br><span class="line">    <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">delLogs2</span>(<span class="variable">$logDir</span>,<span class="variable">$day</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delLogs2</span>(<span class="params"><span class="variable">$logDir</span>,<span class="variable">$day</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$dh</span> = <span class="title function_ invoke__">opendir</span>(<span class="variable">$logDir</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$dh</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="variable">$file</span> = <span class="title function_ invoke__">readdir</span>(<span class="variable">$dh</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$file</span> == <span class="string">&#x27;.&#x27;</span> || <span class="variable">$file</span> == <span class="string">&#x27;..&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="variable">$filePath</span> = <span class="variable">$logDir</span>.<span class="string">&#x27;/&#x27;</span>.<span class="variable">$file</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="title function_ invoke__">is_file</span>(<span class="variable">$filePath</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="title function_ invoke__">filemtime</span>(<span class="variable">$filePath</span>) &lt; <span class="title function_ invoke__">strtotime</span>(<span class="string">&quot;-<span class="subst">&#123;$day&#125;</span> days&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">echo</span> <span class="string">&quot;file=<span class="subst">&#123;$filePath&#125;</span>&quot;</span>;</span><br><span class="line">                    <span class="title function_ invoke__">unlink</span>(<span class="variable">$filePath</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">delLogs2</span>(<span class="variable">$filePath</span>,<span class="variable">$day</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_ invoke__">closedir</span>(<span class="variable">$dh</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;目录错误：<span class="subst">&#123;$logDir&#125;</span>&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4><span id="shi-yong-shell-jiao-ben-shan-chu-ri-zhi-wen-jian">使用SHELL脚本删除日志文件</span><a href="#shi-yong-shell-jiao-ben-shan-chu-ri-zhi-wen-jian" class="header-anchor">#</a></h4><p>使用 <code>find</code> 命令，查找日志目录下的名字格式为 <code>&quot;*.log&quot;</code> ，最后修改时间为20天以前的文件，把找到的文件删除掉。</p><p>把命令写入 <code>delLogs.sh</code> 文件，通过终端命令<code>sh delLogs.sh</code>执行。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> start delete <span class="built_in">log</span> 20 days ago...</span><br><span class="line">find /app/Logs/ -mtime +20 -name <span class="string">&quot;*.log&quot;</span> -<span class="built_in">exec</span>  <span class="built_in">rm</span> -rf &#123;&#125; \;</span><br><span class="line"><span class="built_in">echo</span> end delete <span class="built_in">log</span>...</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4&gt;&lt;span id=&quot;si-lu&quot;&gt;思路&lt;/span&gt;&lt;a href=&quot;#si-lu&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;一般来说，日志文件都是按照日期来命名的，例如这样: &lt;code&gt;21_03_01.log&lt;/code&gt;。&lt;/p&gt;
-&lt;</summary>
-      
-    
-    
-    
-    <category term="php" scheme="http://chenfeng.org/categories/php/"/>
-    
-    
-    <category term="php" scheme="http://chenfeng.org/tags/php/"/>
-    
-    <category term="shell" scheme="http://chenfeng.org/tags/shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL的RANGE分区管理与预警</title>
-    <link href="http://chenfeng.org/2020/12/23/mysql-partition/"/>
-    <id>http://chenfeng.org/2020/12/23/mysql-partition/</id>
-    <published>2020-12-23T10:30:00.000Z</published>
-    <updated>2022-06-18T17:53:41.962Z</updated>
-    
-    <content type="html"><![CDATA[<p>MySQL有四种分区类型，分别是RANGE分区、LIST分区、HASH分区和KEY分区。其中数RANGE分区使用最为普遍。</p><p>RANGE分区基于一个给定的分区键和分区值，把一个大的数据表分成多个连续且不重复的分区表。物理层面上是把一个大文件分割成多个小的文件。</p><h4><span id="shu-ju-biao-fen-qu-de-liang-chong-fang-shi">数据表分区的两种方式</span><a href="#shu-ju-biao-fen-qu-de-liang-chong-fang-shi" class="header-anchor">#</a></h4><p>方式一，创建表的同时，设置表分区</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tablename(col1,col2,col3,...)</span><br><span class="line"><span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(col_key)</span><br><span class="line">(</span><br><span class="line">    <span class="keyword">PARTITION</span> p1 <span class="keyword">VALUES</span> LESS THAN (value1),</span><br><span class="line">    <span class="keyword">PARTITION</span> p2 <span class="keyword">VALUES</span> LESS THAN (value2),</span><br><span class="line">    <span class="keyword">PARTITION</span> p3 <span class="keyword">VALUES</span> LESS THAN (value3),</span><br><span class="line">    <span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> LESS THAN (MAXVALUE)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><p>方式二，对已创建的表分区</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">RANGE</span>(col_key) </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">PARTITION</span> p1 <span class="keyword">VALUES</span> LESS THAN (value1),</span><br><span class="line">    <span class="keyword">PARTITION</span> p2 <span class="keyword">VALUES</span> LESS THAN (value2),</span><br><span class="line">    <span class="keyword">PARTITION</span> p3 <span class="keyword">VALUES</span> LESS THAN (value3),</span><br><span class="line">    <span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> LESS THAN (MAXVALUE)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><p>分区的时候，最好设置一个最大分区 <code>p_maxvalue</code></p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> LESS THAN (MAXVALUE)</span><br></pre></td></tr></table></figure><p>存放意料之外的数据。例如：</p><ul><li>当出现错误数据，大于所有分区值时，会存放到 <code>p_maxvalue</code> 分区</li><li>当来不及增加分区时，数据会存放到 <code>p_maxvalue</code> 分区，且对前面的分区无影响</li></ul><p>总之，设置 <code>p_maxvalue</code> 分区并不是为了存放数据，而是在出现意外的时候，程序不至于报错。</p><h4><span id="xian-shi-yi-fen-qu-de-shu-ju-biao">显示已分区的数据表</span><a href="#xian-shi-yi-fen-qu-de-shu-ju-biao" class="header-anchor">#</a></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">TABLE_NAME tname,                   <span class="comment">-- 数据表名</span></span><br><span class="line">TABLE_ROWS trow                     <span class="comment">-- 数据行数</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">information_schema.`TABLES`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">TABLE_SCHEMA <span class="operator">=</span> &#123;$dbName&#125;</span><br><span class="line"><span class="keyword">AND</span> CREATE_OPTIONS <span class="keyword">LIKE</span> <span class="string">&#x27;%partitioned%&#x27;</span>;</span><br></pre></td></tr></table></figure><img src="http://tva1.sinaimg.cn/large/7d4c6366gy1glxvwlv028j20zu09j0sw.jpg" width="700" align="bottom"><center>显示分区的数据表</center><h4><span id="xian-shi-mou-ge-biao-de-fen-qu-lie-biao">显示某个表的分区列表</span><a href="#xian-shi-mou-ge-biao-de-fen-qu-lie-biao" class="header-anchor">#</a></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">PARTITION_ORDINAL_POSITION onum,    <span class="comment">-- 分区序号</span></span><br><span class="line">PARTITION_NAME pname,               <span class="comment">-- 分区名字</span></span><br><span class="line">PARTITION_METHOD pmethod,           <span class="comment">-- 分区方式</span></span><br><span class="line">PARTITION_EXPRESSION pkey,          <span class="comment">-- 分区键</span></span><br><span class="line">PARTITION_DESCRIPTION pvalue,       <span class="comment">-- 分区值</span></span><br><span class="line">TABLE_ROWS trows                    <span class="comment">-- 数据行数</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">information_schema.`PARTITIONS`</span><br><span class="line"><span class="keyword">WHERE</span></span><br><span class="line">TABLE_SCHEMA <span class="operator">=</span> &#123;$dbName&#125;</span><br><span class="line"><span class="keyword">AND</span> TABLE_NAME <span class="operator">=</span> &#123;$tname&#125;;</span><br></pre></td></tr></table></figure><img src="http://tvax4.sinaimg.cn/large/7d4c6366gy1glxw1kt2cnj20q60l074y.jpg" width="700" align="bottom"><center>分区列表</center><h4><span id="shan-chu-fen-qu">删除分区</span><a href="#shan-chu-fen-qu" class="header-anchor">#</a></h4><p>当历史数据归档后，分区的数据行数为0，此时该分区已经无用，为了减少系统的文件数，可以把它删除掉。</p><img src="http://tvax2.sinaimg.cn/large/7d4c6366gy1glxwhqxvfej20q00kvdgh.jpg" width="700" align="bottom"><center>数据归档的分区</center><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; <span class="keyword">DROP</span> <span class="keyword">PARTITION</span> &#123;$pname&#125;;</span><br></pre></td></tr></table></figure><blockquote><p>使用 DROP PARTITION 删除分区的同时，也会删除分区里的数据</p></blockquote><h4><span id="qu-xiao-fen-qu">取消分区</span><a href="#qu-xiao-fen-qu" class="header-anchor">#</a></h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; REMOVE PARTITIONING;</span><br></pre></td></tr></table></figure><blockquote><p>取消分区对表数据无影响</p></blockquote><h4><span id="zeng-jia-fen-qu">增加分区</span><a href="#zeng-jia-fen-qu" class="header-anchor">#</a></h4><p>增加分区之前，需要删除最大分区 <code>p_maxvalue</code>。<br>因为分区是连续递增的，所以需要把最大分区 <code>p_maxvalue</code> 删除，再增加新的分区。</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; <span class="keyword">ADD</span> <span class="keyword">PARTITION</span> </span><br><span class="line">(</span><br><span class="line">    <span class="keyword">PARTITION</span> &#123;$pname&#125; <span class="keyword">VALUES</span> LESS THAN (value1)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><h4><span id="chai-fen-fen-qu">拆分分区</span><a href="#chai-fen-fen-qu" class="header-anchor">#</a></h4><p>当来不及增加分区时，数据会存放到 <code>p_maxvalue</code> 分区。当发现 <code>p_maxvalue</code> 分区有数据时，应该尽快创建新分区，并把数据迁移到新分区上。</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; REORGANIZE <span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">INTO</span> </span><br><span class="line">(</span><br><span class="line"><span class="keyword">PARTITION</span> p_20210301 <span class="keyword">VALUES</span> less than (<span class="number">1614528000</span>),</span><br><span class="line"><span class="keyword">PARTITION</span> p_maxvalue <span class="keyword">VALUES</span> less than (MAXVALUE)</span><br><span class="line">);</span><br></pre></td></tr></table></figure><p>此时数据保存到了 <code>p_20210301</code> 分区，通过</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> ....;</span><br></pre></td></tr></table></figure><p>可以看到 <code>partitions</code> 字段的值为 <code>p_20210301</code> ,表示查询的内容在 <code>p_20210301</code> 分区。</p><p>此时若发现查询并未使用到索引，则需要优化一下分区。</p><p>执行语句：</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; REBUILD <span class="keyword">PARTITION</span> p_maxvalue,p_20210301;         <span class="comment">-- 重建分区</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; ANALYZE <span class="keyword">PARTITION</span> p_maxvalue,p_20210301;         <span class="comment">-- 分析分区</span></span><br></pre></td></tr></table></figure><p>或</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;$dbName&#125;.&#123;$tname&#125; OPTIMIZE <span class="keyword">PARTITION</span> p_maxvalue,p_20210301;;</span><br></pre></td></tr></table></figure><p>再次执行查询语句</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> ....;</span><br></pre></td></tr></table></figure><p>发现已经使用了索引。</p><blockquote><p>REORGANIZE PARTITION 也可以用于重命名分区，重命名分区后也需要执行一下优化分区语句。</p></blockquote><h4><span id="fen-qu-yu-jing">分区预警</span><a href="#fen-qu-yu-jing" class="header-anchor">#</a></h4><p>以下分区预警思路针对RANGE分区类型，基于时间的连续分区。</p><p>使用分区预警的好处有：</p><ul><li>可以提前知晓备用的分区不足，不用逐个表检查</li><li>可以不用一下子准备多个备用分区，减少分区数量</li></ul><p>分区预警的思路如下代码：</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分区预警，预警值默认60天</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">warningPartition</span>(<span class="params"><span class="variable">$warningDays</span>=<span class="number">60</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 获取所有的数据库</span></span><br><span class="line">    <span class="variable">$dbNames</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">get_all_db</span>();</span><br><span class="line">    <span class="variable">$result</span> = [];</span><br><span class="line">    <span class="keyword">foreach</span>(<span class="variable">$dbNames</span> <span class="keyword">as</span> <span class="variable">$dbName</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 获取指定数据库的分区表列表</span></span><br><span class="line">        <span class="variable">$sqlTable</span> = <span class="string">&quot;SELECT TABLE_NAME tname,TABLE_ROWS trow FROM information_schema.`TABLES` WHERE TABLE_SCHEMA=&#x27;<span class="subst">&#123;$dbName&#125;</span>&#x27; AND CREATE_OPTIONS LIKE &#x27;%partitioned%&#x27;&quot;</span>;</span><br><span class="line">        <span class="variable">$listTable</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">querySql</span>(<span class="variable">$sqlTable</span>);</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="variable">$listTable</span> <span class="keyword">as</span> <span class="variable">$table</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获取指定数据库，指定表的除p_maxvalue外的最大分区的值</span></span><br><span class="line">            <span class="variable">$sqlPartition</span> = <span class="string">&quot;SELECT PARTITION_NAME pname,PARTITION_DESCRIPTION pvalue FROM information_schema.`PARTITIONS` WHERE TABLE_SCHEMA=&#x27;<span class="subst">&#123;$dbName&#125;</span>&#x27; AND TABLE_NAME=&#x27;<span class="subst">&#123;$table&#125;</span>&#x27; AND PARTITION_NAME != &#x27;p_maxvalue&#x27; ORDER BY PARTITION_DESCRIPTION DESC LIMIT 1&quot;</span>;</span><br><span class="line">            <span class="variable">$listPartition</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">querySql</span>(<span class="variable">$sqlPartition</span>);</span><br><span class="line">            <span class="variable">$pvalue</span> = <span class="variable">$listPartition</span>[<span class="number">0</span>][<span class="string">&#x27;pvalue&#x27;</span>];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 最大分区的值小于阈值，则保存预警信息</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$pvalue</span> - <span class="title function_ invoke__">time</span>() &lt; <span class="variable">$warningDays</span> * <span class="number">86400</span>)</span><br><span class="line">                <span class="variable">$result</span>[] = <span class="string">&quot;数据表：<span class="subst">&#123;$dbName&#125;</span>.<span class="subst">&#123;$table&#125;</span>，最新分区：<span class="subst">&#123;$listPartition[0][&#x27;pname&#x27;]&#125;</span> - <span class="subst">&#123;$listPartition[0][&#x27;pvalue&#x27;]&#125;</span>，预警阈值：<span class="subst">&#123;$warningDays&#125;</span>天&quot;</span>;  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>分区预警程序 + <a href="/2021/04/07/telegram">Telegram机器人</a>可以实时的收到预警信息。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;MySQL有四种分区类型，分别是RANGE分区、LIST分区、HASH分区和KEY分区。其中数RANGE分区使用最为普遍。&lt;/p&gt;
-&lt;p&gt;RANGE分区基于一个给定的分区键和分区值，把一个大的数据表分成多个连续且不重复的分区表。物理层面上是把一个大文件分割成多个小的文件。&lt;</summary>
-      
-    
-    
-    
-    <category term="mysql" scheme="http://chenfeng.org/categories/mysql/"/>
-    
-    
-    <category term="mysql" scheme="http://chenfeng.org/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>叠石山游记</title>
-    <link href="http://chenfeng.org/2020/10/07/dss/"/>
-    <id>http://chenfeng.org/2020/10/07/dss/</id>
-    <published>2020-10-07T23:00:00.000Z</published>
-    <updated>2022-06-18T17:57:19.105Z</updated>
-    
-    <content type="html"><![CDATA[<p>趁着十一假期，闲来无事，于是上叠石山走一走。</p><p>一来听老妈说叠石山上修了路，有人在上面设了佛（可以拜拜的神仙），有了香火，想去看看变成什么样子；</p><p>二来也想登顶去看看河浦全景。</p><p>遥想上一次上叠石山应该是2017年的春节，和同学两个人在傍晚的时候上叠石山散步，拍了不少逗逼照片，怀念当年简单的快乐。</p><p>从家里步行15分钟就到达山脚下，远远就看到了一个牌坊，写着「叠石书院」，看起来挺气派的。</p><img src="http://tva1.sinaimg.cn/large/7d4c6366gy1gjhnno7kbcj23402c0npe.jpg" width="700" align="bottom"><center>叠石山下的牌坊</center><p>穿过牌坊后，右手边有一大片空地，摆有挺多便民的健身设施，应该是给老人晨练活动的。</p><p>如果是开车过来的，可以把车停在这里。</p><p>再往前走可看见竖着一块石碑，石碑看起来很新，应该是翻新过或者重新做的。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhntyletgj30u0140e84.jpg" width="700" align="bottom"><center>石碑</center><p>石碑后面是一片池塘，水很浅，长了很多杂草，还有不少枯枝烂叶。</p><p>这里被称为「龙潭」，可能是因为小池塘的后面是「虎穴」吧。叫「龙潭虎穴」听起来比较有意境。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhoctkaj8j31400u0hdw.jpg" width="700" align="bottom"><center>龙潭虎穴</center><p>上山的泥土坡路都铺上了混泥土，还做了围栏，改变很大，颇有景区的样子。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhnw281tlj31400u0e83.jpg" width="700" align="bottom"><center>斜坡</center><p>上了斜坡后到达小平台，此处设有石凳，可供行人休息和观光。</p><p>旁边就展示了叠石山的导游图和各个石刻景点的照片。若是不熟悉叠石山的朋友，可以根据这个导游图按照石刻景点的顺序逐个到达。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhoi80afbj31400u07wi.jpg" width="700" align="bottom"></p><center>导游图</center><p>站在小平台上，远远就可以望到「虎穴」石刻。</p><p>我印象中这里有野路可以上山，但可能我忘记了，竟然找不到出路，于是返回来老老实实走台阶上山。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhofol09hj30u0140x6r.jpg" width="700" align="bottom"><center>虎穴</center><p>上山的楼梯很好走，收拾的很干净，打心里敬佩家乡的爱心人士，为家乡打造了一处出行好去处。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhobd8w9vj30u0140qv8.jpg" width="700" align="bottom"><center>s型台阶</center><p>可能考虑上山的楼梯比较长，不利于老年人小孩子，所以在楼梯中间的空地建了亭子厕所，方便大家休息。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhoc1lp0kj31400u0u0z.jpg" width="700" align="bottom"><center>休息的亭子</center><p>终于来到设有香火的地方，按照导游图上的标记，这里就是「圣贤洞」。</p><p>记忆中这个石洞挺深的，里面被丢了很多垃圾，走进去就有一阵臭味，墙壁被烟火熏得发黑，路过通常都不进去的。</p><p>如今却被改造成小屋子一般，通了水电，收拾的干干净净，用来摆放神位。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhnxvyt45j31400u0u0y.jpg" width="700" align="bottom"><center>圣贤洞</center><p>石洞外面也搭了铁皮遮阴，摆了很多凳子桌子，供大家休息聊天。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho1111myj31400u0kjm.jpg" width="700" align="bottom"><center>圣贤洞外</center><p>「圣贤洞」的后面就是「九曲径」，上面是「龙凤石」。</p><p>「龙凤石」这个名字我第一次看到，我们都管着叫「大石」，上「大石」可以借助旁边的大树上去，不过需要手脚并用，有点危险；不想爬树也可以再往上走，绕一下也能到达。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhnynx0usj31400u0npg.jpg" width="700" align="bottom"></p><center>九曲径</center><p>上到大石，记得小的时候还开玩笑说不能大声说话，大声说话会让石头裂开，最后从山上滚下去。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho3c24ajj31400u07wk.jpg" width="700" align="bottom"></p><center>大石</center><p>站在大石上，有远眺河浦最好的视野。</p><p>河浦街道的几个村落互相紧邻着，房子越来越多，越建越高，不断得向外围扩张。</p><p>还记得当年第一次上「大石」时，有小伙伴跟我们介绍，河浦形状似一把枪，如今看来已无迹可寻了。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhnzglc1cj31lk0u0kjo.jpg" width="700" align="bottom"><center>大石上</center><p>「大石」旁边有个炉位，这里是烧番薯的地方。</p><p>当年可以呼唤几个同学，带上一袋子番薯和几瓶水，上「大石」度过愉快的一天，那段时光真是无忧无虑。</p><p>这么多年了，多少人的青春里有它，多少人因它而快乐。</p><p>可能在我们那个年代，娱乐的项目太少，于是上「大石」烧番薯就成了一个不错的选项，有的吃，有的玩，还有趣。</p><p>如今，看着炉位旁边绿油油的杂草，还开了花，想必现在的小孩子都不会上「大石」烧番薯了吧！</p><p>也是，现在的娱乐太多了，手机太好玩了。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho2lzs66j31400u0qv9.jpg" width="700" align="bottom"><center>烧番薯</center><p>从大石下来后，遇见一行大叔大妈，应该是本地人，于是我慢慢的跟在后面，听其中一个大叔介绍叠石山的一些事迹。</p><blockquote><p>虽然叠石山来过不少次，但其实我对叠石山的历史也不很了解，只知道以前有个人，叫<a href="https://baike.baidu.com/item/%E9%99%88%E8%8B%B1%E7%8C%B7">陈英猷</a> 在这里潜心读书，出名后，很多人来这里找他拜师学习而已。</p></blockquote><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho46yyexj31400u0x6s.jpg" width="700" align="bottom"><center>同行的大叔大妈</center><p>「幽涧泉」下是真的有泉水的，记得以前到这里会洗手洗脸的，嬉戏一番，只不过当天没见到泉水，不过犹可见湿润的沙石。</p><p>「幽涧泉」往下就是「旋螺洞」，由于我脱离了大叔大妈的队伍，只身一人，加上上个月在山上被蚂蜂蜇了几针，到现在还心有余悸，于是就没往下去了。</p><p>旋螺洞的图片和介绍可以看看这一篇 <a href="https://www.meipian.cn/rubufbf">游叠石山</a></p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho6lnmc3j31400u01kz.jpg" width="700" align="bottom"><center>幽涧泉</center><p>按照导游图「寿」和「古松鹤舞」就在附近。</p><p>「寿」藏的比较隐秘，在小路旁边的大石的背后，需要绕一下才能看到。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho7k6d99j30u0140e85.jpg" width="700" align="bottom"></p><center>寿</center><p>「古松鹤舞」也是，沿着小路走，记得回头看一下就能看到。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho8n4yn2j31400u04qu.jpg" width="700" align="bottom"><center>古松鹤舞</center><p>接着来到「石室」和「叠石井」，这里就是先人读书学习的地方，我们也叫「叠石书房」。</p><p>石室内低矮、潮湿、阴暗，布局简陋，蚊子成群。</p><p>墙壁上用红色颜料写了很多名字，类似XX、XX、XX结拜兄弟之类的，看到这些难免会心一笑，我甚至可以想象到一群小年轻热血方刚的跪在一起发誓。<br><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho9ihvt0j30u0140x6s.jpg" width="700" align="bottom"></p><center>叠石书房</center><p>从「石室」出来，往上走左拐就看到了「河图」。</p><p>这个神秘的图案一直在这，没人知道它代表了什么，表达了什么意思。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho57f9x7j31400u0u11.jpg" width="700" align="bottom"><center>河图</center><p>根据导游图，河图过后就是「仙踪」，但我竟然给漏了，直到下山后才发现。仙踪的图片来源于 <a href="https://www.meipian.cn/24h5d94t">叠石山风景区</a></p><p>「仙踪」其实就是有一个大脚印，并且只有一个。</p><p>相传是神仙一步跨过几座山，所以只在此处留下一个脚印。</p><img src="https://ss2.meipian.me/users/7274782/316811e9ce0647689f78c4fcfc4a3db1.jpg?meipian-raw/bucket/ivwen/key/dXNlcnMvNzI3NDc4Mi8zMTY4MTFlOWNlMDY0NzY4OWY3OGM0ZmNmYzRhM2RiMS5qcGc=/sign/2a054d8f6d94361d59969b6ff2200c3a.jpg" width="700" align="bottom"><center>仙踪</center><p>最后一个打卡点是「海阔天空」。</p><p>听老一辈说以前从这里望下去是一片沧海桑田，无边无际。</p><p>但由于河浦这里人多地少，用地紧张，所以要填海造陆。</p><p>到如今，海没了，田慌了，时过境迁，物是人非，再也见不到当初的海阔天空了。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjho62hj8wj31400u0x6s.jpg" width="700" align="bottom"><center>海阔天空</center><p>离开「海阔天空」后一路径直下山，结束叠石山之行。</p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhod7onxoj31400u04qq.jpg" width="700" align="bottom"><center>又遇牌坊</center><p>最后说明一下写这一篇游记的目的。</p><p>我这一路上山下山，看到沿途有很多垃圾。</p><p>塑料瓶，塑料袋、零食袋，果皮甚至看到整张的野餐垫。</p><p>五颜六色的垃圾跟大自然实在不搭，大煞风景。</p><p>爱心人士开始开发叠石山，并且在上面设置了香炉。</p><p>我们知道河浦人爱拜老爷拜神仙，香火所到之处，人流必跟之，人流所到之处往往会有产生垃圾的问题。</p><p>我相信未来叠石山会成为一个知名景点，会有更多的人上叠石山上香或者游玩，但我不希望看到山上因此出现越来越多的垃圾。</p><p>所以希望爱心人士在开发叠石山的同时，关注一下环境保护方面的问题。</p><p>比如：</p><ol><li>可以发起一场「清山活动」，组织一些热心人士上山把垃圾带下来</li><li>沿着山路摆放「不乱扔垃圾」的提示语，提醒大家保护环境</li></ol><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gjhoaj3x42j30u0140npg.jpg" width="700" align="bottom"><center>到处垃圾</center>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;趁着十一假期，闲来无事，于是上叠石山走一走。&lt;/p&gt;
-&lt;p&gt;一来听老妈说叠石山上修了路，有人在上面设了佛（可以拜拜的神仙），有了香火，想去看看变成什么样子；&lt;/p&gt;
-&lt;p&gt;二来也想登顶去看看河浦全景。&lt;/p&gt;
-&lt;p&gt;遥想上一次上叠石山应该是2017年的春节，和同学两个人在傍</summary>
-      
-    
-    
-    
-    <category term="personal" scheme="http://chenfeng.org/categories/personal/"/>
-    
-    
-    <category term="爬山" scheme="http://chenfeng.org/tags/%E7%88%AC%E5%B1%B1/"/>
-    
-    <category term="游玩" scheme="http://chenfeng.org/tags/%E6%B8%B8%E7%8E%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>探索小龙斗峰</title>
-    <link href="http://chenfeng.org/2020/09/19/xld/"/>
-    <id>http://chenfeng.org/2020/09/19/xld/</id>
-    <published>2020-09-19T19:00:00.000Z</published>
-    <updated>2022-06-18T17:57:38.951Z</updated>
-    
-    <content type="html"><![CDATA[<p>清远佛冈猪咸脑山，又名猪牙山，海拔889米，山高路陡，怪石嶙峋，地形险要。与韶关龙斗峰地貌风光相似，所谓“小龙斗”。</p><p>9月6日周日，天气多云转阴。</p><p>7:30分在客村地铁B出口集合，8:00准时出发，途径从化，进入清远，最终到达小龙斗山下的旁边的村庄。<br>在从化服务区停留的时候，与走在尾队的领队小湘闲聊了一下，得知小龙斗是省内三星路线中危险系数最大的，同时景色也是最好的。<br>听到这里不由得兴奋起来，毕竟我也已经拿下几条三星路线了，甚至开始“膨胀”了，准备去尝试四星路线了。</p><p>大概10:00的时候到达山脚下，在领队的带领下，大家一起做热身动作，然后成群结队出发。</p><img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gikgj6qls6j23402c0nph.jpg" width="700" align="bottom"><center>上山前热身</center><p>以前我喜欢紧跟着前队的人，一路无语，专心赶路，走累了就停下来口水，调整一下，然后继续走；走快了就停下来，等一等后面的人，实在等不到了，又开始走。最后变成在山下等，最长一次是等了两个多小时。</p><p>鉴于小龙斗的危险系数和景色，我这次想要慢点走，并且体验一下走在尾队的感受。</p><h3><span id="jian-nan-shang-shan">艰难上山</span><a href="#jian-nan-shang-shan" class="header-anchor">#</a></h3><p>上山后全程野路，经过一片又一片的密林，时而要钻过矮竹林，还要当心被打脸。</p><img src="http://tva1.sinaimg.cn/large/7d4c6366gy1gix9r4pabej23282aob2d.jpg" width="700" align="bottom"><center>上山 休息点</center><p>这里的竹子都很细，但每一根都很挺拔。<br>地上覆盖着厚厚的落叶，脚步走过，沙沙作响。</p><p>竹林里的竹子密密麻麻，在阴暗光线的笼罩下，有一瞬间我恍惚了，我感觉到一排竹子在我面前晃荡，这种奇怪的感觉让我只想快速离开。</p><p>离开竹林后要通过一处乱石水涧，灰黑色的大石头经过流水的浸泡，已经开始长青苔了。<br>领队在乱石间娴熟的迈步，跟着跨过几根枯木，一个跳跃上了小土坡，看起来是在告诉后面的人，跟着我这样走就可以安全的过来。</p><p>之前有人说山路很滑，我想象中的是那种湿润的黄土坡，没想过还有长青苔的大石头，真是too young too simple，这个滑倒可痛好多，所以我倒是小心翼翼的走好每一步，队友间互相搀扶着，遇到需要拉一把的即可伸出援手。</p><p>走在尾队的初步感觉是：<br>累了停一下，渴了停一下，别人停一下我也停一下，完全没有赶路的压力。</p><h3><span id="ai-zai-xiao-shu-lin">爱在小树林</span><a href="#ai-zai-xiao-shu-lin" class="header-anchor">#</a></h3><p>中午13点的时候我们走到了小树林，前面的人已经早到半个小时了，大家各自找地方坐下来休息补给。</p><img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gix9zxou7zj21gw13q7wh.jpg" width="700" align="bottom"><center>小树林 午餐点</center><p>刚一到达，就看到领队在分西瓜了，看到我们到达，拿着几片西瓜就递过来，这种感觉真好。</p><p>后来才知道，这一次的西瓜是其中一位徒友背上来的，说是为了锻炼负重<br>，于是背了个如桶一般的大背包，里面装了很多东西，其中就包括了这个西瓜。</p><p>大家把各自带的美食都拿出来分享，放到了野餐垫上。看到这个场面，感觉我应该带点冬枣或者柑橘来的。<br>接着有小伙伴拿出了啤酒，我在他的怂恿下也试了一点，果然还是有点苦涩。</p><img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gix8t1y9vsj23342bchdw.jpg" width="700" align="bottom"><center>野餐垫 分享食物</center><p>午餐我还是一罐八宝粥外加几个小水果就搞定了。</p><p>一起走的朋友这一次也吃了八宝粥，但吃下没多久就开始拉肚子。<br>我估计是吃到生冷的东西，加上阴冷的天气，导致着凉了。<br>据他说这是他第一次在户外吃八宝粥，听后我感觉这样太冒险了。</p><p>由此对户外食物分享有一点反思：</p><blockquote><p>大家开开心心一起出来游玩，还带了喜欢吃的食物出来分享，这本身是好的，但是作为接受分享的人，要根据自身的肠胃能力来做选择。</p><p>最保险的做法是吃自己带的食物和吃自己日常吃过的食物。<br>对于没吃过或者不常吃的就要谨慎对待。否则在荒郊野外吃出肠胃问题，后果无法想象。</p><p>我见过分享的食物种类还挺多的，有：小番茄、提子、青瓜、自制的凤爪、自制的辣条、不认识的啤酒、瓜子、诱人的小零食和面包等等。<br>因为我自知肠胃消化能力不强，所以对于没吃过的食物，一般都不会轻易尝试。<br>同时也建议徒友们不要轻易尝试对自己身体“陌生”的食物。</p><p>总之，户外分享精神值得提倡和宣扬，但接受分享需要谨慎。</p></blockquote><p>看天气预报，说今天天气是多云的，无奈天公不作美，天气持续阴冷。<br>早上做热身运动的时候莫名奇妙的流了一身汗，一直到中午都还没干，被汗湿透的衣服贴着身体，感觉到阴凉，心想失策了，应该带件衣服来更换的。</p><p>大家“酒足饭饱”后纷纷收拾行囊陆续出发了，眼看没剩几个人了，作为尾队的我们也赶紧起动，跟上大家的步伐。爬了半个小时坡，终于上到山脊线上。</p><img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gixbew1kzxj23342bchdx.jpg" width="700" align="bottom"><center>山顶前的陡坡</center><h3><span id="shan-ding-pai-zhao">山顶拍照</span><a href="#shan-ding-pai-zhao" class="header-anchor">#</a></h3><p>山上风光无限好，让人眼前一亮，豁然开朗，乱石嶙峋，险峭奇特。</p><p>有的形似巨蟒出洞，有的形似雄鹰展翅，有的形似神龟望天，有的形似犄角凸起，有的形似骆驼匍匐……，看得我眼花缭乱。<br>巨石屹立，如同一道道险阻的关隘，越过重重阻碍，迎接我们的是一望无际的蓝天白云。</p><img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gixboncs16j22c0340e83.jpg" width="700" align="bottom"><center>山顶怪石</center><p>无限风光在此，无限风光在险峰。</p><p>山顶的打卡点颇多，景色也别具一格。站在巨石上，眺望远方，蓝天与白云相间，远处有有河流蜿蜒流长，稍近一些有村庄星罗棋布，更近的地方是郁郁葱葱的丛林，而脚下是令人望而却步的悬崖。美中不足的是视野略带灰蒙。微风吹拂而过，带走整个上午的阴冷湿气，彷佛在提醒这我们，振作起来，拍照时间到了。</p><img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gixezhstb7j23402c0qv7.jpg" width="700" align="bottom"><center>眺望</center><p>路过打卡点，<strong>阳光</strong> 领队已经在那里等候，凑齐四人，摆好pose，快门一按，就把大家的笑容给定住了。</p><p>此行真心要夸夸 <strong>32号</strong> 的领队，把大家照顾的很周全。<br><img src="http://tvax4.sinaimg.cn/large/7d4c6366gy1gixdmmdet6j21400u0tc9.jpg" width="700" align="bottom"></p><center>即兴pose</center><p>来到集合地点后，照例拍个大合照。<br><img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gixeebnysnj23402c0u0y.jpg" width="700" align="bottom"></p><center>大合照</center><p>大合照后留有一些时间给大家自由活动和拍照，看大家发挥搞怪、逗比的表演也是一件享受的事。</p><img src="http://tvax3.sinaimg.cn/large/7d4c6366gy1gixfg836ilj23402c0npe.jpg" align="bottom" width="700"><center>Emmm 1</center><img src="http://tvax2.sinaimg.cn/large/7d4c6366gy1gixbn52i3fj22c03404qq.jpg" align="bottom" width="700"><center>Emmm 2</center><p>山顶危峰耸立，怪石遍布，有时候需要在石缝间穿过，攀爬。不过难度不大，可以爬到猪牙峰最高处看小龙斗山全景。</p><p>山顶上百草凋零，脚步所过皆是颓黄惨淡。时而冷风掠过，为数不多的绿树瑟瑟发抖。顽强的石头仍傲然挺立着，在温暖的阳光照耀下，发出雄伟的光芒。</p><img src="http://tvax4.sinaimg.cn/large/7d4c6366gy1gixfqawc23j23402c0npe.jpg" width="700" align="bottom"><center>俯瞰</center><p>在不知不觉中，上午一直湿透的衣服也逐渐干了，心情舒畅，准备下山返回。</p><h3><span id="zui-nan-shi-xia-shan">最难是下山</span><a href="#zui-nan-shi-xia-shan" class="header-anchor">#</a></h3><p>下午14:30开始从垭口这里下山，这里是今天最难的一段。<br>路滑险陡，需要绳降。<br>要保持距离，一个接一个下去，否则有可能踩落滚石误伤下面的伙伴。</p><img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gixgiywg68j22uo3yaqv6.jpg" alt="绳降" align="bottom" width="700"><center>绳降1</center><img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gixgrdz4olj22bc334hdv.jpg" alt="绳降" align="bottom" width="700"><center>绳降2</center><p>差不多花20分钟可以下完乱石坡，然后花1个小时穿过小树林。</p><p>午后阳光灿烂，林荫间的阴冷早已被驱散。<br>温度刚好，一路下山都没有出汗。<br>天气干燥，有些野路沙化，有点陡滑。<br>这个时候手套是个好帮手，带上手套，扶着两边的树干走就行。<br>尽管这样，我还是光荣地臀降了一次。</p><p>想到上周在某个户外群里看到的，也是在小龙斗，有个女生刚下山的时候就崴到脚了，最后一路臀降下山，看视频并没有凄凄惨惨戚戚，反而一路欢声笑语，趣味十足。</p><p>最后，走半小时的机耕路，4点钟就可以出到终点啦！</p><img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gixgt144chj22c0340e82.jpg" width="700" align="bottom"><center>机耕路</center><p>到达终点后，上车拿换洗的衣物，在山下一位阿姨的家里洗澡，换上干净的衣服，舒服。然后喝了几大碗绿豆糖水，满足了。</p><p>走出院子，望向小龙斗峰。回想这一路的忍耐都值得，感谢队友的陪伴，感谢领队的照顾。</p><img src="http://tvax2.sinaimg.cn/large/7d4c6366gy1gixhsxfqqoj23282aokjm.jpg" width="700" align="bottom"><center>麻雀 电线杆</center><p>一路走下来，小龙斗路线总体不难，风景倒是不错。<br>徒步全程约8公里，需要6个多小时，路线属三星难度。</p><p>一路经过无数迷坡乱石，需要手脚并用攀爬，必备手套和登山杖。<br>下山急降坡那里险陡路滑，需要绳降，务必小心落石。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;清远佛冈猪咸脑山，又名猪牙山，海拔889米，山高路陡，怪石嶙峋，地形险要。与韶关龙斗峰地貌风光相似，所谓“小龙斗”。&lt;/p&gt;
-&lt;p&gt;9月6日周日，天气多云转阴。&lt;/p&gt;
-&lt;p&gt;7:30分在客村地铁B出口集合，8:00准时出发，途径从化，进入清远，最终到达小龙斗山下的旁边的村</summary>
-      
-    
-    
-    
-    <category term="personal" scheme="http://chenfeng.org/categories/personal/"/>
-    
-    
-    <category term="爬山" scheme="http://chenfeng.org/tags/%E7%88%AC%E5%B1%B1/"/>
-    
-    <category term="游玩" scheme="http://chenfeng.org/tags/%E6%B8%B8%E7%8E%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Windows下PHP如何添加扩展</title>
-    <link href="http://chenfeng.org/2020/08/22/PHP-extensions/"/>
-    <id>http://chenfeng.org/2020/08/22/PHP-extensions/</id>
-    <published>2020-08-22T19:00:00.000Z</published>
-    <updated>2022-06-18T17:50:47.873Z</updated>
-    
-    <content type="html"><![CDATA[<p>Windows下，PHP添加扩展，步骤如下：</p><ol><li>找到目标扩展</li><li>把扩展文件放到PHP扩展文件夹里</li><li>添加扩展配置</li><li>重启</li></ol><p>下面以添加redis扩展为例。</p><h3><span id="que-ding-php-ban-ben-xin-xi">确定PHP版本信息</span><a href="#que-ding-php-ban-ben-xin-xi" class="header-anchor">#</a></h3><p>访问 <strong>phpinfo.php</strong>，找到这三个字段的值：</p><ul><li>PHP Version</li><li>Architecture</li><li>Thread Safety</li></ul><img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x35ukyvj20q60mo0u1.jpg" width="700" align="bottom"><center>phpinfo</center><p>从上图可知，需要找支持PHP版本7.0、x86架构、线程安全的redis扩展。</p><h3><span id="cha-zhao-kuo-zhan">查找扩展</span><a href="#cha-zhao-kuo-zhan" class="header-anchor">#</a></h3><p>到<a href="http://pecl.php.net/">PECL</a>查找redis扩展，输入扩展名字，查找。</p><img src="http://tva3.sinaimg.cn/large/7d4c6366gy1gi1x3ifk4dj20qq0h8t9w.jpg" width="700" align="bottom"><center>PECL官网</center><p>从查找结果列表中找到redis扩展。</p><img src="http://tva4.sinaimg.cn/large/7d4c6366gy1gi1x3nmocfj20qq0gddgk.jpg" width="700" align="bottom"><center>查找结果列表</center><p>点击进入，看到有不同版本的redis扩展。</p><blockquote><p>注意要找稳定版(statble)的DLL。</p></blockquote><img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gi1z0970g7j20lf0o6juk.jpg" width="700" align="bottom"><center>不同版本的redis扩展</center><p>根据第一步确定的信息，可以找到目标扩展，点击下载。</p><img src="http://tvax1.sinaimg.cn/large/7d4c6366gy1gi1x3rvy3qj20qq0prmz3.jpg" width="700" align="bottom"><center>目标扩展</center><h3><span id="an-zhuang-kuo-zhan">安装扩展</span><a href="#an-zhuang-kuo-zhan" class="header-anchor">#</a></h3><p>解压缩扩展文件，把DLL扩展文件放到PHP扩展文件夹里面。</p><blockquote><p>如果不知道PHP扩展文件夹的位置，从php.ini里搜索extension_dir&#x3D;”…”可以找到。</p></blockquote><p>在php.ini文件里添加</p><blockquote><p>extension&#x3D;php_redis.dll</p></blockquote><p>即可。</p><h3><span id="ce-shi">测试</span><a href="#ce-shi" class="header-anchor">#</a></h3><p>重启服务器，访问 <strong>phpinfo.php</strong> ，如果看到有目标扩展信息，即表示安装成功。<br><img src="http://tva2.sinaimg.cn/large/7d4c6366gy1gi1x40ful0j20q903ut8k.jpg" width="700" align="bottom"></p><center>测试redis扩展</center>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Windows下，PHP添加扩展，步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;找到目标扩展&lt;/li&gt;
-&lt;li&gt;把扩展文件放到PHP扩展文件夹里&lt;/li&gt;
-&lt;li&gt;添加扩展配置&lt;/li&gt;
-&lt;li&gt;重启&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;下面以添加redis扩展为例。&lt;/p&gt;
-&lt;h3&gt;&lt;s</summary>
-      
-    
-    
-    
-    <category term="php" scheme="http://chenfeng.org/categories/php/"/>
-    
-    
-    <category term="php" scheme="http://chenfeng.org/tags/php/"/>
     
   </entry>
   
