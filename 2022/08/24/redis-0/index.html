@@ -3,49 +3,40 @@
 <head>
 	<meta charset="utf-8">
     
-	<title>redis-string数据类型小结 - 不知有晋</title>
+	<title>redis命令小结 - 不知有晋</title>
     <meta name="author" content="CFONG">
     
-	<meta name="description" content="&lt;p&gt;Redis 字符串数据类型的相关命令用于管理 redis 字符串值。&lt;/p&gt;
+	<meta name="description" content="&lt;p&gt;Redis&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;设置值&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;操作命令&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;设置一个键值 set key val&lt;/li&gt;
-&lt;li&gt;批量设置键值 mset key val [key val …]&lt;/li&gt;
-&lt;li&gt;设置唯一的键值对 setnx&lt;/li&gt;
-&lt;li&gt;批量设置唯一的键值对 msetnx&lt;/li&gt;
-&lt;li&gt;设置新值返回旧值 getset key val&lt;/li&gt;
+&lt;li&gt;删除指定的key：del key&lt;/li&gt;
+&lt;li&gt;为给定 key 设置过期时间，以秒计: expire key seconds&lt;/li&gt;
+&lt;li&gt;指定key在特定的时间戳后过期，以秒计: expireat key timestamp&lt;/li&gt;
+&lt;li&gt;为给定 key 设置过期时间，以毫秒计: pexpire key milliseconds&lt;/li&gt;
+&lt;li&gt;指定key在特定的时间戳后过期，以毫秒计: pexpireat key milliseconds-timestamp&lt;/li&gt;
+&lt;li&gt;将当前数据库的 key 移动到给定的数据库 db 当中：move key db&lt;/li&gt;
+&lt;li&gt;持久化key：persist key&lt;/li&gt;
+&lt;li&gt;重命名key：rename key newkey&lt;/li&gt;
+&lt;li&gt;仅当newkey不存在时，重命名key：renamenx key newkey&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;获取值&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;查询命令&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;获取键值 get&lt;/li&gt;
-&lt;li&gt;批量获取键值 mget&lt;/li&gt;
+&lt;li&gt;查找所有符合给定模式的key：keys pattern&lt;/li&gt;
+&lt;li&gt;查看key的剩余生存时间，以秒计: ttl key&lt;/li&gt;
+&lt;li&gt;查看key的剩余生存时间，以毫秒计: pttl key&lt;/li&gt;
+&lt;li&gt;从当前数据库中随机返回一个 key：randomkey&lt;/li&gt;
+&lt;li&gt;查询key的数据类型：type key&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;修改值&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;判断命令&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;值增加1 incr key&lt;/li&gt;
-&lt;li&gt;值增加指定增幅 incrby key increment&lt;/li&gt;
-&lt;li&gt;值减1 decr key&lt;/li&gt;
-&lt;li&gt;值减少指定减幅 decrby key decrement&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;过期时间&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;字符串操作&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;返回值的子串 getrange key start end&lt;/li&gt;
-&lt;li&gt;使用子串覆盖值 setrange key offset val&lt;/li&gt;
-&lt;li&gt;返回值的长度 strlen key&lt;/li&gt;
-&lt;li&gt;字符串追加到值的后面 append key value&lt;/li&gt;
+&lt;li&gt;检查给定 key 是否存在：exists key&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;/img/redis/redis-string.png&#34; alt=&#34;string&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/redis/redis-comnamd.png&#34; alt=&#34;comnamd&#34;&gt;&lt;/p&gt;
 "> <!-- TODO: truncate -->
 	<meta name="keywords" content="redis ">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -132,7 +123,7 @@
 <!-- begin toload -->
     <div id="content" class="inner">
         <article class="post">
-	<h2 class="title">redis-string数据类型小结</h2>
+	<h2 class="title">redis命令小结</h2>
     <div class="meta">
         <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
 </div>
@@ -141,46 +132,37 @@
 <a href="/tags/redis/">redis</a>
 </div>
     </div>
-	<div class="entry-content"><p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p>
+	<div class="entry-content"><p>Redis</p>
 <ul>
-<li><p>设置值</p>
+<li><p>操作命令</p>
 <ul>
-<li>设置一个键值 set key val</li>
-<li>批量设置键值 mset key val [key val …]</li>
-<li>设置唯一的键值对 setnx</li>
-<li>批量设置唯一的键值对 msetnx</li>
-<li>设置新值返回旧值 getset key val</li>
+<li>删除指定的key：del key</li>
+<li>为给定 key 设置过期时间，以秒计: expire key seconds</li>
+<li>指定key在特定的时间戳后过期，以秒计: expireat key timestamp</li>
+<li>为给定 key 设置过期时间，以毫秒计: pexpire key milliseconds</li>
+<li>指定key在特定的时间戳后过期，以毫秒计: pexpireat key milliseconds-timestamp</li>
+<li>将当前数据库的 key 移动到给定的数据库 db 当中：move key db</li>
+<li>持久化key：persist key</li>
+<li>重命名key：rename key newkey</li>
+<li>仅当newkey不存在时，重命名key：renamenx key newkey</li>
 </ul>
 </li>
-<li><p>获取值</p>
+<li><p>查询命令</p>
 <ul>
-<li>获取键值 get</li>
-<li>批量获取键值 mget</li>
+<li>查找所有符合给定模式的key：keys pattern</li>
+<li>查看key的剩余生存时间，以秒计: ttl key</li>
+<li>查看key的剩余生存时间，以毫秒计: pttl key</li>
+<li>从当前数据库中随机返回一个 key：randomkey</li>
+<li>查询key的数据类型：type key</li>
 </ul>
 </li>
-<li><p>修改值</p>
+<li><p>判断命令</p>
 <ul>
-<li>值增加1 incr key</li>
-<li>值增加指定增幅 incrby key increment</li>
-<li>值减1 decr key</li>
-<li>值减少指定减幅 decrby key decrement</li>
-</ul>
-</li>
-<li><p>过期时间</p>
-<ul>
-<li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li>
-</ul>
-</li>
-<li><p>字符串操作</p>
-<ul>
-<li>返回值的子串 getrange key start end</li>
-<li>使用子串覆盖值 setrange key offset val</li>
-<li>返回值的长度 strlen key</li>
-<li>字符串追加到值的后面 append key value</li>
+<li>检查给定 key 是否存在：exists key</li>
 </ul>
 </li>
 </ul>
-<p><img src="/img/redis/redis-string.png" alt="string"></p>
+<p><img src="/img/redis/redis-comnamd.png" alt="comnamd"></p>
 </div>
 
 <div class="meta">

@@ -6,7 +6,7 @@
   <link href="http://chenfeng.org/atom.xml" rel="self"/>
   
   <link href="http://chenfeng.org/"/>
-  <updated>2022-09-15T17:02:45.684Z</updated>
+  <updated>2022-09-16T07:00:52.121Z</updated>
   <id>http://chenfeng.org/</id>
   
   <author>
@@ -17,42 +17,13 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>redis-list数据类型小结</title>
-    <link href="http://chenfeng.org/2022/08/24/redis-3-list/"/>
-    <id>http://chenfeng.org/2022/08/24/redis-3-list/</id>
-    <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-15T17:02:45.684Z</updated>
-    
-    <content type="html"><![CDATA[<p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p><ul><li><p>新增值</p><ul><li>队列头增加值 lpush key value [value2 value3]</li><li>队列尾增加值 rpush key value [value2 value3]</li><li>相对位置插入值 linsert key before|after pivot value</li><li>新增带判断，链表不存在时增加失败<ul><li>队列头增加值 lpushx key value</li><li>队列尾增加值 rpushx key value</li></ul></li></ul></li><li><p>查询值</p><ul><li>通过索引获取单个值 lndex key index</li><li>通过索引获取多个值 lrange key start stop</li></ul></li><li><p>修改值</p><ul><li>通过索引修改指定位置的值 lset key index value</li></ul></li><li><p>删除值</p><ul><li>队列头删除并获得值 lpop key</li><li>阻塞式表头删除并获得值 blpop key timeout</li><li>表尾删除并获得值 rpop key</li><li>阻塞式表尾删除并获得值 brpop key timeout</li><li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li><li>删除索引范围外的元素值 ltrim key start stop</li></ul></li><li><p>操作链表</p><ul><li>移动元素 rpoplpush source destination</li><li>阻塞式移动元素 brpoplpush source destination</li></ul></li><li><p>获取链表长度 llen key</p></li></ul><p><img src="/img/redis-list.png" alt="list"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;新增值&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;队列头增加值 lpush key value [value2 value3]&lt;/li&gt;
-&lt;li&gt;队列尾增加值 rpush k</summary>
-      
-    
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
     <title>redis-string数据类型小结</title>
     <link href="http://chenfeng.org/2022/08/24/redis-1-string/"/>
     <id>http://chenfeng.org/2022/08/24/redis-1-string/</id>
     <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-15T16:41:47.894Z</updated>
+    <updated>2022-09-16T07:00:52.121Z</updated>
     
-    <content type="html"><![CDATA[<p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p><ul><li><p>设置值</p><ul><li>设置一个键值 set key val</li><li>批量设置键值 mset key val [key val …]</li><li>设置唯一的键值对 setnx</li><li>批量设置唯一的键值对 msetnx</li><li>设置新值返回旧值 getset key val</li></ul></li><li><p>获取值</p><ul><li>获取键值 get</li><li>批量获取键值 mget</li></ul></li><li><p>修改值</p><ul><li>值增加1 incr key</li><li>值增加指定增幅 incrby key increment</li><li>值减1 decr key</li><li>值减少指定减幅 decrby key decrement</li></ul></li><li><p>过期时间</p><ul><li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li></ul></li><li><p>字符串操作</p><ul><li>返回值的子串 getrange key start end</li><li>使用子串覆盖值 setrange key offset val</li><li>返回值的长度 strlen key</li><li>字符串追加到值的后面 append key value</li></ul></li></ul><p><img src="/img/redis-string.png" alt="string"></p>]]></content>
+    <content type="html"><![CDATA[<p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p><ul><li><p>设置值</p><ul><li>设置一个键值 set key val</li><li>批量设置键值 mset key val [key val …]</li><li>设置唯一的键值对 setnx</li><li>批量设置唯一的键值对 msetnx</li><li>设置新值返回旧值 getset key val</li></ul></li><li><p>获取值</p><ul><li>获取键值 get</li><li>批量获取键值 mget</li></ul></li><li><p>修改值</p><ul><li>值增加1 incr key</li><li>值增加指定增幅 incrby key increment</li><li>值减1 decr key</li><li>值减少指定减幅 decrby key decrement</li></ul></li><li><p>过期时间</p><ul><li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li></ul></li><li><p>字符串操作</p><ul><li>返回值的子串 getrange key start end</li><li>使用子串覆盖值 setrange key offset val</li><li>返回值的长度 strlen key</li><li>字符串追加到值的后面 append key value</li></ul></li></ul><p><img src="/img/redis/redis-string.png" alt="string"></p>]]></content>
     
     
       
@@ -76,13 +47,43 @@
   </entry>
   
   <entry>
+    <title>redis命令小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-0/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-0/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-16T07:02:51.579Z</updated>
+    
+    <content type="html"><![CDATA[<p>Redis</p><ul><li><p>操作命令</p><ul><li>删除指定的key：del key</li><li>为给定 key 设置过期时间，以秒计: expire key seconds</li><li>指定key在特定的时间戳后过期，以秒计: expireat key timestamp</li><li>为给定 key 设置过期时间，以毫秒计: pexpire key milliseconds</li><li>指定key在特定的时间戳后过期，以毫秒计: pexpireat key milliseconds-timestamp</li><li>将当前数据库的 key 移动到给定的数据库 db 当中：move key db</li><li>持久化key：persist key</li><li>重命名key：rename key newkey</li><li>仅当newkey不存在时，重命名key：renamenx key newkey</li></ul></li><li><p>查询命令</p><ul><li>查找所有符合给定模式的key：keys pattern</li><li>查看key的剩余生存时间，以秒计: ttl key</li><li>查看key的剩余生存时间，以毫秒计: pttl key</li><li>从当前数据库中随机返回一个 key：randomkey</li><li>查询key的数据类型：type key</li></ul></li><li><p>判断命令</p><ul><li>检查给定 key 是否存在：exists key</li></ul></li></ul><p><img src="/img/redis/redis-comnamd.png" alt="comnamd"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Redis&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;操作命令&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;删除指定的key：del key&lt;/li&gt;
+&lt;li&gt;为给定 key 设置过期时间，以秒计: expire key seconds&lt;/li&gt;
+&lt;li&gt;指定key在特定的时间戳后过期，以秒计: ex</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>redis-hash数据类型小结</title>
     <link href="http://chenfeng.org/2022/08/24/redis-2-hash/"/>
     <id>http://chenfeng.org/2022/08/24/redis-2-hash/</id>
     <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-15T17:02:40.468Z</updated>
+    <updated>2022-09-16T07:00:58.777Z</updated>
     
-    <content type="html"><![CDATA[<p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p><ul><li>新增记录<ul><li>新增一条 hset key field value</li><li>批量新增 hmset key field value [field value field value …]</li><li>新增一条记录，唯一性 hsetnx key field value</li></ul></li><li>查询记录<ul><li>查询一条 hget key field</li><li>批量查询 hmget key field [field field]</li><li>全表查询 hgetall key</li></ul></li><li>修改记录<ul><li>值增加指定增幅 hincrby key field increment</li><li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li></ul></li><li>删除记录 hdel key field</li><li>查询表长 hlen key</li><li>查询所有的字段 hkeys key</li><li>查询所有的值 hvals key</li><li>判断字段是否存在 hexists key field</li></ul><p><img src="/img/redis-hash.png" alt="hash"></p>]]></content>
+    <content type="html"><![CDATA[<p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p><ul><li>新增记录<ul><li>新增一条 hset key field value</li><li>批量新增 hmset key field value [field value field value …]</li><li>新增一条记录，唯一性 hsetnx key field value</li></ul></li><li>查询记录<ul><li>查询一条 hget key field</li><li>批量查询 hmget key field [field field]</li><li>全表查询 hgetall key</li></ul></li><li>修改记录<ul><li>值增加指定增幅 hincrby key field increment</li><li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li></ul></li><li>删除记录 hdel key field</li><li>查询表长 hlen key</li><li>查询所有的字段 hkeys key</li><li>查询所有的值 hvals key</li><li>判断字段是否存在 hexists key field</li></ul><p><img src="/img/redis/redis-hash.png" alt="hash"></p>]]></content>
     
     
       
@@ -108,9 +109,9 @@
     <link href="http://chenfeng.org/2022/08/24/redis-4-set/"/>
     <id>http://chenfeng.org/2022/08/24/redis-4-set/</id>
     <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-15T17:02:54.213Z</updated>
+    <updated>2022-09-16T07:01:05.990Z</updated>
     
-    <content type="html"><![CDATA[<p>集合具有无序性和唯一性</p><ul><li>增加元素<ul><li>增加一个或多个元素 sadd key menber1 [member2 member3]</li></ul></li><li>查询元素<ul><li>查询集合数量 scard key</li><li>返回所有集合元素 smembers key</li><li>随机返回集合元素 srandmember key [count]</li></ul></li><li>删除元素<ul><li>随机删除集合元素 spop key [count]</li><li>删除集合中指定元素 srem key member [m1 m2]</li></ul></li><li>判断是否存在元素 sismember key member</li><li>移动元素 smove source destination member</li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff s1 s2</li><li>返回差集并存储 sdiffstore destination s1 s2</li></ul></li><li>交集<ul><li>返回交集 sinter s1 s2</li><li>返回交集并存储 sinterstore destination s1 s2</li></ul></li><li>并集<ul><li>返回并集 sunion s1 s2</li><li>返回并集并存储 sunionstore destination s1 s2</li></ul></li></ul></li></ul><p><img src="/img/redis-set.png" alt="set"></p>]]></content>
+    <content type="html"><![CDATA[<p>集合具有无序性和唯一性</p><ul><li>增加元素<ul><li>增加一个或多个元素 sadd key menber1 [member2 member3]</li></ul></li><li>查询元素<ul><li>查询集合数量 scard key</li><li>返回所有集合元素 smembers key</li><li>随机返回集合元素 srandmember key [count]</li></ul></li><li>删除元素<ul><li>随机删除集合元素 spop key [count]</li><li>删除集合中指定元素 srem key member [m1 m2]</li></ul></li><li>判断是否存在元素 sismember key member</li><li>移动元素 smove source destination member</li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff s1 s2</li><li>返回差集并存储 sdiffstore destination s1 s2</li></ul></li><li>交集<ul><li>返回交集 sinter s1 s2</li><li>返回交集并存储 sinterstore destination s1 s2</li></ul></li><li>并集<ul><li>返回并集 sunion s1 s2</li><li>返回并集并存储 sunionstore destination s1 s2</li></ul></li></ul></li></ul><p><img src="/img/redis/redis-set.png" alt="set"></p>]]></content>
     
     
       
@@ -139,9 +140,9 @@
     <link href="http://chenfeng.org/2022/08/24/redis-5-zset/"/>
     <id>http://chenfeng.org/2022/08/24/redis-5-zset/</id>
     <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-15T17:02:59.639Z</updated>
+    <updated>2022-09-16T07:03:02.666Z</updated>
     
-    <content type="html"><![CDATA[<p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p><ul><li>增加元素<ul><li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li></ul></li><li>查询元素<ul><li>返回集合元素数量 zcard key</li><li>返回指定分数范围内元素数量 count key start stop</li><li>返回指定索引范围内元素 zrange key start stop [withscores]</li><li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li><li>返回指定元素的索引 zrank key member</li><li>返回指定元素的分数 zscore key member</li></ul></li><li>修改元素<ul><li>修改元素分数 zincrby key increment member</li></ul></li><li>删除元素<ul><li>删除指定元素 zrem key member</li><li>删除指定分数范围里的元素 zremrangebyscore key start stop </li><li>删除指定索引范围里的元素 zremrangebyrank key start stop</li></ul></li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff num z1 z2</li><li>返回差集并存储 sdiffstore destination num z1 z2</li></ul></li><li>交集<ul><li>返回交集，分数相加 zinter num key key [key …]</li><li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li></ul></li><li>并集<ul><li>返回并集 zunion num k1 k2</li><li>返回并集并存储 zunionstore destination num k1 k2</li></ul></li></ul></li></ul><p><img src="/img/redis-zset.png" alt="zset"></p>]]></content>
+    <content type="html"><![CDATA[<p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p><ul><li>增加元素<ul><li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li></ul></li><li>查询元素<ul><li>返回集合元素数量 zcard key</li><li>返回指定分数范围内元素数量 count key start stop</li><li>返回指定索引范围内元素 zrange key start stop [withscores]</li><li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li><li>返回指定元素的索引 zrank key member</li><li>返回指定元素的分数 zscore key member</li></ul></li><li>修改元素<ul><li>修改元素分数 zincrby key increment member</li></ul></li><li>删除元素<ul><li>删除指定元素 zrem key member</li><li>删除指定分数范围里的元素 zremrangebyscore key start stop </li><li>删除指定索引范围里的元素 zremrangebyrank key start stop</li></ul></li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff num z1 z2</li><li>返回差集并存储 sdiffstore destination num z1 z2</li></ul></li><li>交集<ul><li>返回交集，分数相加 zinter num key key [key …]</li><li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li></ul></li><li>并集<ul><li>返回并集 zunion num k1 k2</li><li>返回并集并存储 zunionstore destination num k1 k2</li></ul></li></ul></li></ul><p><img src="/img/redis/redis-zset.png" alt="zset"></p>]]></content>
     
     
       
@@ -151,6 +152,35 @@
 &lt;li&gt;增加元素&lt;ul&gt;
 &lt;li&gt;增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]&lt;/li&gt;
 &lt;/ul</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-list数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-3-list/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-3-list/</id>
+    <published>2022-08-24T15:00:00.000Z</published>
+    <updated>2022-09-16T07:01:02.517Z</updated>
+    
+    <content type="html"><![CDATA[<p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p><ul><li><p>新增值</p><ul><li>队列头增加值 lpush key value [value2 value3]</li><li>队列尾增加值 rpush key value [value2 value3]</li><li>相对位置插入值 linsert key before|after pivot value</li><li>新增带判断，链表不存在时增加失败<ul><li>队列头增加值 lpushx key value</li><li>队列尾增加值 rpushx key value</li></ul></li></ul></li><li><p>查询值</p><ul><li>通过索引获取单个值 lndex key index</li><li>通过索引获取多个值 lrange key start stop</li></ul></li><li><p>修改值</p><ul><li>通过索引修改指定位置的值 lset key index value</li></ul></li><li><p>删除值</p><ul><li>队列头删除并获得值 lpop key</li><li>阻塞式表头删除并获得值 blpop key timeout</li><li>表尾删除并获得值 rpop key</li><li>阻塞式表尾删除并获得值 brpop key timeout</li><li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li><li>删除索引范围外的元素值 ltrim key start stop</li></ul></li><li><p>操作链表</p><ul><li>移动元素 rpoplpush source destination</li><li>阻塞式移动元素 brpoplpush source destination</li></ul></li><li><p>获取链表长度 llen key</p></li></ul><p><img src="/img/redis/redis-list.png" alt="list"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;新增值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;队列头增加值 lpush key value [value2 value3]&lt;/li&gt;
+&lt;li&gt;队列尾增加值 rpush k</summary>
       
     
     
@@ -531,31 +561,6 @@
     
     
     <category term="telegram" scheme="http://chenfeng.org/tags/telegram/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL常用日期和时间函数</title>
-    <link href="http://chenfeng.org/2021/03/14/mysql-date-time/"/>
-    <id>http://chenfeng.org/2021/03/14/mysql-date-time/</id>
-    <published>2021-03-14T08:00:00.000Z</published>
-    <updated>2022-06-18T17:54:33.430Z</updated>
-    
-    <content type="html"><![CDATA[<h4><span id="ri-qi-x2f-shi-jian-biao-shi">日期&#x2F;时间表示</span><a href="#ri-qi-x2f-shi-jian-biao-shi" class="header-anchor">#</a></h4><ol><li><p>返回当前日期时间</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT NOW();   ## 同CURRENT_TIMESTAMP(),返回一个 datetime 表达式</span><br><span class="line">&lt;.  2021-03-14 15:37:16</span><br></pre></td></tr></table></figure></li><li><p>返回当前日期</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT DATE(NOW());  ## 同CURRENT_DATE() 和 CURDATE()</span><br><span class="line">&lt;.  2021-03-14</span><br></pre></td></tr></table></figure></li><li><p>返回当前时间</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT TIME(NOW());  ## 同CURRENT_TIME() 和 CURTIME()</span><br><span class="line">&lt;.  15:41:19</span><br></pre></td></tr></table></figure></li><li><p>单独返回年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT YEAR(NOW());</span><br><span class="line">&lt;.  2021</span><br><span class="line">&gt;   SELECT MONTH(NOW());</span><br><span class="line">&lt;.  3</span><br><span class="line">&gt;   SELECT DAY(NOW());</span><br><span class="line">&lt;.  14</span><br><span class="line">&gt;   SELECT HOUR(NOW());</span><br><span class="line">&lt;.  15</span><br><span class="line">&gt;   SELECT MINUTE(NOW());</span><br><span class="line">&lt;.  49</span><br><span class="line">&gt;   SELECT SECOND(NOW());</span><br><span class="line">&lt;.  43</span><br></pre></td></tr></table></figure></li><li><p>另一种方式单独返回年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p></li></ol><p>使用 <code>EXTRACT(unit FROM date)</code> 函数，<code>unit</code> 为要返回值类型，<code>date</code> 为日期时间表达式。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT EXTRACT(YEAR FROM NOW());</span><br><span class="line">&lt;.  2021</span><br></pre></td></tr></table></figure><blockquote><p>unit包括：YEAR,MONTH,DAY,HOUR,MINUTE,SECOND,MICROSECOND等等。</p></blockquote><p>使用 <code>DATE_FORMAT(date,format)</code> 函数，<code>date</code> 为日期时间表达式，<code>format</code> 为要返回的日期格式。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT DATE_FORMAT(NOW(),&quot;%Y&quot;);</span><br><span class="line">&lt;.  2021</span><br></pre></td></tr></table></figure><p>常用的日期时间格式有：</p><table><thead><tr><th>格式</th><th>描述</th></tr></thead><tbody><tr><td>%Y</td><td>4位数字年份</td></tr><tr><td>%m</td><td>2位数字月份 (00 to 12)</td></tr><tr><td>%d</td><td>2位数字日期 (01 to 31)</td></tr><tr><td>%H</td><td>小时 (00 to 23)</td></tr><tr><td>%i</td><td>分钟 (00 to 59)</td></tr><tr><td>%s</td><td>秒钟 (00 to 59)</td></tr><tr><td>%f</td><td>毫秒 (000000 to 999999)</td></tr></tbody></table><p>更多的日期时间格式查看 <a href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format">Date and Time Functions</a> 文档。</p><h4><span id="ri-qi-x2f-shi-jian-ji-suan">日期&#x2F;时间计算</span><a href="#ri-qi-x2f-shi-jian-ji-suan" class="header-anchor">#</a></h4><ol><li><p>加 x 年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT NOW();</span><br><span class="line">&lt;.  2021-03-14 18:21:18</span><br><span class="line">&gt;   SELECT DATE_ADD(NOW(),INTERVAL 1 HOUR);</span><br><span class="line">&lt;.  2021-03-14 19:21:18</span><br></pre></td></tr></table></figure></li><li><p>减 x 年&#x2F;月&#x2F;日&#x2F;时&#x2F;分&#x2F;秒</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT NOW();</span><br><span class="line">&lt;.  2021-03-14 18:23:07</span><br><span class="line">&gt;   SELECT DATE_SUB(NOW(),INTERVAL 1 DAY);</span><br><span class="line">&lt;.  2021-03-13 18:23:07</span><br></pre></td></tr></table></figure></li><li><p>计算两个日期时间之差</p></li></ol><p>使用 <code>DATEDIFF(date1,date2)</code> 函数计算两个日期相差几天。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT DATEDIFF(DATE_ADD(NOW(),  INTERVAL 1 DAY),CURDATE());</span><br><span class="line">&lt;.  1</span><br></pre></td></tr></table></figure><p>使用 <code>TIMEDIFF(time1,time2)</code> 函数计算两个时间相差多少小时多少分钟多少秒钟。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT TIMEDIFF(DATE_ADD(CURTIME(),INTERVAL 1 HOUR),CURTIME());</span><br><span class="line">&lt;.  01:00:00</span><br></pre></td></tr></table></figure><h4><span id="ri-qi-shi-jian-yu-unix-shi-jian-chuo-hu-xiang-zhuan-huan">日期时间与unix时间戳互相转换</span><a href="#ri-qi-shi-jian-yu-unix-shi-jian-chuo-hu-xiang-zhuan-huan" class="header-anchor">#</a></h4><ol><li><p>日期时间 转 时间戳<br>函数 <code>UNIX_TIMESTAMP(datetime)</code> 带一个日期时间表达式参数，当不带参数时，相当于 <code>datetime=now()</code>。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT UNIX_TIMESTAMP();</span><br><span class="line">&lt;.  1615721103</span><br><span class="line">&gt;   SELECT UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL 1 DAY));      # 返回明天的时间戳</span><br><span class="line">&lt;.  1615807716</span><br></pre></td></tr></table></figure></li><li><p>时间戳 转 日期时间<br>函数 <code>FROM_UNIXTIME(unix_timestamp,format)</code> 有两个参数， <code>unix_timestamp</code> 参数必须，表示时间戳，<code>format</code> 参数可选，表示日期时间格式，当 <code>format</code> 为空时，表示返回 <code>&quot;%Y-%m-%d %H:%i:%s&quot;</code> 格式的日期时间。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;   SELECT FROM_UNIXTIME(1615807716);</span><br><span class="line">&lt;.  2021-03-15 19:28:36</span><br><span class="line">&gt;   SELECT FROM_UNIXTIME(1615807716,&quot;%Y-%m-%d&quot;);</span><br><span class="line">&lt;.  2021-03-15</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4&gt;&lt;span id=&quot;ri-qi-x2f-shi-jian-biao-shi&quot;&gt;日期&amp;#x2F;时间表示&lt;/span&gt;&lt;a href=&quot;#ri-qi-x2f-shi-jian-biao-shi&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;ol&gt;
-&lt;l</summary>
-      
-    
-    
-    
-    <category term="mysql" scheme="http://chenfeng.org/categories/mysql/"/>
-    
-    
-    <category term="mysql" scheme="http://chenfeng.org/tags/mysql/"/>
     
   </entry>
   
