@@ -97,11 +97,258 @@
 
   <article class="post">
 	<h2 class="title">
+		<a href="2022/08/24/redis-5-zset/">redis-zset(有序集合)数据类型小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:05:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p>
+<ul>
+<li>增加元素<ul>
+<li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li>
+</ul>
+</li>
+<li>查询元素<ul>
+<li>返回集合元素数量 zcard key</li>
+<li>返回指定分数范围内元素数量 count key start stop</li>
+<li>返回指定索引范围内元素 zrange key start stop [withscores]</li>
+<li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li>
+<li>返回指定元素的索引 zrank key member</li>
+<li>返回指定元素的分数 zscore key member</li>
+</ul>
+</li>
+<li>修改元素<ul>
+<li>修改元素分数 zincrby key increment member</li>
+</ul>
+</li>
+<li>删除元素<ul>
+<li>删除指定元素 zrem key member</li>
+<li>删除指定分数范围里的元素 zremrangebyscore key start stop </li>
+<li>删除指定索引范围里的元素 zremrangebyrank key start stop</li>
+</ul>
+</li>
+<li>集合运算<ul>
+<li>差集<ul>
+<li>返回差集 sdiff num z1 z2</li>
+<li>返回差集并存储 sdiffstore destination num z1 z2</li>
+</ul>
+</li>
+<li>交集<ul>
+<li>返回交集，分数相加 zinter num key key [key …]</li>
+<li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li>
+</ul>
+</li>
+<li>并集<ul>
+<li>返回并集 zunion num k1 k2</li>
+<li>返回并集并存储 zunionstore destination num k1 k2</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/redis/redis-zset.png" alt="zset"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2022/08/24/redis-4-set/">redis-set数据类型小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:04:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>集合具有无序性和唯一性</p>
+<ul>
+<li>增加元素<ul>
+<li>增加一个或多个元素 sadd key menber1 [member2 member3]</li>
+</ul>
+</li>
+<li>查询元素<ul>
+<li>查询集合数量 scard key</li>
+<li>返回所有集合元素 smembers key</li>
+<li>随机返回集合元素 srandmember key [count]</li>
+</ul>
+</li>
+<li>删除元素<ul>
+<li>随机删除集合元素 spop key [count]</li>
+<li>删除集合中指定元素 srem key member [m1 m2]</li>
+</ul>
+</li>
+<li>判断是否存在元素 sismember key member</li>
+<li>移动元素 smove source destination member</li>
+<li>集合运算<ul>
+<li>差集<ul>
+<li>返回差集 sdiff s1 s2</li>
+<li>返回差集并存储 sdiffstore destination s1 s2</li>
+</ul>
+</li>
+<li>交集<ul>
+<li>返回交集 sinter s1 s2</li>
+<li>返回交集并存储 sinterstore destination s1 s2</li>
+</ul>
+</li>
+<li>并集<ul>
+<li>返回并集 sunion s1 s2</li>
+<li>返回并集并存储 sunionstore destination s1 s2</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/redis/redis-set.png" alt="set"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2022/08/24/redis-3-list/">redis-list数据类型小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:03:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p>
+<ul>
+<li><p>新增值</p>
+<ul>
+<li>队列头增加值 lpush key value [value2 value3]</li>
+<li>队列尾增加值 rpush key value [value2 value3]</li>
+<li>相对位置插入值 linsert key before|after pivot value</li>
+<li>新增带判断，链表不存在时增加失败<ul>
+<li>队列头增加值 lpushx key value</li>
+<li>队列尾增加值 rpushx key value</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询值</p>
+<ul>
+<li>通过索引获取单个值 lndex key index</li>
+<li>通过索引获取多个值 lrange key start stop</li>
+</ul>
+</li>
+<li><p>修改值</p>
+<ul>
+<li>通过索引修改指定位置的值 lset key index value</li>
+</ul>
+</li>
+<li><p>删除值</p>
+<ul>
+<li>队列头删除并获得值 lpop key</li>
+<li>阻塞式表头删除并获得值 blpop key timeout</li>
+<li>表尾删除并获得值 rpop key</li>
+<li>阻塞式表尾删除并获得值 brpop key timeout</li>
+<li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li>
+<li>删除索引范围外的元素值 ltrim key start stop</li>
+</ul>
+</li>
+<li><p>操作链表</p>
+<ul>
+<li>移动元素 rpoplpush source destination</li>
+<li>阻塞式移动元素 brpoplpush source destination</li>
+</ul>
+</li>
+<li><p>获取链表长度 llen key</p>
+</li>
+</ul>
+<p><img src="/img/redis/redis-list.png" alt="list"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2022/08/24/redis-2-hash/">redis-hash数据类型小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:02:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p>
+<ul>
+<li>新增记录<ul>
+<li>新增一条 hset key field value</li>
+<li>批量新增 hmset key field value [field value field value …]</li>
+<li>新增一条记录，唯一性 hsetnx key field value</li>
+</ul>
+</li>
+<li>查询记录<ul>
+<li>查询一条 hget key field</li>
+<li>批量查询 hmget key field [field field]</li>
+<li>全表查询 hgetall key</li>
+</ul>
+</li>
+<li>修改记录<ul>
+<li>值增加指定增幅 hincrby key field increment</li>
+<li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li>
+</ul>
+</li>
+<li>删除记录 hdel key field</li>
+<li>查询表长 hlen key</li>
+<li>查询所有的字段 hkeys key</li>
+<li>查询所有的值 hvals key</li>
+<li>判断字段是否存在 hexists key field</li>
+</ul>
+<p><img src="/img/redis/redis-hash.png" alt="hash"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
 		<a href="2022/08/24/redis-1-string/">redis-string数据类型小结</a>
 	</h2>
     <div class="entry-content">
     <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+      <div class="date">Published on: <time datetime="2022-08-24T15:01:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
 </div>
       <div class="tags">Tags: 
 
@@ -203,253 +450,6 @@
 </li>
 </ul>
 <p><img src="/img/redis/redis-comnamd.png" alt="comnamd"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-2-hash/">redis-hash数据类型小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p>
-<ul>
-<li>新增记录<ul>
-<li>新增一条 hset key field value</li>
-<li>批量新增 hmset key field value [field value field value …]</li>
-<li>新增一条记录，唯一性 hsetnx key field value</li>
-</ul>
-</li>
-<li>查询记录<ul>
-<li>查询一条 hget key field</li>
-<li>批量查询 hmget key field [field field]</li>
-<li>全表查询 hgetall key</li>
-</ul>
-</li>
-<li>修改记录<ul>
-<li>值增加指定增幅 hincrby key field increment</li>
-<li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li>
-</ul>
-</li>
-<li>删除记录 hdel key field</li>
-<li>查询表长 hlen key</li>
-<li>查询所有的字段 hkeys key</li>
-<li>查询所有的值 hvals key</li>
-<li>判断字段是否存在 hexists key field</li>
-</ul>
-<p><img src="/img/redis/redis-hash.png" alt="hash"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-4-set/">redis-set数据类型小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>集合具有无序性和唯一性</p>
-<ul>
-<li>增加元素<ul>
-<li>增加一个或多个元素 sadd key menber1 [member2 member3]</li>
-</ul>
-</li>
-<li>查询元素<ul>
-<li>查询集合数量 scard key</li>
-<li>返回所有集合元素 smembers key</li>
-<li>随机返回集合元素 srandmember key [count]</li>
-</ul>
-</li>
-<li>删除元素<ul>
-<li>随机删除集合元素 spop key [count]</li>
-<li>删除集合中指定元素 srem key member [m1 m2]</li>
-</ul>
-</li>
-<li>判断是否存在元素 sismember key member</li>
-<li>移动元素 smove source destination member</li>
-<li>集合运算<ul>
-<li>差集<ul>
-<li>返回差集 sdiff s1 s2</li>
-<li>返回差集并存储 sdiffstore destination s1 s2</li>
-</ul>
-</li>
-<li>交集<ul>
-<li>返回交集 sinter s1 s2</li>
-<li>返回交集并存储 sinterstore destination s1 s2</li>
-</ul>
-</li>
-<li>并集<ul>
-<li>返回并集 sunion s1 s2</li>
-<li>返回并集并存储 sunionstore destination s1 s2</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/img/redis/redis-set.png" alt="set"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-5-zset/">redis-zset(有序集合)数据类型小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p>
-<ul>
-<li>增加元素<ul>
-<li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li>
-</ul>
-</li>
-<li>查询元素<ul>
-<li>返回集合元素数量 zcard key</li>
-<li>返回指定分数范围内元素数量 count key start stop</li>
-<li>返回指定索引范围内元素 zrange key start stop [withscores]</li>
-<li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li>
-<li>返回指定元素的索引 zrank key member</li>
-<li>返回指定元素的分数 zscore key member</li>
-</ul>
-</li>
-<li>修改元素<ul>
-<li>修改元素分数 zincrby key increment member</li>
-</ul>
-</li>
-<li>删除元素<ul>
-<li>删除指定元素 zrem key member</li>
-<li>删除指定分数范围里的元素 zremrangebyscore key start stop </li>
-<li>删除指定索引范围里的元素 zremrangebyrank key start stop</li>
-</ul>
-</li>
-<li>集合运算<ul>
-<li>差集<ul>
-<li>返回差集 sdiff num z1 z2</li>
-<li>返回差集并存储 sdiffstore destination num z1 z2</li>
-</ul>
-</li>
-<li>交集<ul>
-<li>返回交集，分数相加 zinter num key key [key …]</li>
-<li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li>
-</ul>
-</li>
-<li>并集<ul>
-<li>返回并集 zunion num k1 k2</li>
-<li>返回并集并存储 zunionstore destination num k1 k2</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/img/redis/redis-zset.png" alt="zset"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-3-list/">redis-list数据类型小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p>
-<ul>
-<li><p>新增值</p>
-<ul>
-<li>队列头增加值 lpush key value [value2 value3]</li>
-<li>队列尾增加值 rpush key value [value2 value3]</li>
-<li>相对位置插入值 linsert key before|after pivot value</li>
-<li>新增带判断，链表不存在时增加失败<ul>
-<li>队列头增加值 lpushx key value</li>
-<li>队列尾增加值 rpushx key value</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>查询值</p>
-<ul>
-<li>通过索引获取单个值 lndex key index</li>
-<li>通过索引获取多个值 lrange key start stop</li>
-</ul>
-</li>
-<li><p>修改值</p>
-<ul>
-<li>通过索引修改指定位置的值 lset key index value</li>
-</ul>
-</li>
-<li><p>删除值</p>
-<ul>
-<li>队列头删除并获得值 lpop key</li>
-<li>阻塞式表头删除并获得值 blpop key timeout</li>
-<li>表尾删除并获得值 rpop key</li>
-<li>阻塞式表尾删除并获得值 brpop key timeout</li>
-<li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li>
-<li>删除索引范围外的元素值 ltrim key start stop</li>
-</ul>
-</li>
-<li><p>操作链表</p>
-<ul>
-<li>移动元素 rpoplpush source destination</li>
-<li>阻塞式移动元素 brpoplpush source destination</li>
-</ul>
-</li>
-<li><p>获取链表长度 llen key</p>
-</li>
-</ul>
-<p><img src="/img/redis/redis-list.png" alt="list"></p>
 
       
 	</div>

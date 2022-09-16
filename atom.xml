@@ -6,7 +6,7 @@
   <link href="http://chenfeng.org/atom.xml" rel="self"/>
   
   <link href="http://chenfeng.org/"/>
-  <updated>2022-09-16T07:00:52.121Z</updated>
+  <updated>2022-09-16T07:13:32.889Z</updated>
   <id>http://chenfeng.org/</id>
   
   <author>
@@ -17,11 +17,127 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>redis-zset(有序集合)数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-5-zset/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-5-zset/</id>
+    <published>2022-08-24T15:05:00.000Z</published>
+    <updated>2022-09-16T07:13:32.889Z</updated>
+    
+    <content type="html"><![CDATA[<p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p><ul><li>增加元素<ul><li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li></ul></li><li>查询元素<ul><li>返回集合元素数量 zcard key</li><li>返回指定分数范围内元素数量 count key start stop</li><li>返回指定索引范围内元素 zrange key start stop [withscores]</li><li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li><li>返回指定元素的索引 zrank key member</li><li>返回指定元素的分数 zscore key member</li></ul></li><li>修改元素<ul><li>修改元素分数 zincrby key increment member</li></ul></li><li>删除元素<ul><li>删除指定元素 zrem key member</li><li>删除指定分数范围里的元素 zremrangebyscore key start stop </li><li>删除指定索引范围里的元素 zremrangebyrank key start stop</li></ul></li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff num z1 z2</li><li>返回差集并存储 sdiffstore destination num z1 z2</li></ul></li><li>交集<ul><li>返回交集，分数相加 zinter num key key [key …]</li><li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li></ul></li><li>并集<ul><li>返回并集 zunion num k1 k2</li><li>返回并集并存储 zunionstore destination num k1 k2</li></ul></li></ul></li></ul><p><img src="/img/redis/redis-zset.png" alt="zset"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增加元素&lt;ul&gt;
+&lt;li&gt;增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]&lt;/li&gt;
+&lt;/ul</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-set数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-4-set/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-4-set/</id>
+    <published>2022-08-24T15:04:00.000Z</published>
+    <updated>2022-09-16T07:13:28.693Z</updated>
+    
+    <content type="html"><![CDATA[<p>集合具有无序性和唯一性</p><ul><li>增加元素<ul><li>增加一个或多个元素 sadd key menber1 [member2 member3]</li></ul></li><li>查询元素<ul><li>查询集合数量 scard key</li><li>返回所有集合元素 smembers key</li><li>随机返回集合元素 srandmember key [count]</li></ul></li><li>删除元素<ul><li>随机删除集合元素 spop key [count]</li><li>删除集合中指定元素 srem key member [m1 m2]</li></ul></li><li>判断是否存在元素 sismember key member</li><li>移动元素 smove source destination member</li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff s1 s2</li><li>返回差集并存储 sdiffstore destination s1 s2</li></ul></li><li>交集<ul><li>返回交集 sinter s1 s2</li><li>返回交集并存储 sinterstore destination s1 s2</li></ul></li><li>并集<ul><li>返回并集 sunion s1 s2</li><li>返回并集并存储 sunionstore destination s1 s2</li></ul></li></ul></li></ul><p><img src="/img/redis/redis-set.png" alt="set"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;集合具有无序性和唯一性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增加元素&lt;ul&gt;
+&lt;li&gt;增加一个或多个元素 sadd key menber1 [member2 member3]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;查询元素&lt;ul&gt;
+&lt;li&gt;查询集合数量 scard key&lt;/li</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-list数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-3-list/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-3-list/</id>
+    <published>2022-08-24T15:03:00.000Z</published>
+    <updated>2022-09-16T07:13:23.920Z</updated>
+    
+    <content type="html"><![CDATA[<p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p><ul><li><p>新增值</p><ul><li>队列头增加值 lpush key value [value2 value3]</li><li>队列尾增加值 rpush key value [value2 value3]</li><li>相对位置插入值 linsert key before|after pivot value</li><li>新增带判断，链表不存在时增加失败<ul><li>队列头增加值 lpushx key value</li><li>队列尾增加值 rpushx key value</li></ul></li></ul></li><li><p>查询值</p><ul><li>通过索引获取单个值 lndex key index</li><li>通过索引获取多个值 lrange key start stop</li></ul></li><li><p>修改值</p><ul><li>通过索引修改指定位置的值 lset key index value</li></ul></li><li><p>删除值</p><ul><li>队列头删除并获得值 lpop key</li><li>阻塞式表头删除并获得值 blpop key timeout</li><li>表尾删除并获得值 rpop key</li><li>阻塞式表尾删除并获得值 brpop key timeout</li><li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li><li>删除索引范围外的元素值 ltrim key start stop</li></ul></li><li><p>操作链表</p><ul><li>移动元素 rpoplpush source destination</li><li>阻塞式移动元素 brpoplpush source destination</li></ul></li><li><p>获取链表长度 llen key</p></li></ul><p><img src="/img/redis/redis-list.png" alt="list"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;新增值&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;队列头增加值 lpush key value [value2 value3]&lt;/li&gt;
+&lt;li&gt;队列尾增加值 rpush k</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>redis-hash数据类型小结</title>
+    <link href="http://chenfeng.org/2022/08/24/redis-2-hash/"/>
+    <id>http://chenfeng.org/2022/08/24/redis-2-hash/</id>
+    <published>2022-08-24T15:02:00.000Z</published>
+    <updated>2022-09-16T07:13:18.973Z</updated>
+    
+    <content type="html"><![CDATA[<p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p><ul><li>新增记录<ul><li>新增一条 hset key field value</li><li>批量新增 hmset key field value [field value field value …]</li><li>新增一条记录，唯一性 hsetnx key field value</li></ul></li><li>查询记录<ul><li>查询一条 hget key field</li><li>批量查询 hmget key field [field field]</li><li>全表查询 hgetall key</li></ul></li><li>修改记录<ul><li>值增加指定增幅 hincrby key field increment</li><li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li></ul></li><li>删除记录 hdel key field</li><li>查询表长 hlen key</li><li>查询所有的字段 hkeys key</li><li>查询所有的值 hvals key</li><li>判断字段是否存在 hexists key field</li></ul><p><img src="/img/redis/redis-hash.png" alt="hash"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;新增记录&lt;ul&gt;
+&lt;li&gt;新增一条 hset key field value&lt;/li&gt;
+&lt;li&gt;批量新增 hm</summary>
+      
+    
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
+    
+    
+    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>redis-string数据类型小结</title>
     <link href="http://chenfeng.org/2022/08/24/redis-1-string/"/>
     <id>http://chenfeng.org/2022/08/24/redis-1-string/</id>
-    <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-16T07:00:52.121Z</updated>
+    <published>2022-08-24T15:01:00.000Z</published>
+    <updated>2022-09-16T07:13:13.493Z</updated>
     
     <content type="html"><![CDATA[<p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p><ul><li><p>设置值</p><ul><li>设置一个键值 set key val</li><li>批量设置键值 mset key val [key val …]</li><li>设置唯一的键值对 setnx</li><li>批量设置唯一的键值对 msetnx</li><li>设置新值返回旧值 getset key val</li></ul></li><li><p>获取值</p><ul><li>获取键值 get</li><li>批量获取键值 mget</li></ul></li><li><p>修改值</p><ul><li>值增加1 incr key</li><li>值增加指定增幅 incrby key increment</li><li>值减1 decr key</li><li>值减少指定减幅 decrby key decrement</li></ul></li><li><p>过期时间</p><ul><li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li></ul></li><li><p>字符串操作</p><ul><li>返回值的子串 getrange key start end</li><li>使用子串覆盖值 setrange key offset val</li><li>返回值的长度 strlen key</li><li>字符串追加到值的后面 append key value</li></ul></li></ul><p><img src="/img/redis/redis-string.png" alt="string"></p>]]></content>
     
@@ -65,122 +181,6 @@
 &lt;li&gt;删除指定的key：del key&lt;/li&gt;
 &lt;li&gt;为给定 key 设置过期时间，以秒计: expire key seconds&lt;/li&gt;
 &lt;li&gt;指定key在特定的时间戳后过期，以秒计: ex</summary>
-      
-    
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis-hash数据类型小结</title>
-    <link href="http://chenfeng.org/2022/08/24/redis-2-hash/"/>
-    <id>http://chenfeng.org/2022/08/24/redis-2-hash/</id>
-    <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-16T07:00:58.777Z</updated>
-    
-    <content type="html"><![CDATA[<p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p><ul><li>新增记录<ul><li>新增一条 hset key field value</li><li>批量新增 hmset key field value [field value field value …]</li><li>新增一条记录，唯一性 hsetnx key field value</li></ul></li><li>查询记录<ul><li>查询一条 hget key field</li><li>批量查询 hmget key field [field field]</li><li>全表查询 hgetall key</li></ul></li><li>修改记录<ul><li>值增加指定增幅 hincrby key field increment</li><li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li></ul></li><li>删除记录 hdel key field</li><li>查询表长 hlen key</li><li>查询所有的字段 hkeys key</li><li>查询所有的值 hvals key</li><li>判断字段是否存在 hexists key field</li></ul><p><img src="/img/redis/redis-hash.png" alt="hash"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;新增记录&lt;ul&gt;
-&lt;li&gt;新增一条 hset key field value&lt;/li&gt;
-&lt;li&gt;批量新增 hm</summary>
-      
-    
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis-set数据类型小结</title>
-    <link href="http://chenfeng.org/2022/08/24/redis-4-set/"/>
-    <id>http://chenfeng.org/2022/08/24/redis-4-set/</id>
-    <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-16T07:01:05.990Z</updated>
-    
-    <content type="html"><![CDATA[<p>集合具有无序性和唯一性</p><ul><li>增加元素<ul><li>增加一个或多个元素 sadd key menber1 [member2 member3]</li></ul></li><li>查询元素<ul><li>查询集合数量 scard key</li><li>返回所有集合元素 smembers key</li><li>随机返回集合元素 srandmember key [count]</li></ul></li><li>删除元素<ul><li>随机删除集合元素 spop key [count]</li><li>删除集合中指定元素 srem key member [m1 m2]</li></ul></li><li>判断是否存在元素 sismember key member</li><li>移动元素 smove source destination member</li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff s1 s2</li><li>返回差集并存储 sdiffstore destination s1 s2</li></ul></li><li>交集<ul><li>返回交集 sinter s1 s2</li><li>返回交集并存储 sinterstore destination s1 s2</li></ul></li><li>并集<ul><li>返回并集 sunion s1 s2</li><li>返回并集并存储 sunionstore destination s1 s2</li></ul></li></ul></li></ul><p><img src="/img/redis/redis-set.png" alt="set"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;集合具有无序性和唯一性&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;增加元素&lt;ul&gt;
-&lt;li&gt;增加一个或多个元素 sadd key menber1 [member2 member3]&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;查询元素&lt;ul&gt;
-&lt;li&gt;查询集合数量 scard key&lt;/li</summary>
-      
-    
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis-zset(有序集合)数据类型小结</title>
-    <link href="http://chenfeng.org/2022/08/24/redis-5-zset/"/>
-    <id>http://chenfeng.org/2022/08/24/redis-5-zset/</id>
-    <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-16T07:03:02.666Z</updated>
-    
-    <content type="html"><![CDATA[<p>有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数</p><ul><li>增加元素<ul><li>增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]</li></ul></li><li>查询元素<ul><li>返回集合元素数量 zcard key</li><li>返回指定分数范围内元素数量 count key start stop</li><li>返回指定索引范围内元素 zrange key start stop [withscores]</li><li>返回指定分数范围内元素 zrangebyscore key start stop [withscores]</li><li>返回指定元素的索引 zrank key member</li><li>返回指定元素的分数 zscore key member</li></ul></li><li>修改元素<ul><li>修改元素分数 zincrby key increment member</li></ul></li><li>删除元素<ul><li>删除指定元素 zrem key member</li><li>删除指定分数范围里的元素 zremrangebyscore key start stop </li><li>删除指定索引范围里的元素 zremrangebyrank key start stop</li></ul></li><li>集合运算<ul><li>差集<ul><li>返回差集 sdiff num z1 z2</li><li>返回差集并存储 sdiffstore destination num z1 z2</li></ul></li><li>交集<ul><li>返回交集，分数相加 zinter num key key [key …]</li><li>返回交集，分数相加，另存为 zinterstore destination num key key [key …]</li></ul></li><li>并集<ul><li>返回并集 zunion num k1 k2</li><li>返回并集并存储 zunionstore destination num k1 k2</li></ul></li></ul></li></ul><p><img src="/img/redis/redis-zset.png" alt="zset"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;有序集合与集合类似，不同的是，每个元素会关联一个double类型的分数&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;增加元素&lt;ul&gt;
-&lt;li&gt;增加一个或多个元素 zadd key score1 menber1 [score2 member2 score3 member3]&lt;/li&gt;
-&lt;/ul</summary>
-      
-    
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/categories/redis/"/>
-    
-    
-    <category term="redis" scheme="http://chenfeng.org/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>redis-list数据类型小结</title>
-    <link href="http://chenfeng.org/2022/08/24/redis-3-list/"/>
-    <id>http://chenfeng.org/2022/08/24/redis-3-list/</id>
-    <published>2022-08-24T15:00:00.000Z</published>
-    <updated>2022-09-16T07:01:02.517Z</updated>
-    
-    <content type="html"><![CDATA[<p>链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。</p><ul><li><p>新增值</p><ul><li>队列头增加值 lpush key value [value2 value3]</li><li>队列尾增加值 rpush key value [value2 value3]</li><li>相对位置插入值 linsert key before|after pivot value</li><li>新增带判断，链表不存在时增加失败<ul><li>队列头增加值 lpushx key value</li><li>队列尾增加值 rpushx key value</li></ul></li></ul></li><li><p>查询值</p><ul><li>通过索引获取单个值 lndex key index</li><li>通过索引获取多个值 lrange key start stop</li></ul></li><li><p>修改值</p><ul><li>通过索引修改指定位置的值 lset key index value</li></ul></li><li><p>删除值</p><ul><li>队列头删除并获得值 lpop key</li><li>阻塞式表头删除并获得值 blpop key timeout</li><li>表尾删除并获得值 rpop key</li><li>阻塞式表尾删除并获得值 brpop key timeout</li><li>删除指定元素值 lrem key count value 删除key链表中，与value值相同的元素值</li><li>删除索引范围外的元素值 ltrim key start stop</li></ul></li><li><p>操作链表</p><ul><li>移动元素 rpoplpush source destination</li><li>阻塞式移动元素 brpoplpush source destination</li></ul></li><li><p>获取链表长度 llen key</p></li></ul><p><img src="/img/redis/redis-list.png" alt="list"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;链表可以看作是一个队列，左边是队列头，右边是队列尾，增加是push，删除是pop。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;新增值&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;队列头增加值 lpush key value [value2 value3]&lt;/li&gt;
-&lt;li&gt;队列尾增加值 rpush k</summary>
       
     
     
