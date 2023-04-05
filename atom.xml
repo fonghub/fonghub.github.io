@@ -6,7 +6,7 @@
   <link href="http://chenfeng.org/atom.xml" rel="self"/>
   
   <link href="http://chenfeng.org/"/>
-  <updated>2022-09-16T07:13:32.889Z</updated>
+  <updated>2023-04-05T17:05:19.484Z</updated>
   <id>http://chenfeng.org/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Google Authenticator 作为双重认证</title>
+    <link href="http://chenfeng.org/2023/04/03/2023-04-3-authentication/"/>
+    <id>http://chenfeng.org/2023/04/03/2023-04-3-authentication/</id>
+    <published>2023-04-03T15:00:00.000Z</published>
+    <updated>2023-04-05T17:05:19.484Z</updated>
+    
+    <content type="html"><![CDATA[<p>双重认证顾名思义即是在验证用户账号密码后，再进行一次验证码认证，提高登录流程的安全性。</p><h2><span id="ren-zheng-liu-cheng">认证流程</span><a href="#ren-zheng-liu-cheng" class="header-anchor">#</a></h2><ul><li>配对生成二维码</li><li>使用Google认证器APP扫描二维码，得到动态验证码（动态验证码后面有一个倒计时器，每30秒刷新一次）</li><li>输入验证码进行认证</li></ul><h2><span id="api-jie-ru">API接入</span><a href="#api-jie-ru" class="header-anchor">#</a></h2><h3><span id="qing-qiu-yu-ming">请求域名</span><a href="#qing-qiu-yu-ming" class="header-anchor">#</a></h3><p><a href="https://www.authenticatorapi.com/">https://www.authenticatorapi.com</a></p><h3><span id="pei-dui">配对</span><a href="#pei-dui" class="header-anchor">#</a></h3><ul><li>描述：获取认证二维码</li><li>地址：&#x2F;pair.aspx</li><li>请求方式：GET</li><li>请求参数：</li></ul><table><thead><tr><th align="left">参数名</th><th align="left">格式</th><th align="left">必需</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">AppName</td><td align="left">string</td><td align="left">是</td><td align="left">AppName</td></tr><tr><td align="left">AppInfo</td><td align="left">string</td><td align="left">是</td><td align="left">AppInfo</td></tr><tr><td align="left">SecretCode</td><td align="left">string</td><td align="left">是</td><td align="left">SecretCode</td></tr></tbody></table><ul><li>响应结果：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">title</span>=<span class="string">&#x27;Manually pair with GEZDGNBVGY3TQQSYLFKA&#x27;</span> <span class="attr">href</span>=<span class="string">&#x27;https://www.authenticatorapi.com&#x27;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#x27;https://chart.googleapis.com/chart?cht=qr&amp;chs=300x300&amp;chl=otpauth%3A%2F%2Ftotp%2FJohn%3Fsecret%3DGEZDGNBVGY3TQQSYLFKA%26issuer%3DMyApp&#x27;</span> <span class="attr">border</span>=<span class="string">0</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ul><p>提取img标签里src属性的值，保存起来，不用重复请求接口</p><h3><span id="yan-zheng">验证</span><a href="#yan-zheng" class="header-anchor">#</a></h3><ul><li>描述：使用验证码进行认证</li><li>地址：&#x2F;Validate.aspx</li><li>请求方式：GET</li><li>请求参数：</li></ul><table><thead><tr><th align="left">参数名</th><th align="left">格式</th><th align="left">必需</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">Pin</td><td align="left">string</td><td align="left">是</td><td align="left">Pin</td></tr><tr><td align="left">SecretCode</td><td align="left">string</td><td align="left">是</td><td align="left">SecretCode</td></tr></tbody></table><ul><li>响应结果：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">False|True</span><br></pre></td></tr></table></figure></li></ul><h2><span id="dong-tai-yan-zheng-ma-you-xiao-qi">动态验证码有效期</span><a href="#dong-tai-yan-zheng-ma-you-xiao-qi" class="header-anchor">#</a></h2><p>经过测试发现：</p><ul><li>每30秒刷新一次验证码</li><li>每个验证码有效期5分钟</li><li>也就是说5分钟内有10个有效验证码</li></ul><h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><p><a href="https://authenticatorapi.com/">Google Authenticator</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;双重认证顾名思义即是在验证用户账号密码后，再进行一次验证码认证，提高登录流程的安全性。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&quot;ren-zheng-liu-cheng&quot;&gt;认证流程&lt;/span&gt;&lt;a href=&quot;#ren-zheng-liu-cheng&quot; class=&quot;heade</summary>
+      
+    
+    
+    
+    <category term="google" scheme="http://chenfeng.org/categories/google/"/>
+    
+    
+    <category term="google" scheme="http://chenfeng.org/tags/google/"/>
+    
+  </entry>
   
   <entry>
     <title>redis-zset(有序集合)数据类型小结</title>
@@ -537,30 +562,6 @@
     
     
     <category term="游玩" scheme="http://chenfeng.org/tags/%E6%B8%B8%E7%8E%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Telegram Bot</title>
-    <link href="http://chenfeng.org/2021/04/06/telegram/"/>
-    <id>http://chenfeng.org/2021/04/06/telegram/</id>
-    <published>2021-04-06T16:00:00.000Z</published>
-    <updated>2022-06-18T19:00:33.677Z</updated>
-    
-    <content type="html"><![CDATA[<h4><span id="chuang-jian-bot">创建 Bot</span><a href="#chuang-jian-bot" class="header-anchor">#</a></h4><p>查找官方账号 BotFather ，带有头像，并且账号名右边带后蓝色标志的就是。</p><p>点击 &#x2F;start 指令后，显示有常用的指令和使用说明。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqbjyahzj30u00vy0y6.jpg" width="700" align="bottom"></p><center>BotFather</center><ol><li>点击 &#x2F;newbot 指令，开始创建 Bot</li><li>首先输入 Bot 的名字（不会做唯一性检测）</li><li>接着输入 Bot 的账户名（做唯一性检测），账户名必须以 bot 作为后缀</li><li>最后会返回 Bot 的token，token可以看作是 Bot 的唯一ID，不可泄漏<img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqblzj00j30u00vyn3y.jpg" width="700" align="bottom"><center>创建Bot</center></li></ol><h4><span id="bot-fa-xiao-xi-dao-user">Bot 发消息到 User</span><a href="#bot-fa-xiao-xi-dao-user" class="header-anchor">#</a></h4><p>查找刚刚创建的Bot，账号 testRebot_Bot ,点击 &#x2F;start 指令。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqdetna7j30u00vydh6.jpg" width="700" align="bottom"></p><center>testRebot_Bot</center><p>Bot 发消息到 User ，使用 API ：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.telegram.org/bot&lt;token&gt;/sendMessage?chat_id=&lt;user_id&gt;&amp;text=&lt;message&gt;</span><br></pre></td></tr></table></figure><p>尖括号里的三个参数分别是 Bot 的token，User 的 id 和发送的消息。</p><p>查找官方账号 userinfobot ，点击 &#x2F;start 指令，就会返回 User 的信息，其中就包括了 User 的 id。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqdg4b5dj30u00vydhg.jpg" width="700" align="bottom"></p><center>石碑</center><p>通过浏览器访问接口：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.telegram.org/bot1715369074:AAHGwoVNoWDAT8YMmuwARH4LMIJO5oGduJg/sendMessage?chat_id=&lt;user_id&gt;&amp;text=Hello World!</span><br></pre></td></tr></table></figure><p>可得到成功的返回结果。通过 Telegram 可知 ，确实收到了 Bot 发来的测试消息。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqfehhf0j30u00vy0ug.jpg" width="700" align="bottom"></p><center>石碑</center><h4><span id="bot-fa-xiao-xi-dao-group">Bot 发消息到 Group</span><a href="#bot-fa-xiao-xi-dao-group" class="header-anchor">#</a></h4><p>与发送消息到 User 的 API 一样，唯一的区别是参数 chat_id 要换成群组id。</p><p>首先把 Bot 拉到一个群组里面，发送一条消息，激活群组。</p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqg4f0r6j30u00yv0u6.jpg" width="700" align="bottom"><center>群组</center><p>通过API：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.telegram.org/bot&lt;token&gt;/getUpdates</span><br></pre></td></tr></table></figure><p>可以查看 Bot 所在群组的群组id。</p><p>通过浏览器访问接口：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.telegram.org/bot1715369074:AAHGwoVNoWDAT8YMmuwARH4LMIJO5oGduJg/getUpdates</span><br></pre></td></tr></table></figure><p>可得群组id为：-564051528。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqg6mrpmj30v20e2gmu.jpg" width="700" align="bottom"></p><center>群组id</center><p>通过浏览器访问接口：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.telegram.org/bot1715369074:AAHGwoVNoWDAT8YMmuwARH4LMIJO5oGduJg/sendMessage?chat_id=-564051528&amp;text=Hello Group!</span><br></pre></td></tr></table></figure><p>可得到成功的返回结果。通过 Telegram 可知 ，群组收到了 Bot 发来的测试消息。</p><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqgu9ftij30u00yvdhh.jpg" width="700" align="bottom"><center>群组</center><h4><span id="shan-chu-bot">删除 Bot</span><a href="#shan-chu-bot" class="header-anchor">#</a></h4><p>通过 &#x2F;mybots 指令查看我的 Bot，先是一个或者多个。</p><p>点击 delete Bot 指令，经过几次重复确认后，可以删除没用的 Bot。<br><img src="https://tva1.sinaimg.cn/large/008eGmZEgy1gpaqhpon7pj30vm0j20vr.jpg" width="700" align="bottom"></p><center>删除Bot</center>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4&gt;&lt;span id=&quot;chuang-jian-bot&quot;&gt;创建 Bot&lt;/span&gt;&lt;a href=&quot;#chuang-jian-bot&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;查找官方账号 BotFather ，带有头像，并且账号名右边带后蓝色</summary>
-      
-    
-    
-    
-    <category term="telegram" scheme="http://chenfeng.org/categories/telegram/"/>
-    
-    
-    <category term="telegram" scheme="http://chenfeng.org/tags/telegram/"/>
     
   </entry>
   
