@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+    
+	<title>golang-migrate - 不知有晋</title>
+    <meta name="author" content="CFONG">
+    
+	<meta name="description" content="&lt;p&gt;&lt;a href=&#34;https://github.com/golang-migrate/migrate&#34;&gt;migrate&lt;/a&gt; 是一个用go写的数据库迁移工具，提供CLI和导入库两种方式，支持的数据库有MySQL，PostgreSQL，SQLite，MongoDB等。&lt;/p&gt;
+&lt;p&gt;使用migrate数据库迁移工具可以在更新的时候避免一些因手动操作导致的意外事故，提高更新流程的集成度。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;migrate-cli&#34;&gt;migrate CLI&lt;/span&gt;&lt;a href=&#34;#migrate-cli&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span id=&#34;an-zhuang&#34;&gt;安装&lt;/span&gt;&lt;a href=&#34;#an-zhuang&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;MacOS或者Windows可以通过软件包下载&lt;/p&gt;
+&lt;p&gt;MacOS &lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;brew install golang-migrate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Windows &lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;scoop install migrate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;Linux从这里 &lt;a href=&#34;https://github.com/golang-migrate/migrate/releases&#34;&gt;Release Downloads&lt;/a&gt; 下载工具包，解压即可使用。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;chang-yong-de-qian-yi-ming-ling&#34;&gt;常用的迁移命令&lt;/span&gt;&lt;a href=&#34;#chang-yong-de-qian-yi-ming-ling&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;h4&gt;&lt;span id=&#34;chuang-jian-sql-wen-jian&#34;&gt;创建sql文件&lt;/span&gt;&lt;a href=&#34;#chuang-jian-sql-wen-jian&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate create -ext sql -&lt;span class=&#34;built_in&#34;&gt;dir&lt;/span&gt; ./sit106/sql -&lt;span class=&#34;built_in&#34;&gt;seq&lt;/span&gt; create_test_table&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;create命令会创建两个空sql文件，一个名字带&lt;strong&gt;up&lt;/strong&gt;，表示升级文件，一个名字带&lt;strong&gt;down&lt;/strong&gt;，表示回滚文件，文件名带有顺序的版本号和指定的文件名。&lt;br&gt;&lt;img src=&#34;/img/migrate/create.png&#34;&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;sheng-ji-n-ge-ban-ben&#34;&gt;升级 N 个版本&lt;/span&gt;&lt;a href=&#34;#sheng-ji-n-ge-ban-ben&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate -path ./sit106/sql -database &lt;span class=&#34;string&#34;&gt;&amp;#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&amp;#x27;&lt;/span&gt; up [N]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;## 第一次执行up命令后，会自动创建 schema_migrations 表，记录迁移版本号和状态。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;CREATE&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;TABLE&lt;/span&gt; `schema_migrations` (&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `version` &lt;span class=&#34;type&#34;&gt;bigint&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;20&lt;/span&gt;) &lt;span class=&#34;keyword&#34;&gt;NOT&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `dirty` tinyint(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;) &lt;span class=&#34;keyword&#34;&gt;NOT&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;NULL&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;keyword&#34;&gt;PRIMARY&lt;/span&gt; KEY (`version`)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;) ENGINE&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;InnoDB &lt;span class=&#34;keyword&#34;&gt;DEFAULT&lt;/span&gt; CHARSET&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;utf8;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;每一次执行迁移命令，会首先从 schema_migrations 表获取版本号，再从指定目录获取比当前版本号要高的迁移的文件，再执行迁移。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 不加参数 N ，则更新到最新，默认不加。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;jiang-ji-n-ge-ban-ben&#34;&gt;降级 N 个版本&lt;/span&gt;&lt;a href=&#34;#jiang-ji-n-ge-ban-ben&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate -path ./sit106/sql -database &lt;span class=&#34;string&#34;&gt;&amp;#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&amp;#x27;&lt;/span&gt; down [N]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 不加参数 N ，则回滚到版本0。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;hu-lue-di-n-ban-ben-de-zang-zhuang-tai-dirty-state&#34;&gt;忽略第 N 版本的脏状态 dirty state&lt;/span&gt;&lt;a href=&#34;#hu-lue-di-n-ban-ben-de-zang-zhuang-tai-dirty-state&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate -path ./sit106/sql -database &lt;span class=&#34;string&#34;&gt;&amp;#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&amp;#x27;&lt;/span&gt; force N&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当升级或者回滚的sql脚本出现错误，当前版本会被标记为脏状态，无法继续更新或者回滚。&lt;br&gt;在修正sql脚本的错误后，需要使用次命令，清除脏状态，方可以继续升级或者回滚。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;cha-kan-dang-qian-qian-yi-ban-ben&#34;&gt;查看当前迁移版本&lt;/span&gt;&lt;a href=&#34;#cha-kan-dang-qian-qian-yi-ban-ben&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate -path ./sit106/sql -database &lt;span class=&#34;string&#34;&gt;&amp;#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&amp;#x27;&lt;/span&gt; version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h4&gt;&lt;span id=&#34;tiao-yue-dao-di-n-ge-ban-ben&#34;&gt;跳跃到第 N 个版本&lt;/span&gt;&lt;a href=&#34;#tiao-yue-dao-di-n-ge-ban-ben&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate -database &lt;span class=&#34;string&#34;&gt;&amp;#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&amp;#x27;&lt;/span&gt; goto N&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;按顺序升级或者回滚到指定版本。&lt;/p&gt;
+&lt;h4&gt;&lt;span id=&#34;geng-duo-yong-fa-tong-guo-bang-zhu-huo-qu&#34;&gt;更多用法通过帮助获取&lt;/span&gt;&lt;a href=&#34;#geng-duo-yong-fa-tong-guo-bang-zhu-huo-qu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h4&gt;&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;migrate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;以上命令的 &lt;strong&gt;path&lt;/strong&gt; 参数的写法&lt;br&gt;&lt;code&gt;-path ./sit106/sql&lt;/code&gt;&lt;br&gt;是一个简写的方式，原型写法为&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;仅当从文件系统加载配置的时候，可以使用简写方式。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;除了支持从file读取，还支持从 github,gitlab,bitbucket 等远程读取，具体访问 [source](https://github.com/golang-migrate/migrate/tree/master/source) 查看。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;## migrate library&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;### 安装&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;```bash&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;go get github.com/golang-migrate/migrate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3&gt;&lt;span id=&#34;example-migration-go&#34;&gt;example migration.go&lt;/span&gt;&lt;a href=&#34;#example-migration-go&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;figure class=&#34;highlight go&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;33&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;package&lt;/span&gt; migration&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; (&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;string&#34;&gt;&amp;quot;database/sql&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	_ &lt;span class=&#34;string&#34;&gt;&amp;quot;github.com/go-sql-driver/mysql&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;string&#34;&gt;&amp;quot;github.com/golang-migrate/migrate&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;string&#34;&gt;&amp;quot;github.com/golang-migrate/migrate/database/mysql&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	_ &lt;span class=&#34;string&#34;&gt;&amp;quot;github.com/golang-migrate/migrate/source/file&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;string&#34;&gt;&amp;quot;log&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;function&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;title&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	log.Println(&lt;span class=&#34;string&#34;&gt;&amp;quot;start migrate&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	db, _ := sql.Open(&lt;span class=&#34;string&#34;&gt;&amp;quot;mysql&amp;quot;&lt;/span&gt;, &lt;span class=&#34;string&#34;&gt;&amp;quot;root:1234@tcp(localhost:3306)/test?multiStatements=true&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	driver, err := mysql.WithInstance(db, &amp;amp;mysql.Config&amp;#123;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; err != &lt;span class=&#34;literal&#34;&gt;nil&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		log.Fatal(err)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	m, err := migrate.NewWithDatabaseInstance(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		&lt;span class=&#34;string&#34;&gt;&amp;quot;file://publish/sit106/sql&amp;quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		&lt;span class=&#34;string&#34;&gt;&amp;quot;mysql&amp;quot;&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		driver,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; err != &lt;span class=&#34;literal&#34;&gt;nil&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		log.Fatal(err)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	err = m.Up()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; err != &lt;span class=&#34;literal&#34;&gt;nil&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		m.Down(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;		log.Fatal(err)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	log.Println(&lt;span class=&#34;string&#34;&gt;&amp;quot;end migrate&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;从以上代码可以看出，当up命令发生错误时，需要执行down命令，但是具体down几个版本，则需要自己控制参数。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;kuo-zhan-jian-yi&#34;&gt;扩展建议&lt;/span&gt;&lt;a href=&#34;#kuo-zhan-jian-yi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;可新增一个字段&lt;strong&gt;pre_version&lt;/strong&gt;，记录上一个版本号。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;CREATE TABLE `schema_migrations` (&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `version` bigint(20) NOT NULL,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `pre_version` bigint(20) NOT NULL,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  `dirty` tinyint(1) NOT NULL,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  PRIMARY KEY (`version`)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;) ENGINE=InnoDB DEFAULT CHARSET=utf8;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;当执行up命令前，记录当前的版本号&lt;strong&gt;version&lt;/strong&gt;，执行up命令后，得到&lt;strong&gt;new_version&lt;/strong&gt;，最后更新schema_migrations表。&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;set&lt;/span&gt; pre_version&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;version,version&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;new_version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;当执行down命令时，首先取pre_version的值，回滚版本后，更新后执行。&lt;/p&gt;
+&lt;figure class=&#34;highlight sql&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;set&lt;/span&gt; version&lt;span class=&#34;operator&#34;&gt;=&lt;/span&gt;pre_version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;这样至少可以回滚到上一个版本。&lt;/p&gt;
+&lt;h2&gt;&lt;span id=&#34;xu-yao-zhu-yi-de-shi&#34;&gt;需要注意的事&lt;/span&gt;&lt;a href=&#34;#xu-yao-zhu-yi-de-shi&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span id=&#34;chong-tu&#34;&gt;冲突&lt;/span&gt;&lt;a href=&#34;#chong-tu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;在一个多人开发的项目中，难免会遇到冲突，所以在代码审查的时候要尤其注意。&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;mi-deng&#34;&gt;幂等&lt;/span&gt;&lt;a href=&#34;#mi-deng&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;尽量让你的迁移时幂等的——连续两次运行相同的sql语句得到相同的结果，这会让迁移代码更加健壮。例如使用&lt;br&gt;&lt;code&gt;CREATE TABLE IF NOT EXISTS&lt;/code&gt;&lt;br&gt;代替&lt;br&gt;&lt;code&gt;CREATE TABLE&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span id=&#34;shi-wu&#34;&gt;事务&lt;/span&gt;&lt;a href=&#34;#shi-wu&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;如果一次迁移中有多个命令&amp;#x2F;查询，最好把它们包在一个事务中，这样，当其中一个命令失败，我们的数据库将保持不变。&lt;/p&gt;
+"> <!-- TODO: truncate -->
+	<meta name="keywords" content="golang migrate">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="atom.xml" rel="alternate" title="不知有晋" type="application/atom+xml">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/custom.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/hljs.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='//fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![}]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+    <script src="/javascripts/MathJax.js" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+    <!-- remove or comment it to disable ajaxification -->   
+    <!-- <script src="/javascripts/ajaxify.js"></script> -->
+
+    
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        不知有晋
+    </div>
+</h1>
+<span class="subtitle"></span>
+<br>
+
+<ul id="social-links" style="text-align:center; clear:both;">
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/archives/index.html">Archives</a></li>
+	<li id="ajax"><a href="/tags/index.html">Tags</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form action="//www.google.com.hk/search" method="get" accept-charset="UTF-8" id="search">
+            <input type="hidden" name="sitesearch" value="http://chenfeng.org" />
+            <input type="text" name="q" results="0" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload -->
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">golang-migrate</h2>
+    <div class="meta">
+        <div class="date">Published on: <time datetime="2023-04-08T15:00:00.000Z" itemprop="datePublished">Apr 8, 2023</time>
+</div>
+        <div class="tags">Tags: 
+
+<a href="/tags/golang/">golang</a> <a href="/tags/migrate/">migrate</a>
+</div>
+    </div>
+	<div class="entry-content"><p><a target="_blank" rel="noopener" href="https://github.com/golang-migrate/migrate">migrate</a> 是一个用go写的数据库迁移工具，提供CLI和导入库两种方式，支持的数据库有MySQL，PostgreSQL，SQLite，MongoDB等。</p>
+<p>使用migrate数据库迁移工具可以在更新的时候避免一些因手动操作导致的意外事故，提高更新流程的集成度。</p>
+<h2><span id="migrate-cli">migrate CLI</span><a href="#migrate-cli" class="header-anchor">#</a></h2><h3><span id="an-zhuang">安装</span><a href="#an-zhuang" class="header-anchor">#</a></h3><p>MacOS或者Windows可以通过软件包下载</p>
+<p>MacOS </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install golang-migrate</span><br></pre></td></tr></table></figure>
+<p>Windows </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install migrate</span><br></pre></td></tr></table></figure>
+
+<p>Linux从这里 <a target="_blank" rel="noopener" href="https://github.com/golang-migrate/migrate/releases">Release Downloads</a> 下载工具包，解压即可使用。</p>
+<h3><span id="chang-yong-de-qian-yi-ming-ling">常用的迁移命令</span><a href="#chang-yong-de-qian-yi-ming-ling" class="header-anchor">#</a></h3><h4><span id="chuang-jian-sql-wen-jian">创建sql文件</span><a href="#chuang-jian-sql-wen-jian" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate create -ext sql -<span class="built_in">dir</span> ./sit106/sql -<span class="built_in">seq</span> create_test_table</span><br></pre></td></tr></table></figure>
+
+<p>create命令会创建两个空sql文件，一个名字带<strong>up</strong>，表示升级文件，一个名字带<strong>down</strong>，表示回滚文件，文件名带有顺序的版本号和指定的文件名。<br><img src="/img/migrate/create.png"></p>
+<h4><span id="sheng-ji-n-ge-ban-ben">升级 N 个版本</span><a href="#sheng-ji-n-ge-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> up [N]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 第一次执行up命令后，会自动创建 schema_migrations 表，记录迁移版本号和状态。</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `schema_migrations` (</span><br><span class="line">  `version` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `dirty` tinyint(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`version`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+
+<p>每一次执行迁移命令，会首先从 schema_migrations 表获取版本号，再从指定目录获取比当前版本号要高的迁移的文件，再执行迁移。</p>
+<p><strong>注意：</strong> 不加参数 N ，则更新到最新，默认不加。</p>
+<h4><span id="jiang-ji-n-ge-ban-ben">降级 N 个版本</span><a href="#jiang-ji-n-ge-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> down [N]</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> 不加参数 N ，则回滚到版本0。</p>
+<h4><span id="hu-lue-di-n-ban-ben-de-zang-zhuang-tai-dirty-state">忽略第 N 版本的脏状态 dirty state</span><a href="#hu-lue-di-n-ban-ben-de-zang-zhuang-tai-dirty-state" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> force N</span><br></pre></td></tr></table></figure>
+<p>当升级或者回滚的sql脚本出现错误，当前版本会被标记为脏状态，无法继续更新或者回滚。<br>在修正sql脚本的错误后，需要使用次命令，清除脏状态，方可以继续升级或者回滚。</p>
+<h4><span id="cha-kan-dang-qian-qian-yi-ban-ben">查看当前迁移版本</span><a href="#cha-kan-dang-qian-qian-yi-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> version</span><br></pre></td></tr></table></figure>
+
+<h4><span id="tiao-yue-dao-di-n-ge-ban-ben">跳跃到第 N 个版本</span><a href="#tiao-yue-dao-di-n-ge-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> goto N</span><br></pre></td></tr></table></figure>
+<p>按顺序升级或者回滚到指定版本。</p>
+<h4><span id="geng-duo-yong-fa-tong-guo-bang-zhu-huo-qu">更多用法通过帮助获取</span><a href="#geng-duo-yong-fa-tong-guo-bang-zhu-huo-qu" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate</span><br></pre></td></tr></table></figure>
+
+<p>以上命令的 <strong>path</strong> 参数的写法<br><code>-path ./sit106/sql</code><br>是一个简写的方式，原型写法为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">仅当从文件系统加载配置的时候，可以使用简写方式。</span><br><span class="line"></span><br><span class="line">除了支持从file读取，还支持从 github,gitlab,bitbucket 等远程读取，具体访问 [source](https://github.com/golang-migrate/migrate/tree/master/source) 查看。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## migrate library</span><br><span class="line"></span><br><span class="line">### 安装</span><br><span class="line">```bash</span><br><span class="line">go get github.com/golang-migrate/migrate</span><br></pre></td></tr></table></figure>
+<h3><span id="example-migration-go">example migration.go</span><a href="#example-migration-go" class="header-anchor">#</a></h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> migration</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;database/sql&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/golang-migrate/migrate&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/golang-migrate/migrate/database/mysql&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/golang-migrate/migrate/source/file&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	log.Println(<span class="string">&quot;start migrate&quot;</span>)</span><br><span class="line">	db, _ := sql.Open(<span class="string">&quot;mysql&quot;</span>, <span class="string">&quot;root:1234@tcp(localhost:3306)/test?multiStatements=true&quot;</span>)</span><br><span class="line">	driver, err := mysql.WithInstance(db, &amp;mysql.Config&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	m, err := migrate.NewWithDatabaseInstance(</span><br><span class="line">		<span class="string">&quot;file://publish/sit106/sql&quot;</span>,</span><br><span class="line">		<span class="string">&quot;mysql&quot;</span>,</span><br><span class="line">		driver,</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	err = m.Up()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		m.Down(<span class="number">1</span>)</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(<span class="string">&quot;end migrate&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从以上代码可以看出，当up命令发生错误时，需要执行down命令，但是具体down几个版本，则需要自己控制参数。</p>
+<h2><span id="kuo-zhan-jian-yi">扩展建议</span><a href="#kuo-zhan-jian-yi" class="header-anchor">#</a></h2><p>可新增一个字段<strong>pre_version</strong>，记录上一个版本号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `schema_migrations` (</span><br><span class="line">  `version` bigint(20) NOT NULL,</span><br><span class="line">  `pre_version` bigint(20) NOT NULL,</span><br><span class="line">  `dirty` tinyint(1) NOT NULL,</span><br><span class="line">  PRIMARY KEY (`version`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>当执行up命令前，记录当前的版本号<strong>version</strong>，执行up命令后，得到<strong>new_version</strong>，最后更新schema_migrations表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> pre_version<span class="operator">=</span>version,version<span class="operator">=</span>new_version</span><br></pre></td></tr></table></figure>
+
+<p>当执行down命令时，首先取pre_version的值，回滚版本后，更新后执行。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> version<span class="operator">=</span>pre_version</span><br></pre></td></tr></table></figure>
+
+<p>这样至少可以回滚到上一个版本。</p>
+<h2><span id="xu-yao-zhu-yi-de-shi">需要注意的事</span><a href="#xu-yao-zhu-yi-de-shi" class="header-anchor">#</a></h2><h3><span id="chong-tu">冲突</span><a href="#chong-tu" class="header-anchor">#</a></h3><p>在一个多人开发的项目中，难免会遇到冲突，所以在代码审查的时候要尤其注意。</p>
+<h3><span id="mi-deng">幂等</span><a href="#mi-deng" class="header-anchor">#</a></h3><p>尽量让你的迁移时幂等的——连续两次运行相同的sql语句得到相同的结果，这会让迁移代码更加健壮。例如使用<br><code>CREATE TABLE IF NOT EXISTS</code><br>代替<br><code>CREATE TABLE</code></p>
+<h3><span id="shi-wu">事务</span><a href="#shi-wu" class="header-anchor">#</a></h3><p>如果一次迁移中有多个命令&#x2F;查询，最好把它们包在一个事务中，这样，当其中一个命令失败，我们的数据库将保持不变。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2023
+
+    CFONG
+. Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> |
+    Theme is <a target="_blank" rel="noopener" href="https://github.com/wd/hexo-fabric">hexo-fabric</a>, fork from <a target="_blank" rel="noopener" href="http://github.com/panks/fabric">fabric</a> by <a target="_blank" rel="noopener" href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

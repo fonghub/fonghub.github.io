@@ -97,6 +97,75 @@
 
   <article class="post">
 	<h2 class="title">
+		<a href="2023/04/08/migration/">golang-migrate</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2023-04-08T15:00:00.000Z" itemprop="datePublished">Apr 8, 2023</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/golang/">golang</a> <a href="/tags/migrate/">migrate</a>
+</div>
+    </div>
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/golang-migrate/migrate">migrate</a> 是一个用go写的数据库迁移工具，提供CLI和导入库两种方式，支持的数据库有MySQL，PostgreSQL，SQLite，MongoDB等。</p>
+<p>使用migrate数据库迁移工具可以在更新的时候避免一些因手动操作导致的意外事故，提高更新流程的集成度。</p>
+<h2><span id="migrate-cli">migrate CLI</span><a href="#migrate-cli" class="header-anchor">#</a></h2><h3><span id="an-zhuang">安装</span><a href="#an-zhuang" class="header-anchor">#</a></h3><p>MacOS或者Windows可以通过软件包下载</p>
+<p>MacOS </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install golang-migrate</span><br></pre></td></tr></table></figure>
+<p>Windows </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scoop install migrate</span><br></pre></td></tr></table></figure>
+
+<p>Linux从这里 <a target="_blank" rel="noopener" href="https://github.com/golang-migrate/migrate/releases">Release Downloads</a> 下载工具包，解压即可使用。</p>
+<h3><span id="chang-yong-de-qian-yi-ming-ling">常用的迁移命令</span><a href="#chang-yong-de-qian-yi-ming-ling" class="header-anchor">#</a></h3><h4><span id="chuang-jian-sql-wen-jian">创建sql文件</span><a href="#chuang-jian-sql-wen-jian" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate create -ext sql -<span class="built_in">dir</span> ./sit106/sql -<span class="built_in">seq</span> create_test_table</span><br></pre></td></tr></table></figure>
+
+<p>create命令会创建两个空sql文件，一个名字带<strong>up</strong>，表示升级文件，一个名字带<strong>down</strong>，表示回滚文件，文件名带有顺序的版本号和指定的文件名。<br><img src="/img/migrate/create.png"></p>
+<h4><span id="sheng-ji-n-ge-ban-ben">升级 N 个版本</span><a href="#sheng-ji-n-ge-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> up [N]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## 第一次执行up命令后，会自动创建 schema_migrations 表，记录迁移版本号和状态。</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `schema_migrations` (</span><br><span class="line">  `version` <span class="type">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `dirty` tinyint(<span class="number">1</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`version`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+
+<p>每一次执行迁移命令，会首先从 schema_migrations 表获取版本号，再从指定目录获取比当前版本号要高的迁移的文件，再执行迁移。</p>
+<p><strong>注意：</strong> 不加参数 N ，则更新到最新，默认不加。</p>
+<h4><span id="jiang-ji-n-ge-ban-ben">降级 N 个版本</span><a href="#jiang-ji-n-ge-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> down [N]</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> 不加参数 N ，则回滚到版本0。</p>
+<h4><span id="hu-lue-di-n-ban-ben-de-zang-zhuang-tai-dirty-state">忽略第 N 版本的脏状态 dirty state</span><a href="#hu-lue-di-n-ban-ben-de-zang-zhuang-tai-dirty-state" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> force N</span><br></pre></td></tr></table></figure>
+<p>当升级或者回滚的sql脚本出现错误，当前版本会被标记为脏状态，无法继续更新或者回滚。<br>在修正sql脚本的错误后，需要使用次命令，清除脏状态，方可以继续升级或者回滚。</p>
+<h4><span id="cha-kan-dang-qian-qian-yi-ban-ben">查看当前迁移版本</span><a href="#cha-kan-dang-qian-qian-yi-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -path ./sit106/sql -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> version</span><br></pre></td></tr></table></figure>
+
+<h4><span id="tiao-yue-dao-di-n-ge-ban-ben">跳跃到第 N 个版本</span><a href="#tiao-yue-dao-di-n-ge-ban-ben" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate -database <span class="string">&#x27;mysql://root:123456@tcp(127.0.0.1:3306)/test?query&#x27;</span> goto N</span><br></pre></td></tr></table></figure>
+<p>按顺序升级或者回滚到指定版本。</p>
+<h4><span id="geng-duo-yong-fa-tong-guo-bang-zhu-huo-qu">更多用法通过帮助获取</span><a href="#geng-duo-yong-fa-tong-guo-bang-zhu-huo-qu" class="header-anchor">#</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">migrate</span><br></pre></td></tr></table></figure>
+
+<p>以上命令的 <strong>path</strong> 参数的写法<br><code>-path ./sit106/sql</code><br>是一个简写的方式，原型写法为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">仅当从文件系统加载配置的时候，可以使用简写方式。</span><br><span class="line"></span><br><span class="line">除了支持从file读取，还支持从 github,gitlab,bitbucket 等远程读取，具体访问 [source](https://github.com/golang-migrate/migrate/tree/master/source) 查看。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## migrate library</span><br><span class="line"></span><br><span class="line">### 安装</span><br><span class="line">```bash</span><br><span class="line">go get github.com/golang-migrate/migrate</span><br></pre></td></tr></table></figure>
+<h3><span id="example-migration-go">example migration.go</span><a href="#example-migration-go" class="header-anchor">#</a></h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> migration</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;database/sql&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/go-sql-driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/golang-migrate/migrate&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/golang-migrate/migrate/database/mysql&quot;</span></span><br><span class="line">	_ <span class="string">&quot;github.com/golang-migrate/migrate/source/file&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	log.Println(<span class="string">&quot;start migrate&quot;</span>)</span><br><span class="line">	db, _ := sql.Open(<span class="string">&quot;mysql&quot;</span>, <span class="string">&quot;root:1234@tcp(localhost:3306)/test?multiStatements=true&quot;</span>)</span><br><span class="line">	driver, err := mysql.WithInstance(db, &amp;mysql.Config&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	m, err := migrate.NewWithDatabaseInstance(</span><br><span class="line">		<span class="string">&quot;file://publish/sit106/sql&quot;</span>,</span><br><span class="line">		<span class="string">&quot;mysql&quot;</span>,</span><br><span class="line">		driver,</span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	err = m.Up()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		m.Down(<span class="number">1</span>)</span><br><span class="line">		log.Fatal(err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(<span class="string">&quot;end migrate&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从以上代码可以看出，当up命令发生错误时，需要执行down命令，但是具体down几个版本，则需要自己控制参数。</p>
+<h2><span id="kuo-zhan-jian-yi">扩展建议</span><a href="#kuo-zhan-jian-yi" class="header-anchor">#</a></h2><p>可新增一个字段<strong>pre_version</strong>，记录上一个版本号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `schema_migrations` (</span><br><span class="line">  `version` bigint(20) NOT NULL,</span><br><span class="line">  `pre_version` bigint(20) NOT NULL,</span><br><span class="line">  `dirty` tinyint(1) NOT NULL,</span><br><span class="line">  PRIMARY KEY (`version`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>当执行up命令前，记录当前的版本号<strong>version</strong>，执行up命令后，得到<strong>new_version</strong>，最后更新schema_migrations表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> pre_version<span class="operator">=</span>version,version<span class="operator">=</span>new_version</span><br></pre></td></tr></table></figure>
+
+<p>当执行down命令时，首先取pre_version的值，回滚版本后，更新后执行。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> version<span class="operator">=</span>pre_version</span><br></pre></td></tr></table></figure>
+
+<p>这样至少可以回滚到上一个版本。</p>
+<h2><span id="xu-yao-zhu-yi-de-shi">需要注意的事</span><a href="#xu-yao-zhu-yi-de-shi" class="header-anchor">#</a></h2><h3><span id="chong-tu">冲突</span><a href="#chong-tu" class="header-anchor">#</a></h3><p>在一个多人开发的项目中，难免会遇到冲突，所以在代码审查的时候要尤其注意。</p>
+<h3><span id="mi-deng">幂等</span><a href="#mi-deng" class="header-anchor">#</a></h3><p>尽量让你的迁移时幂等的——连续两次运行相同的sql语句得到相同的结果，这会让迁移代码更加健壮。例如使用<br><code>CREATE TABLE IF NOT EXISTS</code><br>代替<br><code>CREATE TABLE</code></p>
+<h3><span id="shi-wu">事务</span><a href="#shi-wu" class="header-anchor">#</a></h3><p>如果一次迁移中有多个命令&#x2F;查询，最好把它们包在一个事务中，这样，当其中一个命令失败，我们的数据库将保持不变。</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
 		<a href="2023/04/03/2023-04-3-authentication/">使用Google Authenticator 作为双重认证</a>
 	</h2>
     <div class="entry-content">
@@ -633,151 +702,6 @@
 
 <p>结果输出</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I am Basketball shoes.I am Running shoes.</span><br></pre></td></tr></table></figure>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/07/18/homebrew/">Homebrew -- macOS缺失的软件包的管理器</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-07-18T15:00:00.000Z" itemprop="datePublished">Jul 18, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/macOS/">macOS</a>
-</div>
-    </div>
-      
-        <p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">Homebrew</a> 是 macOS（或 Linux）缺失的软件包的管理器。</p>
-<p>使用 Homebrew 安装 Apple（或您的 Linux 系统）没有预装但 你 <a target="_blank" rel="noopener" href="https://formulae.brew.sh/">需要的东西</a>。</p>
-<h2><span id="an-zhuang-homebrew">安装 Homebrew</span><a href="#an-zhuang-homebrew" class="header-anchor">#</a></h2><p>将以下命令粘贴至终端，实现安装。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2><span id="homebrew-lei-xing">Homebrew 类型</span><a href="#homebrew-lei-xing" class="header-anchor">#</a></h2><h3><span id="formula">formula</span><a href="#formula" class="header-anchor">#</a></h3><p>formula 意思是一些软件包，包含命令行工具、开发库、一些字体、插件等，共性是不提供界面，提供给终端或者是开发者使用。</p>
-<p>安装 formula 前可以在 <a target="_blank" rel="noopener" href="https://formulae.brew.sh/formula/">formulae listing页面</a> 搜索目标 formula ，查看 formula 的详情细节，包括安装命令，描述，版本号和安装数量统计等。</p>
-<h3><span id="cask">cask</span><a href="#cask" class="header-anchor">#</a></h3><p>cask 是用户软件，比如 chrome、wechat、qq 这些提供用户交互界面的软件。</p>
-<p>同样的，安装 cask 前可以在 <a target="_blank" rel="noopener" href="https://formulae.brew.sh/cask/">casks listing页面</a> 搜索目标 cask ，查看 cask 的详情细节。</p>
-<p><a target="_blank" rel="noopener" href="https://formulae.brew.sh/cask/">casks listing页面</a> 包含了大部分常用的软件：微信、qq、浏览器、笔记、播放器等等。一定程度上可以代替App store。</p>
-<h2><span id="homebrew-ming-ling">Homebrew 命令</span><a href="#homebrew-ming-ling" class="header-anchor">#</a></h2><h3><span id="chang-yong-ming-ling">常用命令</span><a href="#chang-yong-ming-ling" class="header-anchor">#</a></h3><table>
-<thead>
-<tr>
-<th align="left">命令</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">brew update</td>
-<td align="left">同步远程的 formulae 到本地，更新本地的 formulae 库</td>
-</tr>
-<tr>
-<td align="left">brew install formula</td>
-<td align="left">安装 formula</td>
-</tr>
-<tr>
-<td align="left">brew remove formula</td>
-<td align="left">卸载 formula</td>
-</tr>
-<tr>
-<td align="left">brew install –cask cask</td>
-<td align="left">安装 cask</td>
-</tr>
-<tr>
-<td align="left">brew list</td>
-<td align="left">查看已安装的包列表</td>
-</tr>
-<tr>
-<td align="left">brew list –versions</td>
-<td align="left">查看你安装过的包列表（包括版本号）</td>
-</tr>
-<tr>
-<td align="left">brew info [formula|cask]</td>
-<td align="left">查看[formula|cask]的简要信息</td>
-</tr>
-<tr>
-<td align="left">brew upgrade [formula|cask]</td>
-<td align="left">升级[formula|cask]</td>
-</tr>
-</tbody></table>
-<h3><span id="chang-yong-ruan-jian-an-zhuang-ming-ling">常用软件安装命令</span><a href="#chang-yong-ruan-jian-an-zhuang-ming-ling" class="header-anchor">#</a></h3><table>
-<thead>
-<tr>
-<th align="left">命令</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">brew install –cask sublime-text</td>
-<td align="left">安装sublime编辑器</td>
-</tr>
-<tr>
-<td align="left">brew install –cask qq</td>
-<td align="left">安装qq</td>
-</tr>
-<tr>
-<td align="left">brew install –cask wechat</td>
-<td align="left">安装微信</td>
-</tr>
-<tr>
-<td align="left">brew install –cask firefox</td>
-<td align="left">安装firefox</td>
-</tr>
-<tr>
-<td align="left">brew install –cask chrome-remote-desktop-host</td>
-<td align="left">安装chrome</td>
-</tr>
-<tr>
-<td align="left">brew install –cask yinxiangbiji</td>
-<td align="left">安装印象笔记</td>
-</tr>
-</tbody></table>
-<h3><span id="qi-ta-ming-ling">其他命令</span><a href="#qi-ta-ming-ling" class="header-anchor">#</a></h3><table>
-<thead>
-<tr>
-<th align="left">命令</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">brew outdated</td>
-<td align="left">列出需要升级的 formulae</td>
-</tr>
-<tr>
-<td align="left">brew services</td>
-<td align="left">管理后台运行服务工具</td>
-</tr>
-<tr>
-<td align="left">brew services [list] (–json):</td>
-<td align="left">列出有关当前用户的所有托管服务的信息</td>
-</tr>
-<tr>
-<td align="left">brew services info (formula|–all) [–json]</td>
-<td align="left">列出当前用户的所有托管服务</td>
-</tr>
-<tr>
-<td align="left">brew services start (formula|–all)</td>
-<td align="left">马上开启formula服务，并且注册到当前用户的启动进程上</td>
-</tr>
-<tr>
-<td align="left">brew services stop (formula|–all)</td>
-<td align="left">马上停止formula服务，并且取消注册到当前用户的启动进程上</td>
-</tr>
-<tr>
-<td align="left">brew services restart (formula|–all)</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">brew services run (formula|–all)</td>
-<td align="left">运行formula服务，但是并不注册到当前用户的启动进程上</td>
-</tr>
-</tbody></table>
 
       
 	</div>
