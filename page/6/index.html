@@ -97,6 +97,146 @@
 
   <article class="post">
 	<h2 class="title">
+		<a href="2020/06/28/leetcode-209/">leetcode 209m 长度最小的子数组</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-06-28T05:00:00.000Z" itemprop="datePublished">Jun 28, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/leetcode/">leetcode</a>
+</div>
+    </div>
+      
+        <h4><span id="ti-mu-miao-shu">题目描述</span><a href="#ti-mu-miao-shu" class="header-anchor">#</a></h4><p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的连续子数组，并返回其长度。如果不存在符合条件的连续子数组，返回 0。</p>
+<p> <br>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = 7, nums = [2,3,1,2,4,3]</span><br><span class="line">输出：2</span><br><span class="line">解释：子数组 [4,3] 是该条件下的长度最小的连续子数组。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>数组元素 和 s均为正整数，即均大于0</p>
+</blockquote>
+<h4><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h4><ol>
+<li>定义两个数组下标：i j，遍历数组</li>
+<li>外层循环i表示子数组的起点下标，内层循环j从位置i开始，逐个累加数组元素,同时计算数组元素个数tmplength，直到累加和大于等于s 或者 j大于等于元素个数numsSize 时停止</li>
+<li>取得最小的元素个数</li>
+</ol>
+<blockquote>
+<p>当 $i&#x3D;0,j&#x3D;numsSize-1,sum&lt;s$ 时，即是：整个数组的和小于s，直接返回0</p>
+<p>类似的，<br>当 $i&gt;0,j&#x3D;numsSize-1,sum&lt;s$ 时，即是：从i到j的累加和小于s，表示i后面的元素累加和都小于s，不存在符合条件的子数组，直接跳出循环</p>
+</blockquote>
+<h4><span id="c-dai-ma">C代码</span><a href="#c-dai-ma" class="header-anchor">#</a></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">minSubArrayLen</span><span class="params">(<span class="type">int</span> s, <span class="type">int</span>* nums, <span class="type">int</span> numsSize)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> s = <span class="number">3</span>,numsSize = <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> nums[<span class="number">2</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="type">int</span> length = minSubArrayLen( s, &amp;nums[<span class="number">0</span>],  numsSize);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;长度最小的子数组长度length=%d&quot;</span>,length);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">minSubArrayLen</span><span class="params">(<span class="type">int</span> s, <span class="type">int</span>* nums, <span class="type">int</span> numsSize)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> length = numsSize;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;numsSize;i++)</span><br><span class="line">    &#123;    </span><br><span class="line">        <span class="type">int</span> sum = <span class="number">0</span>,tmpLength = <span class="number">0</span>,j;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(j=i;j&lt;numsSize &amp;&amp; sum&lt;s;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            sum += nums[j];</span><br><span class="line">            tmpLength++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(sum &lt; s)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;   </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">break</span>; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(tmpLength &lt; length) length = tmpLength;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;i=%d,j=%d,tmpLength=%d,sum=%d\n&quot;</span>,i,j,tmpLength,sum);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4><span id="shi-jian-fu-za-du">时间复杂度</span><a href="#shi-jian-fu-za-du" class="header-anchor">#</a></h4><p>算法的时间复杂度为 $O(n)$</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/06/18/string-BF/">串的模式匹配(Brute-Force算法)</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-06-18T03:00:00.000Z" itemprop="datePublished">Jun 18, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/数据结构/">数据结构</a> <a href="/tags/串/">串</a>
+</div>
+    </div>
+      
+        <h4><span id="suan-fa-jie-shao">算法介绍</span><a href="#suan-fa-jie-shao" class="header-anchor">#</a></h4><p>Brute-Force算法也称为简单匹配算法。B-F算法使用暴力枚举的方式，从目标串S中查找与模式串T一样的子串，若存在，则返回子串的开始位置，若不存在则返回-1.</p>
+<ul>
+<li>目标串：$S &#x3D; s_1s_2s_3…s_n$</li>
+<li>模式串：$T &#x3D; t_1t_2t_3…t_n$</li>
+<li>模式匹配：查找与模式串一样的子串的过程称为模式匹配</li>
+<li>目标串长度 $sLength$，模式串长度 $tLength$</li>
+</ul>
+<h4><span id="suan-fa-pi-pei-guo-cheng">算法匹配过程</span><a href="#suan-fa-pi-pei-guo-cheng" class="header-anchor">#</a></h4><ol>
+<li>首先模式串T的长度必须小于等于目标串</li>
+<li>模式匹配过程</li>
+</ol>
+<ul>
+<li>从目标串 $S$ 的第 $i$ 个位置开始寻找与模式串 $T$ 一样的子串 $( 0 &lt;&#x3D; i &lt;&#x3D; sLength-tLength)$</li>
+<li>遍历目标串 $S$ ，从 $i$ 到 $i+tLength$ 之间的字符，与模式串逐个比较<ul>
+<li>若出现任意一个字符不相同，则跳出遍历，$i$ 向前移动一位，重新遍历目标串 $S$</li>
+<li>若每一个字符都相同，则返回 $i$</li>
+</ul>
+</li>
+</ul>
+<h4><span id="c-dai-ma">C代码</span><a href="#c-dai-ma" class="header-anchor">#</a></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">bf</span><span class="params">(<span class="type">char</span> *s,<span class="type">char</span> *t)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> s[] = <span class="string">&quot;[Done] exited with code=0 in 0.454 seconds&quot;</span>;</span><br><span class="line">    <span class="type">char</span> t[] = <span class="string">&quot;Done&quot;</span>;</span><br><span class="line">    <span class="type">int</span> index = bf(&amp;s[<span class="number">0</span>],&amp;t[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;index=%d\n&quot;</span>,index);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">StrLength</span><span class="params">(<span class="type">char</span> *s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(*(s+i) != <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">        i++;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  Brute-Force算法 </span></span><br><span class="line"><span class="type">int</span> <span class="title function_">bf</span><span class="params">(<span class="type">char</span> *s,<span class="type">char</span> *t)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> sLength = StrLength(s);</span><br><span class="line">    <span class="type">int</span> tLength = StrLength(t);</span><br><span class="line">    <span class="keyword">if</span>(sLength &lt; tLength) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> si = <span class="number">0</span>,ti = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (si+tLength &lt;= sLength)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> flag = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(ti=<span class="number">0</span>;ti&lt;tLength;ti++)</span><br><span class="line">            <span class="keyword">if</span>(*(s+si+ti) != *(t+ti))</span><br><span class="line">            &#123;</span><br><span class="line">                flag = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(flag)</span><br><span class="line">            <span class="keyword">return</span> si;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ti = <span class="number">0</span>;</span><br><span class="line">            si++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4><span id="shi-jian-fu-za-du">时间复杂度</span><a href="#shi-jian-fu-za-du" class="header-anchor">#</a></h4><table>
+<thead>
+<tr>
+<th>情况</th>
+<th>时间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最好情况：</td>
+<td>$O(tLength)$</td>
+</tr>
+<tr>
+<td>最坏情况：</td>
+<td>$O(tLength*sLength)$</td>
+</tr>
+</tbody></table>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2020/06/17/leetcode-125/">leetcode 125e 验证回文串</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-06-17T21:00:00.000Z" itemprop="datePublished">Jun 18, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/leetcode/">leetcode</a>
+</div>
+    </div>
+      
+        <h4><span id="ti-mu-miao-shu">题目描述</span><a href="#ti-mu-miao-shu" class="header-anchor">#</a></h4><p>给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。</p>
+<p><strong>说明：</strong> 本题中，我们将空字符串定义为有效的回文串。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;A man, a plan, a canal: Panama&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;race a car&quot;</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
+
+<h4><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h4><ol>
+<li>去除非字母、数字字符，大写字母转成小写字母，求出字符总长度</li>
+<li>构造字符数组</li>
+<li>验证</li>
+</ol>
+<h4><span id="c-dai-ma">C代码</span><a href="#c-dai-ma" class="header-anchor">#</a></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> true 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> false 0</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> <span class="type">bool</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; strLink;</span><br><span class="line"></span><br><span class="line">strLink * <span class="title function_">StrAssign</span><span class="params">(<span class="type">char</span> *s)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">isPalindrome</span><span class="params">(<span class="type">char</span> * s)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">DispStr</span><span class="params">(strLink * s)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">isPalindrome</span><span class="params">(<span class="type">char</span> * s)</span>;</span><br><span class="line"><span class="type">char</span> <span class="title function_">GetChar</span><span class="params">(<span class="type">char</span> c)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">StrCopy</span><span class="params">(strLink *str,<span class="type">int</span> length,<span class="type">char</span> *s)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">DispArr</span><span class="params">(<span class="type">char</span> *arr,<span class="type">int</span> length)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> s[] = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(isPalindrome(&amp;s[<span class="number">0</span>]))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;true\t&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;false\t&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span> <span class="title function_">GetChar</span><span class="params">(<span class="type">char</span> c)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> res=<span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span>((c &gt;= <span class="string">&#x27;a&#x27;</span> &amp;&amp; c &lt;= <span class="string">&#x27;z&#x27;</span>) || (c &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; c &lt;= <span class="string">&#x27;9&#x27;</span>) )</span><br><span class="line">        res = c;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(c &gt;= <span class="string">&#x27;A&#x27;</span> &amp;&amp; c &lt;= <span class="string">&#x27;Z&#x27;</span>)</span><br><span class="line">        res = c + <span class="number">32</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">StrLength</span><span class="params">(strLink *s)</span></span><br><span class="line">&#123;</span><br><span class="line">    strLink * tmp = s-&gt;next;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(tmp != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        i++;</span><br><span class="line">        tmp = tmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">strLink * <span class="title function_">StrAssign</span><span class="params">(<span class="type">char</span> *s)</span></span><br><span class="line">&#123;</span><br><span class="line">    strLink *tmp,*r,*p;</span><br><span class="line">    tmp = (strLink *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(strLink));</span><br><span class="line">    tmp-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    r = tmp;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(s[i] != <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">char</span> res;</span><br><span class="line">        <span class="keyword">if</span>((res = GetChar(s[i])) == <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        p = (strLink *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(strLink));</span><br><span class="line">        p-&gt;data = res;</span><br><span class="line">        r-&gt;next = p;</span><br><span class="line">        r = p;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    r-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">DispStr</span><span class="params">(strLink *s)</span></span><br><span class="line">&#123;</span><br><span class="line">    strLink *tmp = s-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(tmp != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,tmp-&gt;data);</span><br><span class="line">        tmp = tmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">DispArr</span><span class="params">(<span class="type">char</span> *arr,<span class="type">int</span> length)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;length;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c\t&quot;</span>,*(arr+i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">StrCopy</span><span class="params">(strLink *str,<span class="type">int</span> length,<span class="type">char</span> *s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    strLink * tmp = str-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(tmp != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *(s+i) = tmp-&gt;data;</span><br><span class="line">        i++;</span><br><span class="line">        tmp = tmp-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> <span class="title function_">isPalindrome</span><span class="params">(<span class="type">char</span> * s)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//  求出长度</span></span><br><span class="line">    strLink *str;</span><br><span class="line">    str = StrAssign(s);</span><br><span class="line">    <span class="comment">// DispStr(str);</span></span><br><span class="line">    <span class="type">int</span> length = StrLength(str);</span><br><span class="line">    <span class="keyword">if</span>(length &lt;= <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="type">char</span> strArr[length];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  构造字符数组</span></span><br><span class="line">    StrCopy(str,length,&amp;strArr[<span class="number">0</span>]);</span><br><span class="line">    <span class="comment">// DispArr(&amp;strArr[0],length);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//  验证</span></span><br><span class="line">    <span class="type">int</span> i=<span class="number">0</span>,j=length<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(strArr[i] != strArr[j])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        i++;</span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4><span id="shi-jian-fu-za-du">时间复杂度</span><a href="#shi-jian-fu-za-du" class="header-anchor">#</a></h4><p>算法的时间复杂度为 $O(n)$</p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
 		<a href="2020/06/17/string/">串结构——顺序串、链串</a>
 	</h2>
     <div class="entry-content">
@@ -576,276 +716,6 @@
 <p>链表的抽象运算与顺序表一致，但是由于存储结构不一样，所以具体实现也完全不一样。</p>
 <p>链表代码实现：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> true 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> false 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> Bool;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; tabLink;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//  初始化一个空的链表</span></span><br><span class="line">tabLink * <span class="title function_">InitList</span><span class="params">()</span>;</span><br><span class="line"><span class="comment">//  创建链表-头插法</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">CreateListL</span><span class="params">(tabLink *L, ElemType a[], <span class="type">int</span> n)</span>;</span><br><span class="line"><span class="comment">//  创建链表-尾插法</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">CreateListR</span><span class="params">(tabLink *L, ElemType a[], <span class="type">int</span> n)</span>;</span><br><span class="line"><span class="comment">// 判断链表是否为空</span></span><br><span class="line">Bool <span class="title function_">ListEmpty</span><span class="params">(tabLink *L)</span>;</span><br><span class="line"><span class="comment">// 返回链表的长度</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">ListLength</span><span class="params">(tabLink *L)</span>;</span><br><span class="line"><span class="comment">// 输出链表元素</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DispList</span><span class="params">(tabLink *L)</span>;</span><br><span class="line"><span class="comment">//  返回指定序号的元素</span></span><br><span class="line">Bool <span class="title function_">GetElem</span><span class="params">(tabLink *L,<span class="type">int</span> i,ElemType *e)</span>;</span><br><span class="line"><span class="comment">//  返回指定元素的序号</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">LocateElem</span><span class="params">(tabLink *L, ElemType e)</span>;</span><br><span class="line"><span class="comment">//  在指定序号位置插入元素</span></span><br><span class="line">Bool <span class="title function_">ListInsert</span><span class="params">(tabLink *L,<span class="type">int</span> i,ElemType e)</span>;</span><br><span class="line"><span class="comment">//  在指定序号位置删除元素</span></span><br><span class="line">Bool <span class="title function_">ListDelete</span><span class="params">(tabLink *L,<span class="type">int</span> i,ElemType *e)</span>;</span><br><span class="line"><span class="comment">//  销毁线性表</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DestroyList</span><span class="params">(tabLink *L)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    tabLink *T;</span><br><span class="line">    T = InitList();</span><br><span class="line">    ElemType x[<span class="number">6</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line">    <span class="keyword">if</span> (ListEmpty(T)) <span class="built_in">printf</span>(<span class="string">&quot;null\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;not null\n&quot;</span>);</span><br><span class="line">    CreateListR(T,x,<span class="number">6</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;CreateListR\n&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (ListEmpty(T)) <span class="built_in">printf</span>(<span class="string">&quot;null\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;not null\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;length of list=%d\n&quot;</span>,ListLength(T));</span><br><span class="line">    DispList(T);</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">if</span>(GetElem(T,<span class="number">3</span>,&amp;num)) <span class="built_in">printf</span>(<span class="string">&quot;num = %d\n&quot;</span>,num);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;false\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;index of 6  = %d\n&quot;</span>,LocateElem(T,<span class="number">6</span>));</span><br><span class="line">    ListInsert(T,<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">    DispList(T);</span><br><span class="line">    <span class="keyword">if</span>(ListDelete(T,<span class="number">1</span>,&amp;num)) <span class="built_in">printf</span>(<span class="string">&quot;num = %d\n&quot;</span>,num);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;false\n&quot;</span>);</span><br><span class="line">    DispList(T);</span><br><span class="line">    DestroyList(T);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Bool <span class="title function_">ListDelete</span><span class="params">(tabLink *L,<span class="type">int</span> i,ElemType *e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> length = ListLength(L);</span><br><span class="line">    <span class="keyword">if</span> (i&lt;<span class="number">1</span> || i&gt;length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(j &lt; i<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        L = L-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    tabLink *tmp = L-&gt;next;</span><br><span class="line">    L-&gt;next = tmp-&gt;next;</span><br><span class="line">    *e = tmp-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(tmp);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  在第i个位置，插入节点e</span></span><br><span class="line"><span class="comment">//  关键在于找到第i-1个位置</span></span><br><span class="line">Bool <span class="title function_">ListInsert</span><span class="params">(tabLink *L,<span class="type">int</span> i,ElemType e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> length = ListLength(L);</span><br><span class="line">    <span class="keyword">if</span> (i&lt;<span class="number">1</span> || i&gt;length+<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (j &lt; i<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        L = L-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    tabLink *tmp = (tabLink *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(tabLink));</span><br><span class="line">    tmp-&gt;data = e;</span><br><span class="line">    tmp-&gt;next = L-&gt;next;</span><br><span class="line">    L-&gt;next = tmp;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">LocateElem</span><span class="params">(tabLink *L, ElemType e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (ListEmpty(L)) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    tabLink *P = L-&gt;next;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(P != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(P-&gt;data == e) <span class="keyword">return</span> i;</span><br><span class="line">        P = P-&gt;next;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Bool <span class="title function_">GetElem</span><span class="params">(tabLink *L,<span class="type">int</span> i,ElemType *e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> length = ListLength(L);</span><br><span class="line">    <span class="keyword">if</span> (i&lt;<span class="number">1</span> || i&gt;length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(j &lt; i)</span><br><span class="line">    &#123;</span><br><span class="line">        L = L-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    *e = L-&gt;data;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">DispList</span><span class="params">(tabLink *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;output elem: &quot;</span>);</span><br><span class="line">    tabLink *P;</span><br><span class="line">    P = L-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(P != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\t&quot;</span>,P-&gt;data);</span><br><span class="line">        P = P-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">ListLength</span><span class="params">(tabLink *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(ListEmpty(L)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(L-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        i++;</span><br><span class="line">        L = L-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Bool <span class="title function_">ListEmpty</span><span class="params">(tabLink *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> L-&gt;next==<span class="literal">NULL</span>?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  头插法</span></span><br><span class="line"><span class="comment">//  左为头，右为尾</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">CreateListL</span><span class="params">(tabLink *L, ElemType a[], <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    tabLink *tmp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp = (tabLink *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(tabLink));</span><br><span class="line">        tmp-&gt;data = a[i];</span><br><span class="line">        tmp-&gt;next = L-&gt;next;</span><br><span class="line">        L-&gt;next = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  尾插法</span></span><br><span class="line"><span class="comment">//  左为头，右为尾</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">CreateListR</span><span class="params">(tabLink *L, ElemType a[], <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    tabLink *tmp,*p;</span><br><span class="line">    p = L;</span><br><span class="line">    <span class="comment">//  p指向链表的尾指针</span></span><br><span class="line">    <span class="keyword">while</span>(p-&gt;next != <span class="literal">NULL</span>) p = p-&gt;next;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        tmp = (tabLink *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(tabLink));</span><br><span class="line">        tmp-&gt;data = a[i];</span><br><span class="line">        tmp-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        p-&gt;next = tmp;</span><br><span class="line">        p = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  初始化链表</span></span><br><span class="line"><span class="comment">//  头节点不存储数据元素，指针域指向第一个节点</span></span><br><span class="line">tabLink* <span class="title function_">InitList</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    tabLink *tmp = (tabLink *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(tabLink));</span><br><span class="line">    tmp-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">DestroyList</span><span class="params">(tabLink *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    tabLink *P;</span><br><span class="line">    <span class="keyword">while</span>(L-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        P = L;</span><br><span class="line">        L = L-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(P);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(L);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2020/06/03/three-elements-ds/">数据结构三要素</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2020-06-03T05:00:00.000Z" itemprop="datePublished">Jun 3, 2020</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/数据结构/">数据结构</a>
-</div>
-    </div>
-      
-        <h3><span id="shu-ju-jie-gou-san-yao-su">数据结构三要素</span><a href="#shu-ju-jie-gou-san-yao-su" class="header-anchor">#</a></h3><p>包括：</p>
-<ul>
-<li>数据的逻辑结构</li>
-<li>数据的存储结构</li>
-<li>数据的运算</li>
-</ul>
-<h4><span id="shu-ju-de-luo-ji-jie-gou">数据的逻辑结构</span><a href="#shu-ju-de-luo-ji-jie-gou" class="header-anchor">#</a></h4><p>指数据节点之间的逻辑关系，是数据在用户面前呈现的形式。</p>
-<p>数据节点之间按逻辑结构可分为：</p>
-<ul>
-<li>线性结构<ul>
-<li><a href="/2020/06/05/linear-list">线性表</a></li>
-<li><a href="/2020/06/08/stack">栈</a></li>
-<li><a href="/2020/06/10/queue">队列</a></li>
-<li><a href="/2020/06/17/string">串</a></li>
-</ul>
-</li>
-<li>非线性结构<ul>
-<li><a href="/2020/07/11/btree">树</a></li>
-<li>图</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>线性结构的特点：</p>
-<ul>
-<li>数据节点之间只存在一对一的关系</li>
-<li>开始节点和终端节点都是唯一的</li>
-<li>除了开始节点和终端节点以外，其余节点都有且仅有一个前驱节点，有且仅有一个后继节点</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>树形结构的特点：</p>
-<ul>
-<li>数据节点之间存在一对多的关系</li>
-<li>开始节点唯一，终端节点不唯一</li>
-<li>除了终端节点以外，每个节点有一个或多个后继节点</li>
-<li>除开始节点以外，每个节点有且仅有一个前驱节点</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>图形结构的特点：</p>
-<ul>
-<li>数据节点之间存在多对多的关系</li>
-<li>没有开始节点和终端节点，所有节点都可能有多个前驱节点和多个后继节点</li>
-</ul>
-</blockquote>
-<h4><span id="shu-ju-de-cun-chu-jie-gou">数据的存储结构</span><a href="#shu-ju-de-cun-chu-jie-gou" class="header-anchor">#</a></h4><p>指数据节点及其关系在计算机存储器中的存储方式，也称为数据的物理结构。</p>
-<p>数据节点按存储结构可分为：</p>
-<ul>
-<li>顺序结构：利用数组实现，空间利用率高</li>
-<li>链式结构：利用指针实现，便于增删调整修改</li>
-<li>索引结构：利用索引项实现，索引项包括关键字和地址，查找速度快，但是存储索引项会增加空间支出</li>
-<li>散列结构：利用哈希公式等计算并存储数值为地址，作为快速查找的依据，但是缺点是存储数值会占用大量空间，并且仅保存数据数值，不保存数据的逻辑关系</li>
-</ul>
-<h4><span id="shu-ju-de-yun-suan">数据的运算</span><a href="#shu-ju-de-yun-suan" class="header-anchor">#</a></h4><p>施加在数据上的运算包括运算的定义和实现。</p>
-<ul>
-<li><p><strong>运算的定义</strong>针对逻辑结构，指出运算的功能；</p>
-</li>
-<li><p><strong>运算的实现</strong>针对存储结构，指出运算的具体操作步骤。</p>
-</li>
-</ul>
-<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gffjzcrz6kj30k80kcjrm.jpg" alt="数据结构" width="700" align="bottom">
-<center>数据结构</center>
-
-<h3><span id="luo-ji-jie-gou-er-yuan-zu">逻辑结构二元组</span><a href="#luo-ji-jie-gou-er-yuan-zu" class="header-anchor">#</a></h3><p>逻辑结构二元组是是表示数据逻辑结构的抽象工具。</p>
-<p>逻辑结构二元组只关心两个问题：</p>
-<ol>
-<li>数据是什么，包括：<ul>
-<li>数据是什么类型，例如int、char、struct</li>
-<li>数据的数量</li>
-</ul>
-</li>
-<li>数据之间是什么关系<ul>
-<li>数据之间是相邻关系，使用括号(e1,e2)表示</li>
-<li>数据之间是先后关系，使用尖括号&lt;e1,e2&gt;表示</li>
-</ul>
-</li>
-</ol>
-<p>逻辑结构二元组表示方法：<br>$B&#x3D;(D,R)$。</p>
-<ol>
-<li>B是一种数据结构，由数据元素的集合D和D上二元关系的集合R所组成</li>
-<li>$D&#x3D;{d_i|d_i \in ElemType,1&lt;&#x3D;i&lt;&#x3D;n,n&gt;&#x3D;0}$，<br>数据元素的集合</li>
-<li>$R&#x3D;{&lt;r_{j-1},r_j&gt;|1&lt;&#x3D;j&lt;&#x3D;m,m&gt;&#x3D;0}$，<br>D上二元关系的集合</li>
-</ol>
-<p>比如二元组示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">B = （D，R）</span><br><span class="line">D = &#123;a，b，c，d，e，f，g，h，i，j&#125;</span><br><span class="line">R = &#123;r&#125;</span><br><span class="line">r = &#123; &lt;a，b&gt;，&lt;a，c&gt;，&lt;a，d&gt;，&lt;b，e&gt;，&lt;c，f&gt;，&lt;c，g&gt;，&lt;d，h&gt;，&lt;d，i&gt;，&lt;d，j&gt; &#125;</span><br></pre></td></tr></table></figure>
-<p>从它的二元关系的序偶 &lt;a,b&gt; 中可以看出这是一个有向关系，那么其二元组关系对应的逻辑结构如下图所示：</p>
-<img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfk5mc4yk8j309d051jr6.jpg" alt="数据结构二元组示例" align="bottom">
-<center>数据结构二元组示例</center>
-
-
-<h3><span id="chou-xiang-shu-ju-lei-xing-adt">抽象数据类型(ADT)</span><a href="#chou-xiang-shu-ju-lei-xing-adt" class="header-anchor">#</a></h3><p>抽象数据类型只关心数据节点的逻辑结构和抽象运算（即运算的定义），暂不考虑计算机的具体存储结构和运算的具体实现。实质上就是在用抽象的方法描述问题本身，目的是在不涉及具体的，和计算机系统相关的细节情况下，优先理解问题本身，在此基础上，实现用计算机求解问题的过程。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ADT &lt;抽象数据类型&gt;</span><br><span class="line">&#123;</span><br><span class="line">    数据对象：&lt;数据对象的定义&gt;</span><br><span class="line">    数据关系：&lt;数据关系定义&gt;</span><br><span class="line">    基本操作：&lt;基本操作定义&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对数据对象的定义和描述数据元素之间的关系，这个就是逻辑结构二元组的内容，所以，抽象数据类型就是逻辑结构二元组的扩展，在逻辑结构二元组的基础上增加对数据元素的基本运算定义。</p>
-<p>线性表的抽象数据类型：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ADT List</span><br><span class="line">&#123;</span><br><span class="line">数据对象：</span><br><span class="line">    D = &#123;ai | ai ∈ ElemType, i=1,2,…,n, n&gt;=0 &#125;              // ElemType为类型标识符int的别名</span><br><span class="line">数据关系：</span><br><span class="line">    R = &#123;&lt;ai-1, ai&gt; | ai-1, ai ∈ D, i=2,3,…,n &#125;</span><br><span class="line">数据操作：</span><br><span class="line">    （1）tabSeq * InitList();	                            // 初始化一个空的线性表，tabSeq为结构体类型</span><br><span class="line">    （2）void CreateList(tabSeq *L, ElemType a[], int n);	// 创建线性表</span><br><span class="line">    （3）Bool ListEmpty(tabSeq *L);	                        // 判断线性表是否为空</span><br><span class="line">    （4）int ListLength(tabSeq *L);	                        // 返回线性表的长度</span><br><span class="line">    （5）void DispList(tabSeq *L);	                        // 输出线性表元素</span><br><span class="line">    （6）Bool GetElem(tabSeq *L,int i,ElemType *e);	        // 返回指定序号的元素</span><br><span class="line">    （7）int LocateElem(tabSeq *L, ElemType e);	            // 返回指定元素的序号</span><br><span class="line">    （8）Bool ListInsert(tabSeq *L,int i,ElemType e);	    // 在指定序号位置插入元素</span><br><span class="line">    （9）Bool ListDelete(tabSeq *L,int i,ElemType *e);	    // 在指定序号位置删除元素</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>根据抽象数据类型的定义可以知道：</p>
-<ul>
-<li>数据元素集合D包含n个int类型整数；</li>
-<li>R表示数据元素之间是有向的，具有前驱后继关系；</li>
-<li>最后定义了9个基本运算，涵盖初始化，创建，判断是否为空……等等。</li>
-</ul>
-<p>ADT可以帮助理解问题本身，理解对外暴露的接口，在次基础上，根据实际需求，选择合适的存储结构，实现具体运算。</p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2020/06/01/leetcode-1431/">leetcode 1431e 拥有最多糖果的孩子</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2020-06-01T07:00:00.000Z" itemprop="datePublished">Jun 1, 2020</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/leetcode/">leetcode</a>
-</div>
-    </div>
-      
-        <h4><span id="ti-mu-miao-shu">题目描述</span><a href="#ti-mu-miao-shu" class="header-anchor">#</a></h4><p>给你一个数组 candies 和一个整数 extraCandies ，其中 candies[i] 代表第 i 个孩子拥有的糖果数目。</p>
-<p>对每一个孩子，检查是否存在一种方案，将额外的 extraCandies 个糖果分配给孩子们之后，此孩子有 最多 的糖果。注意，允许有多个孩子同时拥有 最多 的糖果数目。</p>
-<p>示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：candies = [2,3,5,1,3], extraCandies = 3</span><br><span class="line">输出：[true,true,true,false,true] </span><br><span class="line">解释：</span><br><span class="line">孩子 1 有 2 个糖果，如果他得到所有额外的糖果（3个），那么他总共有 5 个糖果，他将成为拥有最多糖果的孩子。</span><br><span class="line">孩子 2 有 3 个糖果，如果他得到至少 2 个额外糖果，那么他将成为拥有最多糖果的孩子。</span><br><span class="line">孩子 3 有 5 个糖果，他已经是拥有最多糖果的孩子。</span><br><span class="line">孩子 4 有 1 个糖果，即使他得到所有额外的糖果，他也只有 4 个糖果，无法成为拥有糖果最多的孩子。</span><br><span class="line">孩子 5 有 3 个糖果，如果他得到至少 2 个额外糖果，那么他将成为拥有最多糖果的孩子。</span><br></pre></td></tr></table></figure>
-
-
-<p>提示：</p>
-<ul>
-<li>2 &lt;&#x3D; candies.length &lt;&#x3D; 100</li>
-<li>1 &lt;&#x3D; candies[i] &lt;&#x3D; 100</li>
-<li>1 &lt;&#x3D; extraCandies &lt;&#x3D; 50</li>
-</ul>
-<p>即是：</p>
-<ul>
-<li>2 &lt;&#x3D; 孩子的数量 &lt;&#x3D; 100</li>
-<li>1 &lt;&#x3D; 孩子的糖果数量 &lt;&#x3D; 100</li>
-<li>1 &lt;&#x3D; 额外的糖果数量 &lt;&#x3D; 50</li>
-</ul>
-<h4><span id="suan-fa">算法</span><a href="#suan-fa" class="header-anchor">#</a></h4><ol>
-<li>遍历每个小孩子的糖果数量，找到糖果数量最大值 maximum</li>
-<li>把额外的糖果数量只分给一个小孩，找到此时糖果总数量 大于等于 糖果数量最大值 的小孩</li>
-</ol>
-<h4><span id="c-dai-ma">C代码</span><a href="#c-dai-ma" class="header-anchor">#</a></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> true 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> false 0</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> <span class="type">bool</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Note: The returned array must be malloced, assume caller calls free().</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">bool</span>* <span class="title function_">kidsWithCandies</span><span class="params">(<span class="type">int</span>* candies, <span class="type">int</span> candiesSize, <span class="type">int</span> extraCandies, <span class="type">int</span>* returnSize)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> maximum = <span class="number">0</span>;</span><br><span class="line">    <span class="type">bool</span> *output = (<span class="type">bool</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">bool</span>) * candiesSize);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历每个小孩子的糖果数量，找到糖果数量最大值 maximum</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;candiesSize;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(candies[i] &gt; maximum) maximum = candies[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  把额外的糖果数量 extraCandies 只分给一个小孩，</span></span><br><span class="line">    <span class="comment">//  找到此时糖果总数量 大于等于 糖果数量最大值 的小孩，标记true，其余标记false</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;candiesSize;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (candies[i] + extraCandies &gt;= maximum)</span><br><span class="line">            output[i] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            output[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    *returnSize = candiesSize;</span><br><span class="line">    <span class="keyword">return</span> output;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> candies[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">    <span class="type">int</span> candiesSize = <span class="number">8</span>;</span><br><span class="line">    <span class="type">int</span> extraCandies = <span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> *returnSize;</span><br><span class="line">    <span class="type">bool</span> *result;</span><br><span class="line">    result = kidsWithCandies(&amp;candies[<span class="number">0</span>],candiesSize,extraCandies,returnSize);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;[&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;*returnSize;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(result[i] == <span class="number">1</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;true&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;false&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(i &lt; (*returnSize<span class="number">-1</span>)) <span class="built_in">printf</span>(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;]&quot;</span>);</span><br><span class="line">    <span class="built_in">free</span>(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4><span id="shi-jian-fu-za-du">时间复杂度</span><a href="#shi-jian-fu-za-du" class="header-anchor">#</a></h4><p>第一次for循环，时间复杂度为O(n)；</p>
-<p>第二次for循环，时间复杂度也为O(n)。</p>
-<p>因此算法的时间复杂度为O(n)。</p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2020/06/01/time-complexity-algorithm/">算法的时间复杂度</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2020-06-01T05:00:00.000Z" itemprop="datePublished">Jun 1, 2020</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/算法/">算法</a>
-</div>
-    </div>
-      
-        <h5><span id="suan-fa-fu-za-du">算法复杂度</span><a href="#suan-fa-fu-za-du" class="header-anchor">#</a></h5><p>算法复杂度是评价一个算法是否高效的依据。</p>
-<p>算法复杂度分为<strong>时间复杂度</strong>和<strong>空间复杂度</strong>，一个高效的算法具有<strong>用时短</strong>或者<strong>使用空间少</strong>的特点。</p>
-<p>随着存储技术的发展，存储介质的容量也发生了翻天覆地的变化，更有出现一些以空间换时间的算法。因此，如今评价算法的效率更加关注“用时短”方面，即是<strong>时间复杂度</strong>。</p>
-<h5><span id="shi-jian-fu-za-du">时间复杂度</span><a href="#shi-jian-fu-za-du" class="header-anchor">#</a></h5><p>简单的来说，算法的时间复杂度表示程序运行直至完成所需的总时间。</p>
-<p>因为程序可以由不同的程序语言实现，可以在配置不同的机器上面运行，那么不同的程序语言和不同的配置机器之间就没有可比性。因此不能用程序执行的具体时间比较效率，而是要用<strong>基本运算的次数</strong>来度量算法的时间复杂度。</p>
-<p>一个算法是由控制结构（顺序、分支和循环）和原操作（比如有四则运算，比较运算，赋值运算等）构成的，算法时间复杂度取决于两者的基本运算次数之和。进行基本运算的次数越少，其运行时间也就相对越少；基本运算次数越多，其运行时间也就相对越多。</p>
-<h5><span id="shi-jian-fu-za-du-de-biao-shi-fang-fa">时间复杂度的表示方法</span><a href="#shi-jian-fu-za-du-de-biao-shi-fang-fa" class="header-anchor">#</a></h5><p>求解1~1000的累加和：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">1000</span>;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sum=%d\t&quot;</span>,sum);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们已经知道，算法的时间复杂度取决于算法的基本运算的次数。</p>
-<p>以上程序的基本运算次数：$T_n &#x3D; 3n+3$</p>
-<p>算法的时间复杂度通常使用“大O表示法”（ big O notation）表示，大O符号的作用在于用简单的函数来描述复杂函数行为，给出一个上或下界。</p>
-<p>算法中基本运算次数 $T_n$ 是问题规模 $n$ 的某个函数 $f_n$，记作：$T_n &#x3D; O(f_n)$。</p>
-<p>表示 $T_n$ 与 $f_n$ 是同量级函数，具有相同的增长率；<br>表示当 $n$ 趋于正无穷时，存在一个常数 $C$ ，总有 $T_n &lt;&#x3D; C * f_n$ ，<br>简单的来说，当 $n$ 趋于正无穷时，$T_n &#x3D; f_n$。</p>
-<h5><span id="ji-suan-shi-jian-fu-za-du">计算时间复杂度</span><a href="#ji-suan-shi-jian-fu-za-du" class="header-anchor">#</a></h5><p>由 $T_n &#x3D; 3n + 3$ 可得，<br>时间复杂度 $O(f_n)&#x3D;O(3n+3)&#x3D;O(n)$ 。</p>
-<p>计算时间复杂度的步骤：</p>
-<ul>
-<li>求出问题规模n的基本运算次数函数 $T(n)$</li>
-<li>只保留函数 $T(n)$ 的最高阶项</li>
-<li>忽略最高阶项的常数</li>
-</ul>
-<blockquote>
-<p>例如：</p>
-<p>$T_n&#x3D;n^2+3n+4&#x3D;O(n^2+3n+4)&#x3D;O(n^2)$</p>
-<p>$T_n&#x3D;4n^2+2n+1&#x3D;O(4n^2+2n+1)&#x3D;O(n^2)$</p>
-</blockquote>
-<h5><span id="chang-jian-de-suan-fa-shi-jian-fu-za-ji-qi-da-xiao">常见的算法时间复杂及其大小</span><a href="#chang-jian-de-suan-fa-shi-jian-fu-za-ji-qi-da-xiao" class="header-anchor">#</a></h5><table>
-<thead>
-<tr>
-<th>时间复杂度</th>
-<th>时间复杂度量级</th>
-<th>大小（由小到大）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$O(1)$</td>
-<td>常数阶</td>
-<td>1</td>
-</tr>
-<tr>
-<td>$O(\log_2n)$</td>
-<td>对数阶</td>
-<td>2</td>
-</tr>
-<tr>
-<td>$O(n)$</td>
-<td>线性阶</td>
-<td>3</td>
-</tr>
-<tr>
-<td>$O(nlogn)$</td>
-<td>线性对数阶</td>
-<td>4</td>
-</tr>
-<tr>
-<td>$O(n^2)$</td>
-<td>平方阶</td>
-<td>5</td>
-</tr>
-<tr>
-<td>$O(n^3)$</td>
-<td>立方阶</td>
-<td>6</td>
-</tr>
-<tr>
-<td>$O(2^n)$</td>
-<td>指数阶</td>
-<td>7</td>
-</tr>
-</tbody></table>
-
       
 	</div>
 

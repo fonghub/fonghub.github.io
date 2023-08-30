@@ -97,6 +97,108 @@
 
   <article class="post">
 	<h2 class="title">
+		<a href="2023/07/14/等待/">等待</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2023-07-14T15:00:00.000Z" itemprop="datePublished">Jul 14, 2023</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/记录生活/">记录生活</a>
+</div>
+    </div>
+      
+        <p>终于做出了决定，要去旅游了</p>
+<p>但是老板不批假期，只能继续搬砖</p>
+<p>等下个月</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhZIkJDQHrHkMa3TF4WxMpmkj3594T2aHQDoRZBryIw4a7_yZF0BfmKtTUbZgANkSQfExec46DzIZDsEZT6Oh3rjPRNT0xx3n3sZ7QgWlW4BANeD7xe51Ct3OXQWkldYcrzQQJRarFSm8yUIbRc6ROqbuB4rGqyaT57S92j2J8Ce-NqA64-ghN4yHnPFpyU/s4032/hk.jpg"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2023/06/26/重复/">重复</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2023-06-26T15:00:00.000Z" itemprop="datePublished">Jun 26, 2023</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/记录生活/">记录生活</a>
+</div>
+    </div>
+      
+        <p>每天在同样的时间出门<br>到达同一个站台<br>搭上8:32的地铁<br>在下一站，一个化着精致妆容的老妇人会上车<br>每个人都在看手机，听音乐，沉浸在自己的世界里</p>
+<p>每天在同样的时间拐弯<br>走这条必经之路<br>顺便买一份早餐<br>回过头看，那个撑着伞的熟悉的陌生人又出现了<br>每个人都在赶路，匆匆的，为了美好的生活奋斗</p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVGzlg6Uv37NJFh1niphn4OBl9I1n35Wn6QMRxUhqVJsrPD0Rrry71fu3MtAMaQJkKEFNrpV81kPr1R0woMWwRAjT23NdG4ey7qdmvd49Vx0ALwnvBdGe2Iqo1zvwxs1-q3E0Fii-3YVFiVSP2pzw5IlN9VM3Vjx3w0FPdyh0ZZliefnisZfYaNcILzr1c/s4032/9BC8F871-9566-40E4-8ED4-A0E21441380A.jpeg"></p>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwEFnixuKedLp8iy_-nVriL7LbobWU8YOxsyNdvHv1uFRGbsxntlDTM0neZj6n9IP9yySTe5POk9HxXjLwZhRSr8vjM1Hf9uPtOLapxJgD4vZ3QhqBOQHWgb88PlQg1rbhqB7fL71drrEAsrKqq_KOqd2vt2aDUSoT6l2I4H3xd9AN4qRjejXoPougjZqp/s4032/5FDA3BB3-8DFD-494C-8C7F-A04EEA469EBA.jpeg"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2023/06/06/golang-sftp-upload-download-file/">golang使用sftp上传和下载文件例子</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2023-06-06T15:00:00.000Z" itemprop="datePublished">Jun 6, 2023</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/golang/">golang</a> <a href="/tags/sftp/">sftp</a> <a href="/tags/ssh/">ssh</a>
+</div>
+    </div>
+      
+        <p>最近在做一个功能给客户端发包。</p>
+<p>客户端上传包到后台，选择发布的环境后，进行发布，实现版本热更。</p>
+<h2><span id="lian-jie-de-can-shu">连接的参数</span><a href="#lian-jie-de-can-shu" class="header-anchor">#</a></h2><p>发包功能关键的一部分是发布到不同的环境服务器， OpsEnv 结构体定义了环境服务器的信息，<br>其中 Addr，Port，Passport，Password，PubKey，AuthType 六个字段和发包相关。</p>
+<figure class="highlight golang"><figcaption><span>model.go</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sftp</span><br><span class="line"></span><br><span class="line"><span class="comment">// OpsEnv 环境</span></span><br><span class="line"><span class="keyword">type</span> OpsEnv <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id       <span class="type">int</span>    <span class="string">`orm:&quot;id,primary&quot; json:&quot;id&quot;`</span>      <span class="comment">// id</span></span><br><span class="line">	EnvName  <span class="type">string</span> <span class="string">`orm:&quot;env_name&quot; json:&quot;envName&quot;`</span>   <span class="comment">// 环境名称</span></span><br><span class="line">	EnvType  <span class="type">int</span>    <span class="string">`orm:&quot;env_type&quot; json:&quot;envType&quot;`</span>   <span class="comment">// 环境类型</span></span><br><span class="line">	Addr     <span class="type">string</span> <span class="string">`orm:&quot;addr&quot; json:&quot;addr&quot;`</span>          <span class="comment">// 发送地址</span></span><br><span class="line">	Port     <span class="type">string</span> <span class="string">`orm:&quot;port&quot; json:&quot;port&quot;`</span>          <span class="comment">// 登录端口</span></span><br><span class="line">	Passport <span class="type">string</span> <span class="string">`orm:&quot;passport&quot; json:&quot;passport&quot;`</span>  <span class="comment">//登录名</span></span><br><span class="line">	Password <span class="type">string</span> <span class="string">`orm:&quot;password&quot; json:&quot;password&quot;`</span>  <span class="comment">//登录密码</span></span><br><span class="line">	PubKey   <span class="type">string</span> <span class="string">`orm:&quot;pub_key&quot; json:&quot;pubKey&quot;`</span>     <span class="comment">//私钥路径</span></span><br><span class="line">	AuthType <span class="type">int</span>    <span class="string">`orm:&quot;auth_type&quot; json:&quot;authType&quot;`</span> <span class="comment">//认证类型 1公钥 2密码</span></span><br><span class="line">	Path     <span class="type">string</span> <span class="string">`orm:&quot;path&quot; json:&quot;path&quot;`</span>          <span class="comment">// 发送路径</span></span><br><span class="line">	Domain   <span class="type">string</span> <span class="string">`orm:&quot;domain&quot; json:&quot;domain&quot;`</span>      <span class="comment">// 访问域名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="huo-de-lian-jie">获得连接</span><a href="#huo-de-lian-jie" class="header-anchor">#</a></h2><p>SFTP是用SSH封装过的FTP协议，相当于经过加密的FTP协议，功能与FTP一样，只是传输数据经过加密。</p>
+<p>所以首先需要获得ssh连接。</p>
+<p>newSshClient 方法提供了两种连接方式——密码和密钥。</p>
+<p>getSftpClient 方法在获得ssh连接的基础上，获得sftp连接。</p>
+<figure class="highlight golang"><figcaption><span>ssh.go</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sftp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/mitchellh/go-homedir&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/pkg/sftp&quot;</span></span><br><span class="line">	<span class="string">&quot;golang.org/x/crypto/ssh&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// getSshClient 获取ssh连接</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getSshClient</span><span class="params">()</span></span> (*ssh.Client, <span class="type">error</span>) &#123;</span><br><span class="line">	env := &amp;OpsEnv&#123;</span><br><span class="line">		Passport: <span class="string">&quot;zhagnSan&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;123456&quot;</span>,</span><br><span class="line">		<span class="comment">//PubKey:   &quot;/root/.ssh/id_rsa&quot;,</span></span><br><span class="line">		Addr:     <span class="string">&quot;192.168.99.106&quot;</span>,</span><br><span class="line">		Port:     <span class="string">&quot;22&quot;</span>,</span><br><span class="line">		AuthType: <span class="number">2</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	conn, err := newSshClient(env)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> conn, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大32m</span></span><br><span class="line"><span class="keyword">const</span> maxPacket = <span class="number">1</span> &lt;&lt; <span class="number">15</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// getSftpClient 获取sftp连接</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getSftpClient</span><span class="params">()</span></span> (*sftp.Client, <span class="type">error</span>) &#123;</span><br><span class="line">	conn, err := getSshClient()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sftp.NewClient(conn, sftp.MaxPacket(maxPacket))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// newSshClient 连接ssh</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newSshClient</span><span class="params">(h *OpsEnv)</span></span> (*ssh.Client, <span class="type">error</span>) &#123;</span><br><span class="line">	config := &amp;ssh.ClientConfig&#123;</span><br><span class="line">		Timeout:         time.Second * <span class="number">5</span>,</span><br><span class="line">		User:            h.Passport,</span><br><span class="line">		HostKeyCallback: ssh.InsecureIgnoreHostKey(), <span class="comment">//这个可以， 但是不够安全</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//认证方式包括密码和私钥文件两种</span></span><br><span class="line">	<span class="keyword">if</span> h.AuthType == <span class="number">2</span> &#123;</span><br><span class="line">		config.Auth = []ssh.AuthMethod&#123;ssh.Password(h.Password)&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		config.Auth = []ssh.AuthMethod&#123;publicKeyAuthFunc(h.PubKey)&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	addr := fmt.Sprintf(<span class="string">&quot;%s:%s&quot;</span>, h.Addr, h.Port)</span><br><span class="line">	c, err := ssh.Dial(<span class="string">&quot;tcp&quot;</span>, addr, config)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> c, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// publicKeyAuthFunc 读取&amp;&amp;解析私钥</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">publicKeyAuthFunc</span><span class="params">(kPath <span class="type">string</span>)</span></span> ssh.AuthMethod &#123;</span><br><span class="line">	keyPath, err := homedir.Expand(kPath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;find key&#x27;s home dir failed&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	key, err := os.ReadFile(keyPath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;ssh key file read failed&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// CreateUserOfRole the Signer for this private key.</span></span><br><span class="line">	signer, err := ssh.ParsePrivateKey(key)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;ssh key signer failed&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ssh.PublicKeys(signer)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取得sftp连接后，接下来就能使用该sftp连接执行文件上传和下载的操作。</p>
+<h2><span id="shang-chuan-wen-jian">上传文件</span><a href="#shang-chuan-wen-jian" class="header-anchor">#</a></h2><p>Upload 方法提供上传文件功能，上传文件分几步实现：</p>
+<ul>
+<li>打开本地文件，读取内容</li>
+<li>创建远程目录</li>
+<li>创建或者清空远程文件</li>
+<li>修改远程文件的权限</li>
+<li>复制本地文件内容到远程文件</li>
+</ul>
+<h2><span id="xia-zai-wen-jian">下载文件</span><a href="#xia-zai-wen-jian" class="header-anchor">#</a></h2><p>下载文件与上传文件的操作类似，唯一的区别是把远程文件的内容写到本地文件。</p>
+<figure class="highlight golang"><figcaption><span>sftp.go</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sftp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;io&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;path/filepath&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Upload 上传文件</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Upload</span><span class="params">(localPath, remotePath <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	client, err := getSftpClient()</span><br><span class="line">	<span class="keyword">defer</span> client.Close()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	localFile, err := os.Open(localPath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;BrowserOpen local file failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> localFile.Close()</span><br><span class="line">	<span class="comment">//文件路径</span></span><br><span class="line">	remoteFilePath := filepath.ToSlash(filepath.Dir(remotePath))</span><br><span class="line">	<span class="comment">//检查目录，必要时创建目录</span></span><br><span class="line">	err = client.MkdirAll(remoteFilePath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;scp mkdir all failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//创建或着清空文件</span></span><br><span class="line">	remoteFile, err := client.Create(remotePath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;create remote file failed %s:%s&quot;</span>, remotePath, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> remoteFile.Close()</span><br><span class="line">	<span class="comment">//修改执行权限</span></span><br><span class="line">	info, err := os.Lstat(localPath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	err = client.Chmod(remoteFile.Name(), info.Mode())</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;scp chmod failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//写入内容，存在则覆盖</span></span><br><span class="line">	_, err = io.Copy(remoteFile, localFile)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;io copy failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Download 下载文件</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Download</span><span class="params">(localPath, remotePath <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	client, err := getSftpClient()</span><br><span class="line">	<span class="keyword">defer</span> client.Close()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	remoteFile, err := client.Open(remotePath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;open remote file failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> remoteFile.Close()</span><br><span class="line"></span><br><span class="line">	localFile, err := os.Create(localPath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;create local file failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> localFile.Close()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//写入内容，存在则覆盖</span></span><br><span class="line">	_, err = io.Copy(localFile, remoteFile)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;io copy failed %s&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="yuan-cheng-zhi-xing-ming-ling">远程执行命令</span><a href="#yuan-cheng-zhi-xing-ming-ling" class="header-anchor">#</a></h2><p>文件经过打包压缩，才上传到远程服务器上，因此还需要对远程文件进行解压缩。</p>
+<p>Unzip 方法接收一个解压缩的命令参数，然后调用 runCommand 方法远程执行命令，最后返回命令的执行结果。</p>
+<figure class="highlight golang"><figcaption><span>unzip.go</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sftp</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;bytes&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;golang.org/x/crypto/ssh&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Unzip unzip解压缩</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unzip</span><span class="params">(command <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	conn, err := getSshClient()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> conn.Close()</span><br><span class="line">	res, err := runCommand(conn, command)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">&quot;res&quot;</span>, res)</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// runCommand 远程执行命令</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">runCommand</span><span class="params">(client *ssh.Client, command <span class="type">string</span>)</span></span> (stdout <span class="type">string</span>, err <span class="type">error</span>) &#123;</span><br><span class="line">	session, err := client.NewSession()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">defer</span> session.Close()</span><br><span class="line">	<span class="keyword">var</span> buf bytes.Buffer</span><br><span class="line">	session.Stdout = &amp;buf</span><br><span class="line">	session.Stderr = &amp;buf</span><br><span class="line">	err = session.Run(command)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		err = fmt.Errorf(<span class="string">&quot;%s&quot;</span>, <span class="type">string</span>(buf.Bytes()))</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	stdout = <span class="type">string</span>(buf.Bytes())</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="diao-yong-amp-amp-ce-shi">调用&amp;&amp;测试</span><a href="#diao-yong-amp-amp-ce-shi" class="header-anchor">#</a></h2><figure class="highlight golang"><figcaption><span>main.go</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;gfast/example/ssh/sftp&quot;</span></span><br><span class="line">	<span class="string">&quot;github.com/gogf/gf/frame/g&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	localPath  = <span class="string">&quot;./test/hall.zip&quot;</span></span><br><span class="line">	remotePath = <span class="string">&quot;/home/zhagnSan/oooo/hall/hall.zip&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	Upload()</span><br><span class="line">	<span class="comment">//Download()</span></span><br><span class="line">	<span class="comment">//Unzip()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Upload</span><span class="params">()</span></span> &#123;</span><br><span class="line">	err := sftp.Upload(localPath, remotePath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		g.Log().Info(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Download</span><span class="params">()</span></span> &#123;</span><br><span class="line">	err := sftp.Download(localPath, remotePath)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		g.Log().Info(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unzip</span><span class="params">()</span></span> &#123;</span><br><span class="line">	command := fmt.Sprintf(<span class="string">&quot;%s %s %s&quot;</span>, <span class="string">&quot;unzip -o&quot;</span>, remotePath, <span class="string">&quot;-d /home/zhagnSan/oooo/hall&quot;</span>)</span><br><span class="line">	err := sftp.Unzip(command)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		g.Log().Info(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
 		<a href="2023/04/19/clone-an-object-in-javascript/">[译文]如何用JavaScript克隆一个对象</a>
 	</h2>
     <div class="entry-content">
@@ -213,11 +315,12 @@
 <p>稍微封装一下 demo.vue 的代码，使它变成一个独立的组件，通过简单的调用，就可以实现上传图片的功能。</p>
 <p>该组件接收一个图片地址参数，当有图片地址的时候，显示图片；<br>还有一个回调函数，当图片地址发生改变时，可以通知父组件。</p>
 <p>upImg.vue</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;el-upload</span><br><span class="line">        v-loading=&quot;upLoading&quot;</span><br><span class="line">        class=&quot;avatar-uploader&quot;</span><br><span class="line">        :action=&quot;apiUrl+&#x27;/system/upload/upImg&#x27;&quot;</span><br><span class="line">        :show-file-list=&quot;false&quot;</span><br><span class="line">        name=&quot;file&quot;</span><br><span class="line">        :data=&quot;setUpData()&quot;</span><br><span class="line">        :on-success=&quot;handleAvatarSuccess&quot;</span><br><span class="line">        :before-upload=&quot;beforeAvatarUpload&quot;</span><br><span class="line">        &gt;</span><br><span class="line">        &lt;img v-if=&quot;imgUrl&quot; :src=&quot;imgUrl&quot; class=&quot;avatar&quot; /&gt;</span><br><span class="line">        &lt;img v-else-if=&quot;imageUrl&quot; :src=&quot;imageUrl&quot; class=&quot;avatar&quot;/&gt;</span><br><span class="line">        &lt;i v-else class=&quot;el-icon-plus avatar-uploader-icon&quot;&gt;&lt;/i&gt;</span><br><span class="line">        &lt;div class=&quot;el-upload__tip&quot; slot=&quot;tip&quot;&gt;只能上传jpg/png文件，且不超过2MB&lt;/div&gt;</span><br><span class="line">        &lt;/el-upload&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123;getToken&#125; from &#x27;@/utils/auth&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#x27;upImg&#x27;,</span><br><span class="line">    props:[&quot;imageUrl&quot;],// 图片上传地址</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            // 上传加载</span><br><span class="line">            upLoading: false,</span><br><span class="line">            imgUrl:undefined,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        handleAvatarSuccess(res, file) &#123;</span><br><span class="line">        if (res.code === 0) &#123;</span><br><span class="line">            this.imgUrl = URL.createObjectURL(file.raw)</span><br><span class="line">            this.$emit(&quot;getImgUrl&quot;,res.data.fileInfo.fileUrl)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            this.msgError(res.msg)</span><br><span class="line">        &#125;</span><br><span class="line">            this.upLoading = false</span><br><span class="line">        &#125;,</span><br><span class="line">        beforeAvatarUpload(file) &#123;</span><br><span class="line">            const isJPG = (file.type === &#x27;image/jpeg&#x27; || file.type === &#x27;image/png&#x27;)</span><br><span class="line">            const isLt2M = file.size / 1024 / 1024 &lt; 2</span><br><span class="line">        </span><br><span class="line">            if (!isJPG) &#123;</span><br><span class="line">                this.$message.error(&#x27;上传头像图片只能是 JPG 或 PNG 格式!&#x27;)</span><br><span class="line">            &#125;</span><br><span class="line">            if (!isLt2M) &#123;</span><br><span class="line">                this.$message.error(&#x27;上传头像图片大小不能超过 2MB!&#x27;)</span><br><span class="line">            &#125;</span><br><span class="line">            this.upLoading = true</span><br><span class="line">            return isJPG &amp;&amp; isLt2M</span><br><span class="line">        &#125;,</span><br><span class="line">        setUpData() &#123;</span><br><span class="line">            return &#123;token: getToken()&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.avatar-uploader .el-upload &#123;</span><br><span class="line">    border: 1px dashed #d9d9d9;</span><br><span class="line">    border-radius: 6px;</span><br><span class="line">    cursor: pointer;</span><br><span class="line">    position: relative;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.avatar-uploader .el-upload:hover &#123;</span><br><span class="line">    border - color: #409eff;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.avatar-uploader-icon &#123;</span><br><span class="line">    font - size: 28px;</span><br><span class="line">    color: #8c939d;</span><br><span class="line">    width: 99px;</span><br><span class="line">    height: 99px;</span><br><span class="line">    line-height: 99px;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.avatar &#123;</span><br><span class="line">    width: 99px;</span><br><span class="line">    height: 99px;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;el-upload</span><br><span class="line">        v-loading=&quot;upLoading&quot;</span><br><span class="line">        class=&quot;avatar-uploader&quot;</span><br><span class="line">        :action=&quot;apiUrl+&#x27;/system/upload/upImg&#x27;&quot;</span><br><span class="line">        :show-file-list=&quot;false&quot;</span><br><span class="line">        name=&quot;file&quot;</span><br><span class="line">        :data=&quot;setUpData()&quot;</span><br><span class="line">        :on-success=&quot;handleAvatarSuccess&quot;</span><br><span class="line">        :before-upload=&quot;beforeAvatarUpload&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;img v-if=&quot;imgUrl&quot; :src=&quot;imgUrl&quot; class=&quot;avatar&quot;/&gt;</span><br><span class="line">      &lt;i v-else class=&quot;el-icon-plus avatar-uploader-icon&quot;&gt;&lt;/i&gt;</span><br><span class="line">      &lt;div class=&quot;el-upload__tip&quot; slot=&quot;tip&quot;&gt;只能上传jpg/png文件，且不超过2MB&lt;/div&gt;</span><br><span class="line">    &lt;/el-upload&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; getToken &#125; from &#x27;@/utils/auth&#x27;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;upImg&#x27;,</span><br><span class="line">  props: [&#x27;imageUrl&#x27;],// 图片上传地址</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      // 上传加载</span><br><span class="line">      upLoading: false,</span><br><span class="line">      imgUrl: undefined</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    imageUrl: &#123;</span><br><span class="line">      immediate: true,</span><br><span class="line">      handler(value) &#123;</span><br><span class="line">        this.imgUrl = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleAvatarSuccess(res, file) &#123;</span><br><span class="line">      if (res.code === 0) &#123;</span><br><span class="line">        this.imgUrl = URL.createObjectURL(file.raw)</span><br><span class="line">        this.$emit(&#x27;getImgUrl&#x27;, res.data.fileInfo.fileUrl)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        this.msgError(res.msg)</span><br><span class="line">      &#125;</span><br><span class="line">      this.upLoading = false</span><br><span class="line">    &#125;,</span><br><span class="line">    beforeAvatarUpload(file) &#123;</span><br><span class="line">      const isJPG = (file.type === &#x27;image/jpeg&#x27; || file.type === &#x27;image/png&#x27;)</span><br><span class="line">      const isLt2M = file.size / 1024 / 1024 &lt; 2</span><br><span class="line"></span><br><span class="line">      if (!isJPG) &#123;</span><br><span class="line">        this.$message.error(&#x27;上传头像图片只能是 JPG 或 PNG 格式!&#x27;)</span><br><span class="line">        return false</span><br><span class="line">      &#125;</span><br><span class="line">      if (!isLt2M) &#123;</span><br><span class="line">        this.$message.error(&#x27;上传头像图片大小不能超过 2MB!&#x27;)</span><br><span class="line">        return false</span><br><span class="line">      &#125;</span><br><span class="line">      this.upLoading = true</span><br><span class="line">      return isJPG &amp;&amp; isLt2M</span><br><span class="line">    &#125;,</span><br><span class="line">    setUpData() &#123;</span><br><span class="line">      return &#123; token: getToken() &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.avatar-uploader .el-upload &#123;</span><br><span class="line">  border: 1px dashed #d9d9d9;</span><br><span class="line">  border-radius: 6px;</span><br><span class="line">  cursor: pointer;</span><br><span class="line">  position: relative;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.avatar-uploader .el-upload:hover &#123;</span><br><span class="line">  border-color: #409eff;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.avatar-uploader-icon &#123;</span><br><span class="line">  font-size: 28px;</span><br><span class="line">  color: #8c939d;</span><br><span class="line">  width: 99px;</span><br><span class="line">  height: 99px;</span><br><span class="line">  line-height: 99px;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.avatar &#123;</span><br><span class="line">  width: 99px;</span><br><span class="line">  height: 99px;</span><br><span class="line">  display: block;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>upImg.vue 组件有一个自己的图片地址参数 imgUrl ，还通过参数接收一个图片地址参数 imageUrl ，当成功上传图片后，imgUrl 取得图片地址，imgUrl 比 imageUrl 具有高的优先级显示。</p>
-<p>图片上传成功后，通过 getImgUrl 事件，抛出图片地址，父组件只要监听 getImgUrl 事件，即可访问图片地址。</p>
-<p>如下代码即是调用的过程。</p>
+<p>upImg.vue 组件定义 imgUrl 变量作为图片的地址，<br>当父组件调用 upImg.vue 组件时，传入一个图片地址参数 imageUrl ，<br>子组件接收并监听该参数，当参数值发生变化时，赋值给 imgUrl 变量。</p>
+<p>当成功上传图片后，imgUrl 取得图片地址， 并且触发父组件上的 getImgUrl 事件，抛出图片地址。</p>
+<p>父组件只要监听 getImgUrl 事件，即可访问图片地址。</p>
+<p>如下代码即是父组件的调用过程。</p>
 <p>index.vue</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;up-img v-on:getImgUrl=&quot;getImgUrl&quot; :imageUrl=&quot;imageUrl&quot;/&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import upImg from &#x27;@/components/upImg/upImg&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">    components: &#123; upImg &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        getImgUrl(url) &#123;</span><br><span class="line">            console.log(url)</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
@@ -595,172 +698,6 @@
 </li>
 </ul>
 <p><img src="/img/redis/redis-list.png" alt="list"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-2-hash/">redis-hash数据类型小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:02:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p>
-<ul>
-<li>新增记录<ul>
-<li>新增一条 hset key field value</li>
-<li>批量新增 hmset key field value [field value field value …]</li>
-<li>新增一条记录，唯一性 hsetnx key field value</li>
-</ul>
-</li>
-<li>查询记录<ul>
-<li>查询一条 hget key field</li>
-<li>批量查询 hmget key field [field field]</li>
-<li>全表查询 hgetall key</li>
-</ul>
-</li>
-<li>修改记录<ul>
-<li>值增加指定增幅 hincrby key field increment</li>
-<li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li>
-</ul>
-</li>
-<li>删除记录 hdel key field</li>
-<li>查询表长 hlen key</li>
-<li>查询所有的字段 hkeys key</li>
-<li>查询所有的值 hvals key</li>
-<li>判断字段是否存在 hexists key field</li>
-</ul>
-<p><img src="/img/redis/redis-hash.png" alt="hash"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-1-string/">redis-string数据类型小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:01:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p>
-<ul>
-<li><p>设置值</p>
-<ul>
-<li>设置一个键值 set key val</li>
-<li>批量设置键值 mset key val [key val …]</li>
-<li>设置唯一的键值对 setnx</li>
-<li>批量设置唯一的键值对 msetnx</li>
-<li>设置新值返回旧值 getset key val</li>
-</ul>
-</li>
-<li><p>获取值</p>
-<ul>
-<li>获取键值 get</li>
-<li>批量获取键值 mget</li>
-</ul>
-</li>
-<li><p>修改值</p>
-<ul>
-<li>值增加1 incr key</li>
-<li>值增加指定增幅 incrby key increment</li>
-<li>值减1 decr key</li>
-<li>值减少指定减幅 decrby key decrement</li>
-</ul>
-</li>
-<li><p>过期时间</p>
-<ul>
-<li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li>
-</ul>
-</li>
-<li><p>字符串操作</p>
-<ul>
-<li>返回值的子串 getrange key start end</li>
-<li>使用子串覆盖值 setrange key offset val</li>
-<li>返回值的长度 strlen key</li>
-<li>字符串追加到值的后面 append key value</li>
-</ul>
-</li>
-</ul>
-<p><img src="/img/redis/redis-string.png" alt="string"></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/08/24/redis-0/">redis命令小结</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/redis/">redis</a>
-</div>
-    </div>
-      
-        <p>Redis</p>
-<ul>
-<li><p>操作命令</p>
-<ul>
-<li>删除指定的key：del key</li>
-<li>为给定 key 设置过期时间，以秒计: expire key seconds</li>
-<li>指定key在特定的时间戳后过期，以秒计: expireat key timestamp</li>
-<li>为给定 key 设置过期时间，以毫秒计: pexpire key milliseconds</li>
-<li>指定key在特定的时间戳后过期，以毫秒计: pexpireat key milliseconds-timestamp</li>
-<li>将当前数据库的 key 移动到给定的数据库 db 当中：move key db</li>
-<li>持久化key：persist key</li>
-<li>重命名key：rename key newkey</li>
-<li>仅当newkey不存在时，重命名key：renamenx key newkey</li>
-</ul>
-</li>
-<li><p>查询命令</p>
-<ul>
-<li>查找所有符合给定模式的key：keys pattern</li>
-<li>查看key的剩余生存时间，以秒计: ttl key</li>
-<li>查看key的剩余生存时间，以毫秒计: pttl key</li>
-<li>从当前数据库中随机返回一个 key：randomkey</li>
-<li>查询key的数据类型：type key</li>
-</ul>
-</li>
-<li><p>判断命令</p>
-<ul>
-<li>检查给定 key 是否存在：exists key</li>
-</ul>
-</li>
-</ul>
-<p><img src="/img/redis/redis-comnamd.png" alt="comnamd"></p>
 
       
 	</div>

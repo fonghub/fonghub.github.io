@@ -97,6 +97,172 @@
 
   <article class="post">
 	<h2 class="title">
+		<a href="2022/08/24/redis-2-hash/">redis-hash数据类型小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:02:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p>
+<ul>
+<li>新增记录<ul>
+<li>新增一条 hset key field value</li>
+<li>批量新增 hmset key field value [field value field value …]</li>
+<li>新增一条记录，唯一性 hsetnx key field value</li>
+</ul>
+</li>
+<li>查询记录<ul>
+<li>查询一条 hget key field</li>
+<li>批量查询 hmget key field [field field]</li>
+<li>全表查询 hgetall key</li>
+</ul>
+</li>
+<li>修改记录<ul>
+<li>值增加指定增幅 hincrby key field increment</li>
+<li>值增加指定增幅，浮点数 hincrbyfloat key field increment</li>
+</ul>
+</li>
+<li>删除记录 hdel key field</li>
+<li>查询表长 hlen key</li>
+<li>查询所有的字段 hkeys key</li>
+<li>查询所有的值 hvals key</li>
+<li>判断字段是否存在 hexists key field</li>
+</ul>
+<p><img src="/img/redis/redis-hash.png" alt="hash"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2022/08/24/redis-1-string/">redis-string数据类型小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:01:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>Redis 字符串数据类型的相关命令用于管理 redis 字符串值。</p>
+<ul>
+<li><p>设置值</p>
+<ul>
+<li>设置一个键值 set key val</li>
+<li>批量设置键值 mset key val [key val …]</li>
+<li>设置唯一的键值对 setnx</li>
+<li>批量设置唯一的键值对 msetnx</li>
+<li>设置新值返回旧值 getset key val</li>
+</ul>
+</li>
+<li><p>获取值</p>
+<ul>
+<li>获取键值 get</li>
+<li>批量获取键值 mget</li>
+</ul>
+</li>
+<li><p>修改值</p>
+<ul>
+<li>值增加1 incr key</li>
+<li>值增加指定增幅 incrby key increment</li>
+<li>值减1 decr key</li>
+<li>值减少指定减幅 decrby key decrement</li>
+</ul>
+</li>
+<li><p>过期时间</p>
+<ul>
+<li>设置值和过期时间，【单位秒 setex key seconds value】，【单位毫秒 psetex key milliseconds value】</li>
+</ul>
+</li>
+<li><p>字符串操作</p>
+<ul>
+<li>返回值的子串 getrange key start end</li>
+<li>使用子串覆盖值 setrange key offset val</li>
+<li>返回值的长度 strlen key</li>
+<li>字符串追加到值的后面 append key value</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/redis/redis-string.png" alt="string"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
+		<a href="2022/08/24/redis-0/">redis命令小结</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2022-08-24T15:00:00.000Z" itemprop="datePublished">Aug 24, 2022</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/redis/">redis</a>
+</div>
+    </div>
+      
+        <p>Redis</p>
+<ul>
+<li><p>操作命令</p>
+<ul>
+<li>删除指定的key：del key</li>
+<li>为给定 key 设置过期时间，以秒计: expire key seconds</li>
+<li>指定key在特定的时间戳后过期，以秒计: expireat key timestamp</li>
+<li>为给定 key 设置过期时间，以毫秒计: pexpire key milliseconds</li>
+<li>指定key在特定的时间戳后过期，以毫秒计: pexpireat key milliseconds-timestamp</li>
+<li>将当前数据库的 key 移动到给定的数据库 db 当中：move key db</li>
+<li>持久化key：persist key</li>
+<li>重命名key：rename key newkey</li>
+<li>仅当newkey不存在时，重命名key：renamenx key newkey</li>
+</ul>
+</li>
+<li><p>查询命令</p>
+<ul>
+<li>查找所有符合给定模式的key：keys pattern</li>
+<li>查看key的剩余生存时间，以秒计: ttl key</li>
+<li>查看key的剩余生存时间，以毫秒计: pttl key</li>
+<li>从当前数据库中随机返回一个 key：randomkey</li>
+<li>查询key的数据类型：type key</li>
+</ul>
+</li>
+<li><p>判断命令</p>
+<ul>
+<li>检查给定 key 是否存在：exists key</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/redis/redis-comnamd.png" alt="comnamd"></p>
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
 		<a href="2022/07/25/facade/">THINKPHP6如何实现门面模式</a>
 	</h2>
     <div class="entry-content">
@@ -540,225 +706,6 @@
 <p>表明使用 Animal 类的 getInstance 方法实例化 Animal 类，最后调用 Dog 类的 eat 方法。</p>
 <p>此处 Animal 是 Dog 的基类，但是在 Animal 类中引入了 trait ，所以 Animal 被当作当前类，<br>并且 Animal 没有父类，所以 Animal 类中的 getInstance 方法优先级最高，优先执行。</p>
 <h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.oop5.traits.php">Trait</a></p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/06/04/mysql/">MySQL自增ID和业务字段ID做主键的区别</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-06-04T06:00:00.000Z" itemprop="datePublished">Jun 4, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/mysql/">mysql</a>
-</div>
-    </div>
-      
-        <p>主键的作用是为了唯一标识出表中的一行数据，并且不能为空。</p>
-<p>一、自增ID</p>
-<p>自增ID作为主键的优缺点：</p>
-<p>自增ID的优点</p>
-<ol>
-<li>ID值由数据库引擎产生，方便开发人员</li>
-<li>ID值连续递增，提高数据库写入性能</li>
-<li>整型类型，所需存储空间较小</li>
-</ol>
-<p>自增ID缺点</p>
-<ol>
-<li>ID值本身会暴露数据规模</li>
-<li>ID值有序，容易暴露出其他ID值</li>
-<li>ID值由数据库引擎自动生成，分布式环境不能做到全局唯一</li>
-</ol>
-<p>二、业务字段ID</p>
-<p>业务字段ID作为主键可能产生的问题</p>
-<ol>
-<li>主键不能为空，某些业务字段可能非必需提供，或者因为隐私不能提供（例如电话号码、身份证号码）</li>
-<li>业务字段ID可能遇到回收利用（例如会员号），导致在显示和统计上出错</li>
-<li>业务字段ID有可能在一个表中多次出现（比如订单号）</li>
-</ol>
-<p>所以主键应该使用一个与业务无关的自增ID作为主键，但是也要接受自增ID的缺点。</p>
-<p>三、自定义ID</p>
-<p>主键除了使用自增ID，还可以自定义一个ID，例如：<br>使用：时间戳（13位）+去重整数（2位）+用户ID（后5位）作为主键ID</p>
-<p>这个主键ID有20位，有序但不连续，趋势递增，有效的隐藏了数据规模，还能保证分布式环境下全局唯一。</p>
-<p>随着数据规模的增加，自定义ID出现重复的概率也会增大，此时需要增加自定义ID的长度。</p>
-
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2022/04/01/php-array/">PHP数组合并之array_merge 和 数组相加</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2022-04-01T15:00:00.000Z" itemprop="datePublished">Apr 1, 2022</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/php/">php</a>
-</div>
-    </div>
-      
-        <p>数组合并一般会使用 array_merge 函数，其实还有数组相加运算。</p>
-<p>二者的区别是：<br>当数组存在相同字符串键名时，array_merge 函数会覆盖数组元素，数组相加运算不会覆盖数组元素；<br>当存在相同数字键名时，array_merge 函数会合并所有的元素，并且重新编排键名，数组相加运算依然不会覆盖数组元素。</p>
-<h2><span id="he-bing-de-shu-zu-jian-ming-hu-bu-xiang-tong">合并的数组键名互不相同</span><a href="#he-bing-de-shu-zu-jian-ming-hu-bu-xiang-tong" class="header-anchor">#</a></h2><p>array_merge 函数和 数组相加运算 都是直接合并数组，返回结果，两种合并数组的方式效果一样。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$arr1</span> = [<span class="string">&#x27;p&#x27;</span>=&gt;<span class="string">&#x27;php&#x27;</span>,<span class="string">&#x27;m&#x27;</span>=&gt;<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;n&#x27;</span>=&gt;<span class="string">&#x27;nginx&#x27;</span>];</span><br><span class="line"><span class="variable">$arr2</span> = [<span class="string">&#x27;j&#x27;</span>=&gt;<span class="string">&#x27;javascript&#x27;</span>,<span class="string">&#x27;h&#x27;</span>=&gt;<span class="string">&#x27;html&#x27;</span>,<span class="string">&#x27;c&#x27;</span>=&gt;<span class="string">&#x27;css&#x27;</span>];</span><br><span class="line"><span class="variable">$arr3</span> = <span class="title function_ invoke__">array_merge</span>(<span class="variable">$arr1</span>,<span class="variable">$arr2</span>);</span><br><span class="line"><span class="variable">$arr4</span> = <span class="variable">$arr1</span> + <span class="variable">$arr2</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$arr3</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$arr4</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [p] =&gt; php</span><br><span class="line">    [m] =&gt; mysql</span><br><span class="line">    [n] =&gt; nginx</span><br><span class="line">    [j] =&gt; javascript</span><br><span class="line">    [h] =&gt; html</span><br><span class="line">    [c] =&gt; css</span><br><span class="line">)</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [p] =&gt; php</span><br><span class="line">    [m] =&gt; mysql</span><br><span class="line">    [n] =&gt; nginx</span><br><span class="line">    [j] =&gt; javascript</span><br><span class="line">    [h] =&gt; html</span><br><span class="line">    [c] =&gt; css</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<h2><span id="he-bing-de-shu-zu-cun-zai-xiang-tong-jian-ming">合并的数组存在相同键名</span><a href="#he-bing-de-shu-zu-cun-zai-xiang-tong-jian-ming" class="header-anchor">#</a></h2><h3><span id="shu-zu-jian-ming-shi-zi-fu-chuan">数组键名是字符串</span><a href="#shu-zu-jian-ming-shi-zi-fu-chuan" class="header-anchor">#</a></h3><p>array_merge 函数在合并每一个元素前，先判断是否已经存在相同键名，存在则 <strong>覆盖</strong> 同名元素的值，不存在则增加元素。</p>
-<p>数组相加运算在合并每一个元素前，先判断是否已经存在相同键名，存在则 <strong>跳过</strong> 该元素，不存在则增加元素。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$arr1</span> = [<span class="string">&#x27;p&#x27;</span>=&gt;<span class="string">&#x27;php&#x27;</span>,<span class="string">&#x27;m&#x27;</span>=&gt;<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;n&#x27;</span>=&gt;<span class="string">&#x27;nginx&#x27;</span>];</span><br><span class="line"><span class="variable">$arr2</span> = [<span class="string">&#x27;j&#x27;</span>=&gt;<span class="string">&#x27;javascript&#x27;</span>,<span class="string">&#x27;n&#x27;</span>=&gt;<span class="string">&#x27;nginx2&#x27;</span>,<span class="string">&#x27;h&#x27;</span>=&gt;<span class="string">&#x27;html&#x27;</span>,<span class="string">&#x27;c&#x27;</span>=&gt;<span class="string">&#x27;css&#x27;</span>];</span><br><span class="line"><span class="variable">$arr3</span> = <span class="title function_ invoke__">array_merge</span>(<span class="variable">$arr1</span>,<span class="variable">$arr2</span>);</span><br><span class="line"><span class="variable">$arr4</span> = <span class="variable">$arr1</span> + <span class="variable">$arr2</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$arr3</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$arr4</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [p] =&gt; php</span><br><span class="line">    [m] =&gt; mysql</span><br><span class="line">    [n] =&gt; nginx2</span><br><span class="line">    [j] =&gt; javascript</span><br><span class="line">    [h] =&gt; html</span><br><span class="line">    [c] =&gt; css</span><br><span class="line">)</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [p] =&gt; php</span><br><span class="line">    [m] =&gt; mysql</span><br><span class="line">    [n] =&gt; nginx</span><br><span class="line">    [j] =&gt; javascript</span><br><span class="line">    [h] =&gt; html</span><br><span class="line">    [c] =&gt; css</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-
-<h3><span id="shu-zu-jian-ming-shi-shu-zi">数组键名是数字</span><a href="#shu-zu-jian-ming-shi-shu-zi" class="header-anchor">#</a></h3><p>当数组的键名为空时，PHP会默认键名为数字，默认数字键名与元素的位置有关。</p>
-<p>以下两对数组结果一样</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;php&#x27;</span>,<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;nginx&#x27;</span>];</span><br><span class="line"></span><br><span class="line">[<span class="number">0</span>=&gt;’php’,<span class="number">1</span>=&gt;’mysql’,<span class="number">2</span>=&gt;’nginx<span class="string">&#x27;];</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;j&#x27;</span>=&gt;<span class="string">&#x27;javascript&#x27;</span>,<span class="number">1</span>=&gt;<span class="string">&#x27;php&#x27;</span>,<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;nginx&#x27;</span>,<span class="number">3</span>=&gt;<span class="string">&#x27;html&#x27;</span>];</span><br><span class="line"></span><br><span class="line">[<span class="string">&#x27;j&#x27;</span>=&gt;<span class="string">&#x27;javascript&#x27;</span>,<span class="number">1</span>=&gt;<span class="string">&#x27;php’,2=&gt;&#x27;</span>mysql<span class="string">&#x27;,3=&gt;&#x27;</span>html<span class="string">&#x27;];</span></span><br></pre></td></tr></table></figure>
-
-<p>array_merge 函数在合并每一个元素前，先判断键名类型是否为整型数字，若为整型数字，则增加元素，若为字符串型，则根据字符串键名的算法合并元素。最后再根据元素位置编排数字键名。</p>
-<p>数组相加运算合并元素的算法跟键名为字符串的合并算法一样。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$arr1</span> = [<span class="string">&#x27;php&#x27;</span>,<span class="string">&#x27;mysql&#x27;</span>,<span class="string">&#x27;nginx&#x27;</span>];</span><br><span class="line"><span class="variable">$arr2</span> = [<span class="string">&#x27;javascript&#x27;</span>,<span class="string">&#x27;nginx2&#x27;</span>,<span class="string">&#x27;html&#x27;</span>,<span class="string">&#x27;css&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$arr3</span> = <span class="title function_ invoke__">array_merge</span>(<span class="variable">$arr1</span>,<span class="variable">$arr2</span>);</span><br><span class="line"><span class="variable">$arr4</span> = <span class="variable">$arr1</span> + <span class="variable">$arr2</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$arr3</span>);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$arr4</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [0] =&gt; php</span><br><span class="line">    [1] =&gt; mysql</span><br><span class="line">    [2] =&gt; nginx</span><br><span class="line">    [3] =&gt; javascript</span><br><span class="line">    [4] =&gt; nginx2</span><br><span class="line">    [5] =&gt; html</span><br><span class="line">    [6] =&gt; css</span><br><span class="line">)</span><br><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [0] =&gt; php</span><br><span class="line">    [1] =&gt; mysql</span><br><span class="line">    [2] =&gt; nginx</span><br><span class="line">    [3] =&gt; css</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2021/07/24/linux_viewing_content/">三个浏览内容的 Linux 命令功能对比</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2021-07-24T02:00:00.000Z" itemprop="datePublished">Jul 24, 2021</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/linux/">linux</a>
-</div>
-    </div>
-      
-        <div class="toc">
-
-<!-- toc -->
-
-<ul>
-<li><a href="#cat">cat</a></li>
-<li><a href="#more">more</a></li>
-<li><a href="#less">less</a></li>
-<li><a href="#zong-jie">总结</a></li>
-</ul>
-<!-- tocstop -->
-
-</div>
-
-<p>cat,less,more 命令都有浏览内容、文件的功能对比。</p>
-<h3><span id="cat">cat</span><a href="#cat" class="header-anchor">#</a></h3><p>cat（英文全拼：concatenate）命令用于连接文件并打印到标准输出设备上。</p>
-<p>cat的几个用法：</p>
-<ol>
-<li>显示整个文件：cat filename</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat hello.html </span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">        &lt;head&gt;</span><br><span class="line">                &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">        &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">        &lt;body&gt;</span><br><span class="line"></span><br><span class="line">                &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>接收从键盘的输入，创建一个新文件： cat &gt; filename</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat &gt; hello.sh</span><br><span class="line">echo &#x27;Hello World.&#x27;;</span><br><span class="line">^C</span><br></pre></td></tr></table></figure>
-<p>换行后按 ctrl + c 退出即保存。</p>
-<ol start="3">
-<li>显示行号</li>
-</ol>
-<ul>
-<li>不对空行编号，cat -b filename</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat -b hello.html </span><br><span class="line">     1  &lt;html&gt;</span><br><span class="line"></span><br><span class="line">     2          &lt;head&gt;</span><br><span class="line">     3                  &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">     4          &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">     5          &lt;body&gt;</span><br><span class="line"></span><br><span class="line">     6                  &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">     7          &lt;/body&gt;</span><br><span class="line">     8  &lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-
-<ul>
-<li>对所有行顺序编号，cat -n filename</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat -n hello.html  </span><br><span class="line">     1  &lt;html&gt;</span><br><span class="line">     2</span><br><span class="line">     3          &lt;head&gt;</span><br><span class="line">     4                  &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">     5          &lt;/head&gt;</span><br><span class="line">     6</span><br><span class="line">     7          &lt;body&gt;</span><br><span class="line">     8</span><br><span class="line">     9                  &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line">    10</span><br><span class="line">    11          &lt;/body&gt;</span><br><span class="line">    12  &lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>拼接文件： cat filename1 filename2 &gt; filename3</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# cat hello.html hello.sh &gt; hello.mix</span><br><span class="line">root@ubuntu:~# cat hello.mix </span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">        &lt;head&gt;</span><br><span class="line">                &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">        &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">        &lt;body&gt;</span><br><span class="line"></span><br><span class="line">                &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">echo &#x27;Hello World.&#x27;;</span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>cat的反向tac</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:~# tac hello.mix </span><br><span class="line">echo &#x27;Hello World.&#x27;;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line">        &lt;/body&gt;</span><br><span class="line"></span><br><span class="line">                &lt;p&gt; Hello World&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">        &lt;body&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/head&gt;</span><br><span class="line">                &lt;title&gt;title&lt;/title&gt;</span><br><span class="line">        &lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br></pre></td></tr></table></figure>
-
-<h3><span id="more">more</span><a href="#more" class="header-anchor">#</a></h3><p>more 命令，功能类似 cat ， cat 命令是将整个文件的内容显示在屏幕上；</p>
-<p>more 命令则会把文件内容分页显示，底部显示浏览进度百分比，方便阅读。</p>
-<ol>
-<li><p>规定一页显示的行数： more -n filename</p>
-</li>
-<li><p>从第n行开始显示： more +n filename</p>
-</li>
-<li><p>翻页</p>
-<ul>
-<li>向下翻一页 按 space 键</li>
-<li>向上翻一页  按 b(back) 键</li>
-</ul>
-</li>
-<li><p>退出 </p>
-<ul>
-<li>按 q(quit)键</li>
-<li>或者翻到最后一页自动退出</li>
-</ul>
-</li>
-</ol>
-<h3><span id="less">less</span><a href="#less" class="header-anchor">#</a></h3><p>less 工具是对文件或其它输出进行分页显示的工具，功能极其强大。</p>
-<ol>
-<li><p>显示行号： less -N filename</p>
-</li>
-<li><p>显示浏览百分比： less -m filename</p>
-</li>
-<li><p>翻页</p>
-<ul>
-<li>向下翻一页 按 space 键</li>
-<li>向上翻一页  按 b(back) 键</li>
-<li>向下翻半页 按 d(down) 键</li>
-<li>向上翻半页 按 u(up) 键</li>
-</ul>
-</li>
-<li><p>搜索</p>
-<ul>
-<li>向下搜索 按 &#x2F;加搜索内容，如 &#x2F;2020</li>
-<li>向上搜索 按 ?加搜索内容，如 ?2020</li>
-<li>按n(next)键搜索下一个</li>
-</ul>
-</li>
-<li><p>退出 按q(quit)键</p>
-</li>
-</ol>
-<h3><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h3><p>cat命令除了有浏览文件的功能，主要还是拼接文件的功能；</p>
-<p>more 和 less 命令的功能类似，但是 less 命令的功能更加强大。</p>
 
       
 	</div>
