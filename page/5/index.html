@@ -97,6 +97,67 @@
 
   <article class="post">
 	<h2 class="title">
+		<a href="2020/07/29/swap-sort/">交换排序——冒泡排序、快速排序</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: <time datetime="2020-07-29T05:00:00.000Z" itemprop="datePublished">Jul 29, 2020</time>
+</div>
+      <div class="tags">Tags: 
+
+<a href="/tags/数据结构/">数据结构</a> <a href="/tags/排序/">排序</a>
+</div>
+    </div>
+      
+        <h3><span id="suan-fa-si-xiang">算法思想</span><a href="#suan-fa-si-xiang" class="header-anchor">#</a></h3><p>两两比较待排序记录的关键字，发现两个记录的次序相反时即进行交换，直到没有反序的记录为止。 </p>
+<h3><span id="liang-chong-jiao-huan-pai-xu-fang-fa">两种交换排序方法</span><a href="#liang-chong-jiao-huan-pai-xu-fang-fa" class="header-anchor">#</a></h3><ol>
+<li>冒泡排序</li>
+<li>快速排序</li>
+</ol>
+<h3><span id="mou-pao-pai-xu">冒泡排序</span><a href="#mou-pao-pai-xu" class="header-anchor">#</a></h3><p><strong>基本思想</strong></p>
+<p>把待排序记录在逻辑上分成有序区和无序区，一开始有序区没有记录，无序区有 $n$ 个记录。</p>
+<p>通过无序区中相邻记录关键字间的比较和位置的交换，使关键字最小的记录如气泡一般逐渐往上<strong>漂浮</strong> 直至 <strong>水面</strong>。<br>$n$ 个元素排序，需要 $n-1$ 趟冒泡，有序区逐渐扩大到全局有序。</p>
+<p><strong>代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  冒泡排序</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort</span><span class="params">(RecType R[],<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    RecType tmp;</span><br><span class="line">    <span class="comment">//  n个记录，外层循环需要遍历n-1次，最后一个记录自然有序</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = n<span class="number">-1</span>; j &gt; i; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (R[j<span class="number">-1</span>].key &gt; R[j].key)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = R[j<span class="number">-1</span>];</span><br><span class="line">                R[j<span class="number">-1</span>] = R[j];</span><br><span class="line">                R[j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d \n&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>性能评价</strong></p>
+<p>时间复杂度：$O(n^2)$</p>
+<p>稳定性：稳定</p>
+<h3><span id="mou-pao-pai-xu-you-hua-ban">冒泡排序 优化版</span><a href="#mou-pao-pai-xu-you-hua-ban" class="header-anchor">#</a></h3><p><strong>基本思想</strong></p>
+<p>无序区中记录 <strong>冒泡</strong> 的过程，会逐渐把无序区里的记录变得有序，所以假如有 $n$ 个无序记录，一般情况下不需要 $n-1$ 趟冒泡就可以使全局达到有序。</p>
+<p>普通冒泡排序，需要9趟冒泡排序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">排序前：1 4 6 8 0 2 5 7 9 3 </span><br><span class="line">冒泡排序 ... </span><br><span class="line">0 </span><br><span class="line">1 </span><br><span class="line">2 </span><br><span class="line">3 </span><br><span class="line">4 </span><br><span class="line">5 </span><br><span class="line">6 </span><br><span class="line">7 </span><br><span class="line">8 </span><br><span class="line">排序后：0 1 2 3 4 5 6 7 8 9 </span><br></pre></td></tr></table></figure>
+
+<p>优化版冒泡排序，需要6趟冒泡排序就可以使全局记录有序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">排序前：1 4 6 8 0 2 5 7 9 3 </span><br><span class="line">冒泡排序 改进版 ... </span><br><span class="line">0 </span><br><span class="line">1 </span><br><span class="line">2 </span><br><span class="line">3 </span><br><span class="line">4 </span><br><span class="line">5 </span><br><span class="line">排序后：0 1 2 3 4 5 6 7 8 9 </span><br></pre></td></tr></table></figure>
+
+<p><strong>代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  冒泡排序 改进版</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort_v2</span><span class="params">(RecType R[],<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    RecType tmp;</span><br><span class="line">    <span class="comment">//  n个记录，外层循环需要遍历n-1次，最后一个记录自然有序</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> flag = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (j = n<span class="number">-1</span>; j &gt; i; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (R[j<span class="number">-1</span>].key &gt; R[j].key)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = R[j<span class="number">-1</span>];</span><br><span class="line">                R[j<span class="number">-1</span>] = R[j];</span><br><span class="line">                R[j] = tmp;</span><br><span class="line"></span><br><span class="line">                flag = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d \n&quot;</span>,i);</span><br><span class="line">        <span class="keyword">if</span> (flag) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>性能评价</strong></p>
+<p>时间复杂度：$O(n^2)$</p>
+<p>稳定性：稳定</p>
+<h3><span id="kuai-su-pai-xu">快速排序</span><a href="#kuai-su-pai-xu" class="header-anchor">#</a></h3><p><strong>基本思想</strong></p>
+<p>在待排序的 $n$ 个记录中任取一个记录（通常取第一个记录）作为基准，把该记录放入适当位置后，数据序列被此记录划分成两部分，分别是比基准小和比基准大的记录。再对基准两边的序列用同样的策略进行操作。</p>
+<p><strong>代码</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  快速排序 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">QuickSort</span><span class="params">(RecType R[],<span class="type">int</span> left,<span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = left;</span><br><span class="line">    <span class="type">int</span> j = right;</span><br><span class="line">    RecType tmp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  至少两个元素参与排序</span></span><br><span class="line">    <span class="keyword">if</span> (left &gt;= right) <span class="keyword">return</span>; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//  第一个元素最为基准元素</span></span><br><span class="line">    tmp = R[i];</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; R[j].key &gt;= tmp.key)</span><br><span class="line">            j--;</span><br><span class="line">        R[i] = R[j];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; R[i].key &lt;= tmp.key)</span><br><span class="line">            i++;</span><br><span class="line">        R[j] = R[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  基准元素找到了正确位置</span></span><br><span class="line">    R[i] = tmp;</span><br><span class="line">    QuickSort(R,left,i<span class="number">-1</span>);</span><br><span class="line">    QuickSort(R,i+<span class="number">1</span>,right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>性能评价</strong></p>
+<p>时间复杂度：$O(nlog_2n)$</p>
+<p>稳定性：不稳定</p>
+<h3><span id="wan-zheng-dai-ma">完整代码</span><a href="#wan-zheng-dai-ma" class="header-anchor">#</a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> InfoType[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    KeyType key;</span><br><span class="line">    InfoType data;</span><br><span class="line">&#125; RecType;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">DisRecType</span><span class="params">(RecType R[],<span class="type">int</span> n)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort</span><span class="params">(RecType R[],<span class="type">int</span> n)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort_v2</span><span class="params">(RecType R[],<span class="type">int</span> n)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">QuickSort</span><span class="params">(RecType R[],<span class="type">int</span> left,<span class="type">int</span> right)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  交换排序</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">10</span>;</span><br><span class="line">    KeyType a[] = &#123;<span class="number">1</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    RecType R[<span class="number">10</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        R[i].key = a[i];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;排序前：&quot;</span>);</span><br><span class="line">    DisRecType(R,n);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;冒泡排序 ... \n&quot;</span>);</span><br><span class="line">    BubbleSort(R,n);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;冒泡排序 改进版 ... \n&quot;</span>);</span><br><span class="line">    BubbleSort_v2(R,n);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;快速排序 ... \n&quot;</span>);</span><br><span class="line">    QuickSort(R,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;排序后：&quot;</span>);</span><br><span class="line">    DisRecType(R,n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出序列</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">DisRecType</span><span class="params">(RecType R[],<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,R[i].key);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  冒泡排序</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort</span><span class="params">(RecType R[],<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    RecType tmp;</span><br><span class="line">    <span class="comment">//  n个记录，外层循环需要遍历n-1次，最后一个记录自然有序</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = n<span class="number">-1</span>; j &gt; i; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (R[j<span class="number">-1</span>].key &gt; R[j].key)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = R[j<span class="number">-1</span>];</span><br><span class="line">                R[j<span class="number">-1</span>] = R[j];</span><br><span class="line">                R[j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d \n&quot;</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  冒泡排序 改进版</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">BubbleSort_v2</span><span class="params">(RecType R[],<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    RecType tmp;</span><br><span class="line">    <span class="comment">//  n个记录，外层循环需要遍历n-1次，最后一个记录自然有序</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n<span class="number">-1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> flag = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (j = n<span class="number">-1</span>; j &gt; i; j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (R[j<span class="number">-1</span>].key &gt; R[j].key)</span><br><span class="line">            &#123;</span><br><span class="line">                tmp = R[j<span class="number">-1</span>];</span><br><span class="line">                R[j<span class="number">-1</span>] = R[j];</span><br><span class="line">                R[j] = tmp;</span><br><span class="line"></span><br><span class="line">                flag = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d \n&quot;</span>,i);</span><br><span class="line">        <span class="keyword">if</span> (flag) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  快速排序 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">QuickSort</span><span class="params">(RecType R[],<span class="type">int</span> left,<span class="type">int</span> right)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = left;</span><br><span class="line">    <span class="type">int</span> j = right;</span><br><span class="line">    RecType tmp;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  至少两个元素参与排序</span></span><br><span class="line">    <span class="keyword">if</span> (left &gt;= right) <span class="keyword">return</span>; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//  第一个元素最为基准元素</span></span><br><span class="line">    tmp = R[i];</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; R[j].key &gt;= tmp.key)</span><br><span class="line">            j--;</span><br><span class="line">        R[i] = R[j];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (i &lt; j &amp;&amp; R[i].key &lt;= tmp.key)</span><br><span class="line">            i++;</span><br><span class="line">        R[j] = R[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  基准元素找到了正确位置</span></span><br><span class="line">    R[i] = tmp;</span><br><span class="line">    QuickSort(R,left,i<span class="number">-1</span>);</span><br><span class="line">    QuickSort(R,i+<span class="number">1</span>,right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+  <article class="post">
+	<h2 class="title">
 		<a href="2020/07/28/insert-sort/">插入排序——直接插入排序、希尔排序</a>
 	</h2>
     <div class="entry-content">
@@ -687,150 +748,6 @@
 <li>遍历图1结果：1234567</li>
 </ul>
 
-      
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-  <article class="post">
-	<h2 class="title">
-		<a href="2020/07/09/tree/">树和树结构</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: <time datetime="2020-07-09T05:00:00.000Z" itemprop="datePublished">Jul 9, 2020</time>
-</div>
-      <div class="tags">Tags: 
-
-<a href="/tags/数据结构/">数据结构</a> <a href="/tags/树/">树</a>
-</div>
-    </div>
-      
-        <img src="http://tva4.sinaimg.cn/large/7d4c6366gy1ggkhkeo6j9j20go0b40ty.jpg" alt="树" width="700" align="bottom">
-
-<h3><span id="shu-jie-gou-de-ding-yi-he-shu-xing">树结构的定义和属性</span><a href="#shu-jie-gou-de-ding-yi-he-shu-xing" class="header-anchor">#</a></h3><p>定义：具有相同特性的n(n&gt;&#x3D;0)个数据节点组成的一个有穷序列，节点之间存在一对多的关系。</p>
-<ul>
-<li>当n等于0时，为空树</li>
-<li>当n大于0时，有且仅有一个根节点，且根节点没有前驱节点<ul>
-<li>除根节点外，其余节点都有且仅有一个前驱节点</li>
-<li>树中每个节点都有零个或者多个后继节点</li>
-</ul>
-</li>
-</ul>
-<p>属性（如上图）：</p>
-<ul>
-<li><strong>空树</strong> 节点数为0的树称为空树</li>
-<li><strong>根节点</strong> 节点①为根节点，根节点没有前驱节点，在树中具有唯一性</li>
-<li><strong>前驱节点</strong> 前驱节点是一个相对位置的概念，节点①是节点②③的前驱节点</li>
-<li><strong>后继节点</strong> 后继节点是一个相对位置的概念，节点②③是节点①的后继节点<blockquote>
-<p>换一种说法:节点①的后继节点是节点②，节点①的后继节点是节点③</p>
-</blockquote>
-</li>
-<li><strong>子节点</strong> 节点的后继节点称为子节点</li>
-<li><strong>父节点</strong> 节点的前驱节点称为父节点</li>
-<li><strong>兄弟节点</strong> 具有相同父节点的子节点互为兄弟节点</li>
-<li><strong>子孙节点</strong> 节点的所有子树中的节点称为子孙节点</li>
-<li><strong>祖先节点</strong> 从树根节点到达节点的路径上经过的所有节点被称为该节点的祖先节点</li>
-</ul>
-<h3><span id="chou-xiang-shu-ju-lei-xing">抽象数据类型</span><a href="#chou-xiang-shu-ju-lei-xing" class="header-anchor">#</a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ADT Tree</span><br><span class="line">&#123;</span><br><span class="line">数据对象：</span><br><span class="line">    D = &#123;ai | ai ∈ ElemType, i=<span class="number">1</span>,<span class="number">2</span>,…,n, n&gt;=<span class="number">0</span> &#125;              <span class="comment">// ElemType为类型标识符</span></span><br><span class="line">数据关系：</span><br><span class="line">    R = &#123;&lt;ai,aj&gt; | ai, aj∈D, i=<span class="number">1</span>,<span class="number">2</span>,…,n, j=<span class="number">1</span>,<span class="number">2</span>,…,n，其中每个元素只有一个前驱节点 ，可以有零个或多个后继节点，有且仅有一个元素（根节点）没有前驱节点 &#125;</span><br><span class="line">数据操作：</span><br><span class="line">    (<span class="number">1</span>) treeSeq * InitTree();                              <span class="comment">//构造一个空的树t      </span></span><br><span class="line">    (<span class="number">2</span>) DestroyTree(treeSeq *t);                           <span class="comment">//释放树t占用的内存空间      </span></span><br><span class="line">    (<span class="number">3</span>) Parent(treeSeq *t);                                <span class="comment">//求t所指节点的双亲结点      </span></span><br><span class="line">    (<span class="number">4</span>) Sons(treeSeq *t);                                  <span class="comment">//求t所指节点的子孙节点      </span></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>树的运算主要分为三大类：</p>
-<ol>
-<li>寻找满足某种特定关系的节点，如寻找双亲节点；</li>
-<li>插入或删除某个节点，如在树的当前节点上插入一个新节点 或删除当前节点的第i个孩子节点等；</li>
-<li>遍历树中每个节点。</li>
-</ol>
-<p>总结起来就是查找、增删、遍历</p>
-</blockquote>
-<h3><span id="shu-de-biao-shi-fang-fa">树的表示方法</span><a href="#shu-de-biao-shi-fang-fa" class="header-anchor">#</a></h3><p>树的表示方法：树形表示法、文氏图表示法、凹入表示法、括号表示法</p>
-<img src="http://tva4.sinaimg.cn/large/7d4c6366gy1ggkigwbmk7j20m709cabq.jpg" alt="树的表示方法" width="700" align="bottom">
-
-
-<h3><span id="shu-de-bian-li">树的遍历</span><a href="#shu-de-bian-li" class="header-anchor">#</a></h3><p>树的遍历指按照一定次序访问树中所有节点，并且每个节点仅被访问一次的过程。</p>
-<p>三种方法实现树的遍历：</p>
-<ol>
-<li><p><strong>先根遍历</strong><br>若树不空，则先访问根节点，然后依次从左到右访问子节点。先根遍历上图的树：<code>1 2 4 8 9 5 10 11 3 6 7</code></p>
-</li>
-<li><p><strong>后根遍历</strong><br>若树不空，则先依次从左到右访问子节点，然后访问根节点。后根遍历上图的树：<code>8 9 4 10 11 5 2 6 7 3 1</code></p>
-</li>
-<li><p><strong>层次遍历</strong><br>若树不空，则自上而下，自左至右访问树中每个节点。层次遍历上图的树：<code>1 2 3 4 5 6 7 8 9 10 11</code></p>
-</li>
-</ol>
-<h3><span id="shu-de-shu-xing-2">树的属性2</span><a href="#shu-de-shu-xing-2" class="header-anchor">#</a></h3><ul>
-<li><p><strong>节点的度和树的度</strong> 树中某个节点的子节点个数称为该节点的度，节点中最大的度称为树的度</p>
-</li>
-<li><p><strong>分支节点与叶子节点</strong> 度不为零的节点称为分支节点，度为零的节点称为叶子节点</p>
-<blockquote>
-<p>节点的度数也叫节点的分支数，分支数等于1的节点称为单分支节点，分支数等于2的节点称为双分支节点，以此类推</p>
-</blockquote>
-</li>
-<li><p><strong>路劲与路径长度</strong> 树中任意两个节点 $d_i$ 和 $d_j$ ，若存在一个节点序列 $[d_i,d_{i1},d_{i2},…,d_j]$，使得序列中除了 $d_i$ 外的任一个节点都是其在序列中前一个节点的后继节点，则称该节点序列为由 $d_i$ 到 $d_j$ 的一条路劲。路径长度等于路径序列中节点的数量减1</p>
-<blockquote>
-<p>节点①和⑩之间存在一个节点序列 [①②⑤⑩]，序列长度为3 </p>
-</blockquote>
-</li>
-<li><p><strong>节点的层次和数的高度</strong> 一个节点的层次为从根节点到该节点的路径长度加1，节点的最大层次为树的高度</p>
-</li>
-<li><p><strong>森林</strong> n个互不相交的树的集合称为森林    </p>
-<blockquote>
-<p>森林转树：多个树的集合（森林）加一个根节点变成树</p>
-<p>树转森林：一个树的集合去掉一个根节点变成森林</p>
-</blockquote>
-</li>
-</ul>
-<h3><span id="shu-de-xing-zhi">树的性质</span><a href="#shu-de-xing-zhi" class="header-anchor">#</a></h3><p><strong>性质1</strong> 树中的节点数等于所有节点的度数和加1</p>
-<blockquote>
-<p>证明：</p>
-<ol>
-<li>已知：树中的节点数 &#x3D; 根节点数 + 分支节点数（除根节点） + 叶子节点数</li>
-<li>因为：所有节点的度数 &#x3D; 叶子节点数 + 分支节点数（除根节点）</li>
-<li>所以：树中的节点树 &#x3D; 所有节点的度数 + 1</li>
-</ol>
-</blockquote>
-<p><strong>性质2</strong> 度为m的树中第i层(i&gt;&#x3D;1)上至多有 $m^{i-1}$ 个节点</p>
-<blockquote>
-<p>证明：</p>
-<ol>
-<li>当i&#x3D;1时，$m^{i-1}&#x3D;m^0&#x3D;1$ ，表示第一层有1个节点，命题成立</li>
-<li>假设当i&#x3D;n-1时，$m^{i-1}&#x3D;m^{n-2}$ 命题成立</li>
-<li>则当i&#x3D;n时，第n层的最多节点数是第n-1层的最多节点数的m倍，于是第n层的节点数为： $m^{n-2}*m&#x3D;m^{n-1}$。命题成立。</li>
-</ol>
-</blockquote>
-<p><strong>性质3</strong> 高为h的m次树至多有 $\frac{m^h-1}{m-1}$ 个节点</p>
-<p>根据性质2可以计算出m度树每一层至多节点数量 $m^{i-1}$，当每一层都达到最多节点数，那么高度为h的m度树，最多节点数：<br>$m^{1-1} + m^{2-1} + m^{3-1} + … + m^{h-1} &#x3D; m^0 + m^1 + m2 + … + m^{h-1} $<br>通过等比数列前n项和公式可得结果： $\frac {m^h-1}{m-1} $</p>
-<p><strong>性质4</strong> 具有n个节点的m次树的最小高度h为 $\log_{m}n(m-1)+1$</p>
-<blockquote>
-<p>证明：</p>
-<ol>
-<li>设具有n个节点的m次树的高度为h</li>
-<li>若在该树中前h-1层都是满的，即每一层的节点数都等于 $m^{i-1} (1&lt;&#x3D;i&lt;&#x3D;h-1)$ ，则该树具有最小的高度</li>
-<li>第h层（即最后一层）的节点数可能满，也可能不满，高度h可计算如下：</li>
-<li>$\frac{m^{h-1}-1}{m-1} &lt; n &lt;&#x3D; \frac{m^h-1}{m-1} $   <ul>
-<li><strong>两边乘(m-1) ：</strong>   $m^{k-1}-1 &lt; n(m-1) &lt;&#x3D; m^{k}-1$     </li>
-<li><strong>两边加1求对数 ：</strong>    $h-1 &lt; \log_m(n(m-1)+1) &lt;&#x3D; h$</li>
-</ul>
-</li>
-<li>$\log_m(n(m-1)+1) &lt;&#x3D; h &lt; log_m(n(m-1)+1)+1$</li>
-<li>因为h为整数，所以 $h&#x3D;log_m(n(m-1)+1)$</li>
-</ol>
-</blockquote>
-<h3><span id="shu-de-cun-chu-jie-gou">树的存储结构</span><a href="#shu-de-cun-chu-jie-gou" class="header-anchor">#</a></h3><p><strong>双亲存储结构</strong></p>
-<p>存储结构：顺序存储结构</p>
-<p>把树的节点按顺序存储到每一个节点，节点包含有值域和父节点的索引下标</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType date;</span><br><span class="line">    <span class="type">int</span> parent;</span><br><span class="line">&#125; PTree[MaxSize];</span><br></pre></td></tr></table></figure>
-
-<p><strong>孩子链存储结构</strong></p>
-<p>存储结构：链式存储结构</p>
-<p>存储每个节点的值，并且保存所有孩子的指针<br>由于每个节点的孩子数量可能不一样（节点的度），所以按最大节点的度（树的度）数来设计节点的指针数量</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType date;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">sone</span>[<span class="title">MaxSize</span>];</span></span><br><span class="line">&#125; TSonNode;</span><br></pre></td></tr></table></figure>
-
-<p><strong>孩子兄弟链存储结构</strong></p>
-<p>存储结构：链式存储结构</p>
-<p>存储每个节点的值，并且保存第一个孩子的指针和下一个兄弟的指针</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span>·</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElemType date;      <span class="comment">//节点的值</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span> *<span class="title">hp</span>;</span>   <span class="comment">//指向兄弟</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">tnode</span> *<span class="title">vp</span>;</span>   <span class="comment">//指向孩子节点</span></span><br><span class="line">&#125;TSBNode;</span><br></pre></td></tr></table></figure>
       
 	</div>
 
